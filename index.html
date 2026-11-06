@@ -13,6 +13,7 @@
 <style>
   :root { --ink:#1a1a1a; --muted:#666; --line:#e3e3e3; --bg:#f4f4f5; --accent:#e8318a; --ok:#1b7f4b; --warn:#b26a00; --bad:#b00020; }
   * { box-sizing:border-box; }
+  [hidden] { display:none !important; }
   html { -webkit-text-size-adjust:100%; }
   body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color:var(--ink); background:var(--bg); font-size:15px; }
   header.top { background:#fff; border-bottom:1px solid var(--line); padding:10px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:10px; position:sticky; top:0; z-index:10; }
@@ -457,7 +458,7 @@
   <section class="view" id="v-login">
     <div class="card loginbox">
       <div class="loginhead"><svg class="appicon" xmlns="http://www.w3.org/2000/svg" viewBox="490 0 460 950" aria-hidden="true"><polygon fill="#22BFE3" points="530,352 608,290 608,489.5 530,513.5"/><polygon fill="#E8318A" points="636,212 712,152 712,444.0 636,478.9"/><polygon fill="#86C92A" points="742,95 820,30 820,374.5 742,427.3"/><polygon fill="#E8318A" points="530,540 600,560 600,868 530,915"/><path fill="#E8318A" d="M528,530 Q760,470 905,312 Q800,505 605,577 L530,582 Z"/><path fill="none" stroke="#E8318A" stroke-width="58" d="M838,486 C935,546 925,716 760,719 L690,719"/><polygon fill="#E8318A" points="636,690 700,690 700,748 636,832"/></svg><div><b>Pinky's Ventures</b><br><span class="hint">Invoices</span></div></div>
-      <label>Sync link<input id="lgUrl" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off"></label>
+      <label id="lgUrlLbl">Sync link<input id="lgUrl" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off"></label>
       <div id="lgLogin">
         <h2 style="margin:14px 0 8px">Log in</h2>
         <label>Username<input id="lgUser" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
@@ -477,7 +478,7 @@
         <p class="hint" style="margin-bottom:0"><button class="btn link" onclick="showSetup(false)">← Back to log in</button></p>
       </div>
       <p id="lgMsg" class="hint" style="color:var(--bad); font-weight:600"></p>
-      <button class="btn link" id="lgBack" onclick="show('settings')">← Not now, keep using this device offline</button>
+      <button class="btn link" id="lgChangeUrl" onclick="$('#lgUrlLbl').hidden=false; this.hidden=true" style="font-size:12px; color:var(--muted)">Use a different sync link</button>
     </div>
   </section>
 
@@ -1569,7 +1570,9 @@ const saveSync = () => { try { localStorage.setItem(SYNC_KEY, JSON.stringify(SY)
 let syncing = false, syncAgain = false, syncT, syncState = 'off', syncMsg = '';
 
 const connected = () => !!(SY.url && SY.token);
-const needsLogin = () => !!(SY.url && !SY.token);
+// The business's sync link. Put the Apps Script /exec link here so people only need a username and password.
+const DEFAULT_SYNC_URL = 'https://script.google.com/macros/s/YOUR-ID/exec';
+const needsLogin = () => !connected();                      // login is the front door: nothing shows until you're logged in
 const isOwner = () => !connected() || SY.role === 'Owner';
 function applyRole(){ document.body.classList.toggle('staff', !isOwner()); }
 
@@ -1607,6 +1610,7 @@ function renderAccount(){
   $('#pinInfo').textContent = SY.pin ? 'On. The app asks for your PIN when it opens and after 3 minutes away.' : 'Off. Anyone holding this phone or computer can open the app.';
   $('#pinSetBtn').textContent = SY.pin ? 'Change PIN' : 'Set PIN'; $('#pinOffBtn').hidden = !SY.pin;
   $('#teamCard').style.display = connected() && isOwner() ? '' : 'none';
+  $('#freshCard').style.display = connected() ? 'none' : '';
   if (connected() && isOwner()) loadTeam();
 }
 function syncPillClick(){ if (connected() && syncState !== 'err') sync(true); else show(needsLogin() ? 'login' : 'settings'); }
@@ -1718,9 +1722,10 @@ function fixCounters(){
 
 /* ---- login / setup / logout ---- */
 function prepLogin(){
-  $('#lgUrl').value = SY.url || '';
+  $('#lgUrl').value = SY.url || DEFAULT_SYNC_URL || '';
+  const fixed = !!(DEFAULT_SYNC_URL && $('#lgUrl').value === DEFAULT_SYNC_URL);
+  $('#lgUrlLbl').hidden = fixed; $('#lgChangeUrl').hidden = !fixed;
   $('#lgMsg').textContent = '';
-  $('#lgBack').hidden = needsLogin();                       // once connected, this device must log in again
   showSetup(false);
   if (SY.user) $('#lgUser').value = SY.user;
   checkSetupNeeded();
