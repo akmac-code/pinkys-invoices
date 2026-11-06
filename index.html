@@ -36,6 +36,7 @@
   textarea { min-height:60px; resize:vertical; }
   input:focus, select:focus, textarea:focus { outline:2px solid var(--accent); outline-offset:-1px; border-color:transparent; }
   .btn { font:inherit; border:1px solid var(--line); background:#fff; padding:9px 14px; border-radius:8px; cursor:pointer; white-space:nowrap; color:var(--ink); min-height:40px; }
+  a.btn { text-decoration:none; display:inline-flex; align-items:center; }
   .btn.pri { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
   .btn.danger { color:var(--bad); }
   .btn.sm { padding:5px 10px; font-size:13px; min-height:32px; }
@@ -77,6 +78,28 @@
   .dup { color:var(--bad); font-weight:700; }
   .warnbox { background:#fff4e5; border:1px solid #f3c98b; color:#7a4a00; border-radius:10px; padding:10px 12px; font-size:13px; margin-bottom:10px; }
   .warnbox b { color:#5a3600; }
+  .job { background:#fff; border:1px solid var(--line); border-left:5px solid #bbb; border-radius:12px; padding:12px 14px; margin-bottom:10px; }
+  .job.t-deliver, .job.t-pickup { border-left-color:var(--accent); }
+  .job.t-collect, .job.t-return { border-left-color:#1a4fa0; }
+  .job.overdue { border-left-color:var(--bad); background:#fff8f8; }
+  .job.done { opacity:.65; }
+  .job .jh { display:flex; justify-content:space-between; gap:8px; align-items:baseline; flex-wrap:wrap; }
+  .job .jt { font-weight:700; }
+  .job .jw { font-size:13px; color:var(--muted); }
+  .job .jc { margin:4px 0; }
+  .job .ji { font-size:13px; color:#333; margin:4px 0 8px; }
+  .job .jacts { display:flex; gap:6px; flex-wrap:wrap; }
+  .jgroup { font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:16px 0 8px; }
+  .jgroup.bad { color:var(--bad); }
+  .stockalert { padding:12px 14px; }
+  .stockalert .sa-head { font-weight:700; color:#5a3600; margin-bottom:8px; }
+  .stockalert .sa-when { font-weight:500; color:#7a4a00; }
+  .stockalert .sa-grid { display:grid; grid-template-columns:1fr auto; gap:3px 0; max-width:360px; font-variant-numeric:tabular-nums; }
+  .stockalert .sa-grid b { text-align:right; color:#3d2500; }
+  .stockalert .sa-grid span { padding-right:16px; }
+  .stockalert .sa-short { color:var(--bad) !important; font-weight:700; border-top:1px solid #f3c98b; padding-top:3px; }
+  .stockalert .sa-refs { margin-top:8px; font-size:12px; }
+  .stockalert .sa-act { margin-top:6px; font-size:12px; font-style:italic; }
   .okbox { background:#eaf6ef; border:1px solid #b9e0c8; color:#1b5e3a; border-radius:10px; padding:10px 12px; font-size:13px; margin-bottom:10px; }
   .prevbar { display:flex; align-items:center; justify-content:space-between; gap:8px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:8px 12px; margin-bottom:10px; font-size:13px; }
   .seg { display:none; }
@@ -146,7 +169,8 @@
   .doc .foot p { margin:0 0 10px; white-space:pre-line; line-height:1.45; color:#333; }
   .doc .foot p.small { font-size:12px; color:#555; }
   .doc .thanks { margin-top:26px; text-align:center; color:#777; font-size:12px; border-top:1px solid #eee; padding-top:12px; white-space:pre-line; }
-  .doc .stamp { position:absolute; top:150px; right:60px; transform:rotate(-14deg); border:4px solid var(--ok); color:var(--ok); font-weight:900; font-size:30px; padding:4px 16px; border-radius:8px; opacity:.75; letter-spacing:.08em; }
+  .doc .totwrap { position:relative; }
+  .doc .stamp { position:absolute; top:22px; left:6%; transform:rotate(-14deg); border:4px solid var(--ok); color:var(--ok); font-weight:900; font-size:30px; padding:4px 16px; border-radius:8px; opacity:.75; letter-spacing:.08em; }
 
   /* ===== Phone layout ===== */
   @media (max-width:700px){
@@ -207,7 +231,7 @@
     .doc .tot { width:100%; }
     .doc table.li th, .doc table.li td { padding:7px 4px; font-size:11.5px; }
     .doc .ttl h2 { font-size:24px; }
-    .doc .stamp { top:16px; right:16px; font-size:22px; }
+    .doc .stamp { position:static; display:inline-block; margin:14px 0 0 4px; font-size:20px; }
     .toast { bottom:calc(140px + env(safe-area-inset-bottom)); }
   }
 
@@ -219,10 +243,12 @@
   @media (max-width:340px){ header.top h1 { font-size:13.5px; } }
 
   @media print {
-    @page { size: A4; margin: 12mm; }
+    @page { size: A4; margin: 0; }
     body { background:#fff; padding:0; }
     body > *:not(#printArea) { display:none !important; }
-    #printArea { display:block !important; box-shadow:none; max-width:none; padding:0; }
+    #printArea { display:block !important; box-shadow:none; max-width:none; padding:0; margin:0; }
+    #printArea img.pp { display:block; width:210mm; height:auto; page-break-after:always; break-after:page; }
+    #printArea img.pp:last-child { page-break-after:auto; break-after:auto; }
     * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   }
 </style>
@@ -233,6 +259,7 @@
   <button class="pill" id="syncPill" onclick="syncPillClick()" title="Sync status"><i></i><span>Sync off</span></button>
   <nav>
     <button data-v="list" class="on"><b>🧾</b>Invoices</button>
+    <button data-v="jobs"><b>🚚</b>Jobs</button>
     <button data-v="customers"><b>👥</b>Customers</button>
     <button data-v="reports" class="owner-only"><b>📊</b>Reports</button>
     <button data-v="items" class="owner-only"><b>🏷️</b>Price list</button>
@@ -298,6 +325,22 @@
           </div>
         </div>
 
+        <div class="card" id="hoCard">
+          <h2>Delivery & pick-up</h2>
+          <div class="grid">
+            <label>Going out<select id="ho-out-how"><option value="deliver">We deliver</option><option value="collect">Customer collects</option></select></label>
+            <label><span id="ho-out-lbl">Delivery date</span><input type="date" id="ho-out-date"></label>
+            <label>Time (optional)<input id="ho-out-time" placeholder="e.g. 10am–12pm"></label>
+          </div>
+          <div class="grid" style="margin-top:10px">
+            <label>Coming back<select id="ho-back-how"><option value="pickup">We pick up</option><option value="return">Customer returns</option></select></label>
+            <label><span id="ho-back-lbl">Pick-up date</span><input type="date" id="ho-back-date"></label>
+            <label>Time (optional)<input id="ho-back-time" placeholder="e.g. by 5pm"></label>
+          </div>
+          <p class="hint" id="hoInfo" style="margin-bottom:6px"></p>
+          <div class="row" id="hoActs"></div>
+        </div>
+
         <div class="card">
           <div class="row between" style="margin-bottom:8px">
             <h2 style="margin:0">Items</h2>
@@ -320,6 +363,7 @@
 
         <div class="card" id="payCard">
           <div class="row between"><h2 style="margin:0">Payments</h2><span class="hint" id="payTotals"></span></div>
+          <button class="btn pri" id="paidNowBtn" style="width:100%; margin-top:10px" onclick="paidNow()">✓ Paid in full now</button>
           <table class="items pay" style="margin-top:8px"><tbody id="payBody"></tbody></table>
           <div class="grid" style="margin-top:10px">
             <label>Amount (J$)<input type="number" step="any" min="0" id="p-amt" inputmode="decimal"></label>
@@ -328,7 +372,7 @@
             <label>Reference (optional)<input id="p-ref" placeholder="e.g. transfer ref"></label>
           </div>
           <div class="row" style="margin-top:10px">
-            <button class="btn pri" onclick="addPayment()">Record payment</button>
+            <button class="btn" onclick="addPayment()">Record payment</button>
             <button class="btn sm" onclick="$('#p-amt').value = totals(cur).bal.toFixed(2)">Fill balance</button>
           </div>
         </div>
@@ -370,6 +414,15 @@
         <div class="docwrap"><div class="doc" id="doc"></div></div>
       </div>
     </div>
+  </section>
+
+  <!-- ===== JOBS ===== -->
+  <section class="view" id="v-jobs">
+    <div class="row between" style="margin-bottom:12px">
+      <h2 style="margin:0; font-size:18px">Deliveries & pick-ups</h2>
+      <label style="flex-direction:row; align-items:center; gap:6px; font-size:13px; font-weight:500"><input type="checkbox" id="jobsDone" style="width:auto; min-height:0" onchange="renderJobs()"> Show completed</label>
+    </div>
+    <div id="jobsBody"></div>
   </section>
 
   <!-- ===== CUSTOMERS ===== -->
@@ -447,8 +500,8 @@
   <section class="view" id="v-items">
     <div class="card">
       <h2>Price list</h2>
-      <p class="hint" style="margin-top:-6px">Items you rent or sell often. Rate is per item (per day for rentals). Put in <b>Stock owned</b> for rental items and the app warns you when two bookings on the same dates need more than you have. Leave it blank for things like ice. Untick <b>Per day</b> for things sold once (ice, delivery): their Days column shows “—”.</p>
-      <table class="items"><thead><tr><th>Item</th><th class="r">Rate (J$)</th><th class="n">Stock owned</th><th class="n">Per day</th><th class="x"></th></tr></thead>
+      <p class="hint" style="margin-top:-6px">Items you rent or sell often. Rate is per item (per day for rentals). Put in <b>Stock owned</b> for rental items and the app warns you when two bookings on the same dates need more than you have. Leave it blank for things like ice. Untick <b>Per day</b> for things sold once (ice, delivery): their Days column shows “—”. <b>Replacement cost</b> is charged when an item comes back missing or damaged.</p>
+      <table class="items"><thead><tr><th>Item</th><th class="r">Rate (J$)</th><th class="n">Stock owned</th><th class="r">Replacement cost</th><th class="n">Per day</th><th class="x"></th></tr></thead>
       <tbody id="catBody"></tbody></table>
       <button class="btn sm" style="margin-top:10px" onclick="addCat()">+ Add item</button>
     </div>
@@ -556,7 +609,7 @@
     <div class="card owner-only">
       <h2>Printed on every invoice</h2>
       <label>Payment details<textarea data-s="payment" rows="3"></textarea></label>
-      <label style="margin-top:10px">Terms<textarea data-s="terms" rows="3"></textarea></label>
+      <label style="margin-top:10px">Rental terms (printed only when the invoice has a rental item or a deposit; ice-only sales leave them off)<textarea data-s="terms" rows="3"></textarea></label>
       <label style="margin-top:10px">Footer<input data-s="footer"></label>
     </div>
     <div class="card owner-only">
@@ -608,6 +661,11 @@ const DEFAULT_SETTINGS = {
   footer: "Thank you for your business!"
 };
 const DEFAULT_CATALOG = ["Table rental","Chair rental","Tent rental","Generator rental","Ice (bag)","Table cloth"].map(n => ({name:n, rate:0, stock:'', perDay: !/\bice\b/i.test(n)}));
+// ---- delivery & pick-up ("handover") ----
+const newHO = () => ({out:{how:'deliver', date:'', time:'', status:'pending', at:0, by:'', counts:null}, back:{how:'pickup', date:'', time:'', status:'pending', at:0, by:'', result:null}});
+function ensureHO(d){ if (!d.handover) d.handover = newHO(); return d.handover; }
+const outDate = d => (d.handover && d.handover.out.date) || d.event.date || '';
+const backDate = d => { const o = outDate(d); const b = (d.handover && d.handover.back.date) || d.event.ret || d.event.date || ''; return b && o && b < o ? o : b; };
 const fixCat = c => Object.assign({id:uid(), stock:'', perDay: !/\bice\b/i.test(c.name || '')}, c);
 let S, CAT, CATU = 0, DOCS, cur = null, mem = null, PV = {kind:'invoice'}, CUST = '';
 
@@ -626,6 +684,7 @@ function migrateDoc(d){
   if (!d.line) d.line = lineList()[0];
   if (d.line === 'Generator' && !lineList().includes('Generator')) d.line = 'Rentals';   // generator rentals now count as Rentals
   if (!d.depRet) d.depRet = {status:'Held', kept:'', reason:'', date:''};
+  ensureHO(d);
   if (!d.updated) d.updated = d.created || 1;
   return d;
 }
@@ -791,6 +850,7 @@ function show(v){
   if (v === 'customers') renderCustomers();
   if (v === 'customer') renderCustomer();
   if (v === 'reports') renderReports();
+  if (v === 'jobs') renderJobs();
   if (v === 'items') renderCat();
   if (v === 'settings') loadSettings();
   window.scrollTo(0,0);
@@ -844,7 +904,7 @@ function blankDoc(type){
     due: addDays(today(), isQ ? 14 : S.dueDays), status: 'Draft', line: lineList()[0],
     client: {name:'', phone:'', email:'', addr:''}, event: {date:'', ret:'', loc:''},
     items: isOwner() ? [{desc:'', qty:1, days:1, rate:''}] : [], discount:'', delivery:'', deposit:'', payments:[], notes:'',
-    depRet: {status:'Held', kept:'', reason:'', date:''},
+    depRet: {status:'Held', kept:'', reason:'', date:''}, handover: newHO(),
     created: Date.now(), createdBy: SY.who || '', createdById: SY.user || '', _new: true };
 }
 function newDoc(type, custKey){
@@ -874,6 +934,9 @@ function fillEditor(){
   $('#dueLbl span').textContent = isQ ? 'Valid until' : 'Due date';
   $('#convertBtn').style.display = isQ ? '' : 'none';
   $('#p-date').value = today(); $('#p-amt').value = ''; $('#p-ref').value = '';
+  const h = ensureHO(cur);
+  $('#ho-out-how').value = h.out.how; $('#ho-out-date').value = h.out.date || ''; $('#ho-out-time').value = h.out.time || '';
+  $('#ho-back-how').value = h.back.how; $('#ho-back-date').value = h.back.date || ''; $('#ho-back-time').value = h.back.time || '';
   renderItems(); refreshQuickAdd(); refreshClients(); refreshAll();
 }
 function refreshAll(){
@@ -892,7 +955,7 @@ function refreshAll(){
   if (cur.fromQuote) by.push('from quote ' + cur.fromQuote);
   if (cur.convertedTo) by.push('turned into invoice ' + cur.convertedTo);
   $('#byline').textContent = by.join(' · ');
-  renderPayments(); renderBookWarn(); renderPreview();
+  renderPayments(); renderBookWarn(); renderHO(); renderPreview();
 }
 for (const [id,p] of Object.entries(FIELDS)){
   $('#' + id).addEventListener('input', e => { setP(cur, p, e.target.value); changed(); });
@@ -900,6 +963,26 @@ for (const [id,p] of Object.entries(FIELDS)){
 }
 $('#f-date').addEventListener('change', () => { if (cur.type === 'Invoice') { cur.due = addDays(cur.date, S.dueDays); $('#f-due').value = cur.due; changed(); }});
 $('#f-depst').addEventListener('change', () => { if (cur.depRet.status !== 'Held' && !cur.depRet.date) { cur.depRet.date = today(); $('#f-depdate').value = cur.depRet.date; } changed(); });
+
+[['out','how'],['out','date'],['out','time'],['back','how'],['back','date'],['back','time']].forEach(([dir,k]) => {
+  const el = $(`#ho-${dir}-${k}`);
+  const upd = () => { ensureHO(cur)[dir][k] = el.value; changed(); };
+  el.addEventListener('input', upd); el.addEventListener('change', upd);
+});
+function renderHO(){
+  const show = hasRental(cur);
+  $('#hoCard').style.display = show ? '' : 'none';
+  if (!show) return;
+  const h = ensureHO(cur);
+  $('#ho-out-lbl').textContent = (h.out.how === 'collect' ? 'Collection date' : 'Delivery date') + (cur.event.date ? ' (blank = event date)' : '');
+  $('#ho-back-lbl').textContent = (h.back.how === 'return' ? 'Return by' : 'Pick-up date') + (cur.event.ret || cur.event.date ? ' (blank = return date)' : '');
+  const bits = [];
+  if (cur.type === 'Invoice') bits.push(`Going out: ${outLabel(cur)}`, `Coming back: ${backLabel(cur)}`);
+  if ((h.out.how === 'deliver' || h.back.how === 'pickup') && !num(cur.delivery) && isOwner()) bits.push('No delivery/setup fee on this invoice yet');
+  if (!outDate(cur)) bits.push('Add an event or delivery date so this shows on the Jobs tab');
+  setHTML($('#hoInfo'), bits.map(esc).join(' · '));
+  setHTML($('#hoActs'), cur.type === 'Invoice' && !cur._new ? jobButtons(cur, 'out') + jobButtons(cur, 'back') : '');
+}
 
 let saveT;
 function changed(){ refreshAll(); clearTimeout(saveT); saveT = setTimeout(commit, 400); $('#savedNote').textContent = 'Saving…'; }
@@ -950,6 +1033,7 @@ function renderPayments(){
   if (cur.type === 'Quote') return;
   const t = totals(cur);
   $('#payTotals').textContent = `Paid ${money(t.paid)} · Balance ${money(t.bal)}`;
+  $('#paidNowBtn').hidden = t.bal <= 0.005 || cur.status === 'Cancelled';
   setHTML($('#payBody'), cur.payments.length ? cur.payments.map((p,i) => `<tr>
     <td class="d">${fmtDate(p.date)} · ${esc(p.method)}${p.ref ? ' · ' + esc(p.ref) : ''}${p.by ? `<span class="hint"> · by ${esc(p.by)}</span>` : ''}</td>
     <td class="amt" style="padding-top:8px">${money(p.amount)}</td>
@@ -969,6 +1053,18 @@ function addPayment(){
   changed();
   toast(`Payment recorded · receipt ${p.receiptNo} ready to send`);
   if (window.innerWidth <= 700) setSeg(true);
+}
+// Customer pays the whole balance on the spot: record it and go straight to the itemised receipt
+async function paidNow(){
+  const bal = totals(cur).bal;
+  if (bal <= 0.005) return toast('Nothing left to pay on this invoice');
+  if (!cur.items.some(i => i.desc || num(i.rate))) return toast('Add what they’re paying for first');
+  const v = await askForm(`Paid in full: ${money(bal)}`, cur.client.name ? `From ${cur.client.name}` : '',
+    [{name:'method', label:'How did they pay?', options:['Cash','Lynk','Bank transfer','Card','Cheque','Other'], value:$('#p-method').value || 'Cash'},
+     {name:'ref', label:'Reference (optional)'}], 'Record & show receipt');
+  if (!v) return;
+  $('#p-amt').value = bal.toFixed(2); $('#p-date').value = today(); $('#p-method').value = v.method; $('#p-ref').value = v.ref;
+  addPayment();
 }
 async function delPayment(i){
   const p = cur.payments[i];
@@ -992,7 +1088,7 @@ function showReceipt(pid){
 
 /* ---- double-booking ---- */
 function catFor(it){ return it.catId ? CAT.find(c => c.id === it.catId) : CAT.find(c => c.name && ckey(c.name) === ckey(it.desc)); }
-function rangeOf(d){ const s = d.event.date; if (!s) return null; const e = d.event.ret && d.event.ret >= s ? d.event.ret : s; return [s, e]; }
+function rangeOf(d){ const s = outDate(d); if (!s) return null; const e = backDate(d) || s; return [s, e]; }
 function holdsStock(d){ return !d.deleted && d.status !== 'Cancelled' && d.status !== 'Declined' && (d.type === 'Invoice' || (d.status === 'Accepted' && !d.convertedTo)); }
 function bookingIssues(doc){
   const r = rangeOf(doc); if (!r) return [];
@@ -1010,8 +1106,23 @@ function bookingIssues(doc){
   return issues;
 }
 function renderBookWarn(){
-  const iss = bookingIssues(cur);
-  setHTML($('#bookWarn'), iss.map(x => `<div class="warnbox">⚠ <b>${esc(x.c.name)}: short by ${x.short}.</b> You own ${num(x.c.stock)}; this ${cur.type.toLowerCase()} needs ${x.qty}${x.others.length ? ', and ' + x.others.map(o => `${esc(o.d.number)} (${esc(o.d.client.name || 'no name')}, ${fmtDate(o.d.event.date)}) has ${o.q}`).join(', ') : ''}.</div>`).join(''));
+  const iss = bookingIssues(cur), r = rangeOf(cur);
+  const period = r ? (r[0] === r[1] ? fmtDate(r[0]) : `${fmtDate(r[0])} – ${fmtDate(r[1])}`) : '';
+  setHTML($('#bookWarn'), iss.map(x => {
+    const reserved = x.otherQty;
+    const avail = Math.max(0, num(x.c.stock) - reserved);
+    return `<div class="warnbox stockalert">
+      <div class="sa-head">Insufficient stock: ${esc(x.c.name)}${period ? ` <span class="sa-when">· ${period}</span>` : ''}</div>
+      <div class="sa-grid">
+        <span>Total stock</span><b>${num(x.c.stock)}</b>
+        <span>Reserved on other bookings</span><b>${reserved}</b>
+        <span>Available for these dates</span><b>${avail}</b>
+        <span>Requested on this ${cur.type.toLowerCase()}</span><b>${x.qty}</b>
+        <span class="sa-short">Shortfall</span><b class="sa-short">${x.short}</b>
+      </div>
+      ${x.others.length ? `<div class="sa-refs">Reserved on: ${x.others.map(o => `${esc(o.d.number)} (${esc(o.d.client.name || 'no customer name')}, ${fmtDate(o.d.event.date)}, qty ${o.q})`).join('; ')}</div>` : ''}
+      <div class="sa-act">Reduce the quantity, change the dates, or arrange additional stock before confirming.</div>
+    </div>`; }).join(''));
 }
 
 /* ---- customers (autofill) ---- */
@@ -1034,6 +1145,24 @@ function fillClient(){
 }
 
 /* =================== document models =================== */
+// Rental terms only apply when something is actually being rented: a per-day item or a refundable deposit.
+// Ice and other one-off sales (Per day unticked in the price list) get no terms.
+function hasRental(d){
+  if (num(d.deposit) > 0) return true;
+  return d.items.some(it => {
+    if (!it.desc && !num(it.rate)) return false;
+    const c = catFor(it);
+    return c ? c.perDay !== false : num(it.days) > 0;
+  });
+}
+function hoLines(d){
+  if (!hasRental(d) || !outDate(d)) return [];
+  const h = ensureHO(d), o = h.out, b = h.back, loc = d.event.loc, here = String(S.address || '').split('\n')[0];
+  const t = x => x ? ', ' + x : '';
+  const lines = [o.how === 'collect' ? `Collect from ${here || 'our location'}: ${fmtDate(outDate(d))}${t(o.time)}` : `Delivery: ${fmtDate(outDate(d))}${t(o.time)}${loc ? ' to ' + loc : ''}`];
+  if (backDate(d)) lines.push(b.how === 'return' ? `Return to ${here || 'us'} by ${fmtDate(backDate(d))}${t(b.time)}` : `We collect: ${fmtDate(backDate(d))}${t(b.time)}`);
+  return lines;
+}
 function invoiceModel(d){
   const t = totals(d), sd = S.showDays === '1', isQ = d.type === 'Quote', st = effStatus(d);
   const items = d.items.filter(i => i.desc || num(i.rate));
@@ -1053,29 +1182,65 @@ function invoiceModel(d){
   if (!isQ && t.dep && d.depRet.status !== 'Held') right.push({label:'Deposit', text: d.depRet.status === 'Returned' ? `Returned in full (${money(t.dep)})${d.depRet.date ? ' on ' + fmtDate(d.depRet.date) : ''}.` :
     `${money(t.kept)} kept${d.depRet.reason ? ' for: ' + d.depRet.reason : ''}.${t.refunded ? ' ' + money(t.refunded) + ' returned' : ''}${d.depRet.date ? ' (' + fmtDate(d.depRet.date) + ')' : ''}.`});
   if (d.notes) right.push({label:'Notes', text:d.notes});
-  if (S.terms) right.push({label:'Terms', text:S.terms, small:true});
+  if (S.terms && hasRental(d)) right.push({label:'Terms', text:S.terms, small:true});
   const ev = [d.event.date ? 'Date: ' + fmtDate(d.event.date) + (d.event.ret && d.event.ret !== d.event.date ? ' → ' + fmtDate(d.event.ret) : '') : '', d.event.loc ? 'Location: ' + d.event.loc : ''].filter(Boolean);
   const parties = [{label: isQ ? 'Prepared for' : 'Bill to', lines:[d.client.name || '—', d.client.addr, d.client.phone, d.client.email].filter(Boolean), bold:true}];
   if (ev.length) parties.push({label:'Event', lines:ev});
+  const ho = hoLines(d); if (ho.length) parties.push({label:'Delivery & pick-up', lines:ho});
   return { title: isQ ? 'QUOTE' : 'INVOICE',
     meta: [['No.', d.number, true], ['Date', fmtDate(d.date)], d.due ? [isQ ? 'Valid until' : 'Due', fmtDate(d.due)] : null].filter(Boolean),
     parties, cols, rows, empty:'No items yet', totals:tot, left, right, footer:S.footer,
     stamp: !isQ && st === 'Paid' ? 'PAID' : d.status === 'Cancelled' ? 'CANCELLED' : null };
 }
+function itemTable(d){
+  const sd = S.showDays === '1', items = d.items.filter(i => i.desc || num(i.rate));
+  return {
+    cols: sd ? [['Description',.46,'l'],['Qty',.09,'r'],['Days',.09,'r'],['Rate',.16,'r'],['Amount',.20,'r']]
+             : [['Description',.55,'l'],['Qty',.10,'r'],['Rate',.15,'r'],['Amount',.20,'r']],
+    rows: items.map(i => sd ? [i.desc, String(num(i.qty)), daysTxt(i), money(i.rate), money(lineAmt(i))] : [i.desc, String(num(i.qty)), money(i.rate), money(lineAmt(i))])
+  };
+}
+function chargeLines(t){
+  const out = [{k:'Subtotal', v:money(t.sub)}];
+  if (t.disc) out.push({k:'Discount', v:'−' + money(t.disc)});
+  if (t.del) out.push({k:'Delivery / setup', v:money(t.del)});
+  if (S.taxOn === '1') out.push({k:`${S.taxLabel} (${num(S.taxRate)}%)`, v:money(t.tax)});
+  if (t.dep) out.push({k:'Refundable deposit', v:money(t.dep)});
+  return out;
+}
+// Receipt for one payment.
+//  - If this payment clears the bill: an itemised receipt (what they bought + every payment made).
+//  - Otherwise: the payment, what it's towards ("For: 20 × Chair rental…"), and the balance left.
 function receiptModel(d, p){
-  const t = totals(d);
-  const upTo = d.payments.slice(0, d.payments.indexOf(p) + 1).reduce((a,x) => a + num(x.amount), 0);
-  const balAfter = Math.max(0, t.due - upTo);
-  return { title:'RECEIPT',
-    meta: [['No.', p.receiptNo, true], ['Date', fmtDate(p.date)], ['Invoice', d.number]],
-    parties: [{label:'Received from', lines:[d.client.name || '—', d.client.phone].filter(Boolean), bold:true},
-              {label:'Payment', lines:[`Method: ${p.method}`, p.ref ? `Reference: ${p.ref}` : ''].filter(Boolean)}],
+  const t = totals(d), at = d.payments.indexOf(p);
+  const before = d.payments.slice(0, at), paidBefore = before.reduce((a,x) => a + num(x.amount), 0);
+  const upTo = paidBefore + num(p.amount), balAfter = Math.max(0, t.due - upTo);
+  const clears = t.due > 0 && balAfter <= 0.005;
+  const method = `${p.method}${p.ref ? ' · ref ' + p.ref : ''}`;
+  const ev = d.event.date ? `Event ${fmtDate(d.event.date)}${d.event.loc ? ', ' + d.event.loc : ''}` : '';
+  const base = { title:'RECEIPT', meta: [['No.', p.receiptNo, true], ['Date', fmtDate(p.date)], ['Invoice', d.number]],
+    parties: [{label:'Received from', lines:[d.client.name || '—', d.client.phone].filter(Boolean), bold:true}], footer:S.footer };
+  if (ev) base.parties.push({label:'For', lines:[ev]});
+  if (clears) {
+    const tb = itemTable(d), tot = chargeLines(t);
+    tot.push({k:'Total', v:money(t.due), s:'grand'});
+    if (before.length) {
+      tot.push({k:'Paid earlier', v:'−' + money(paidBefore), s:'muted'});
+      tot.push({k:`Paid today (${p.method})`, v:money(p.amount), s:'muted'});
+    } else tot.push({k:`Paid (${method})`, v:money(p.amount), s:'muted'});
+    tot.push({k:'Balance', v:money(0), s:'muted'});
+    const left = [];
+    if (before.length) left.push({label:'Payments', text: d.payments.slice(0, at + 1).map(x => `${fmtDate(x.date)}  ${money(x.amount)}  (${x.method}${x.receiptNo ? ', ' + x.receiptNo : ''})`).join('\n')});
+    if (p.by) left.push({label:'Received by', text:p.by});
+    return Object.assign(base, {cols:tb.cols, rows:tb.rows, empty:'', totals:tot, left, right:[], stamp:'PAID IN FULL'});
+  }
+  const forText = d.items.filter(i => i.desc).map(i => `${num(i.qty)} × ${i.desc}`).join(', ');
+  return Object.assign(base, {
     cols: [['Description',.7,'l'],['Amount',.3,'r']],
-    rows: [[`Payment towards invoice ${d.number}` + (d.event.date ? ` (event ${fmtDate(d.event.date)})` : ''), money(p.amount)]],
+    rows: [[`Payment towards invoice ${d.number}${forText ? '\nFor: ' + forText : ''}`, money(p.amount)]],
     totals: [{k:'Amount received', v:money(p.amount), s:'grand'}, {k:'Invoice total', v:money(t.due), s:'muted'}, {k:'Paid to date', v:money(upTo), s:'muted'},
-             balAfter > 0.005 ? {k:'Balance remaining', v:money(balAfter), s:'bal'} : {k:'Balance remaining', v:money(0), s:'muted'}],
-    left: p.by ? [{label:'Received by', text:p.by}] : [], right: [], footer:S.footer,
-    stamp: balAfter <= 0.005 ? 'PAID IN FULL' : null };
+             {k:'Balance remaining', v:money(balAfter), s:'bal'}],
+    left: [{label:'Payment method', text:method}].concat(p.by ? [{label:'Received by', text:p.by}] : []), right: [], stamp: null });
 }
 function statementModel(c, onlyOpen){
   let docs = c.docs.filter(isOpenInv).sort((a,b) => (a.date||'').localeCompare(b.date||''));
@@ -1096,7 +1261,8 @@ function statementModel(c, onlyOpen){
 function modelHTML(m){
   const bizLines = [S.address, [S.phone, S.email].filter(Boolean).join(' · '), S.trn ? 'TRN: ' + S.trn : ''].filter(Boolean).join('\n');
   const block = b => `<div class="lbl">${esc(b.label)}</div><p${b.small ? ' class="small"' : ''}>${esc(b.text)}</p>`;
-  return `${m.stamp ? `<div class="stamp"${m.stamp === 'CANCELLED' ? ' style="color:#888;border-color:#888"' : ''}>${esc(m.stamp)}</div>` : ''}
+  const stamp = m.stamp ? `<div class="stamp"${m.stamp === 'CANCELLED' ? ' style="color:#888;border-color:#888"' : ''}>${esc(m.stamp)}</div>` : '';
+  return `
   <div class="dh">
     <div class="biz${S.logo && S.logoHasName === '1' ? ' namelogo' : ''}">${S.logo ? `<img src="${S.logo}" alt="${esc(S.bizName)}">` : ''}<div>${S.logo && S.logoHasName === '1' ? '' : `<h3>${esc(S.bizName)}</h3>`}${S.tagline ? `<p style="color:var(--accent);font-weight:600">${esc(S.tagline)}</p>` : ''}<p>${esc(bizLines)}</p></div></div>
     <div class="ttl"><h2>${esc(m.title)}</h2><table>${m.meta.map(([k,v,b]) => `<tr><td>${esc(k)}</td><td>${b ? '<b>' + esc(v) + '</b>' : esc(v)}</td></tr>`).join('')}</table></div>
@@ -1105,7 +1271,7 @@ function modelHTML(m){
   <table class="li"><thead><tr>${m.cols.map(c => `<th${c[2] === 'r' ? ' class="num"' : ''}>${esc(c[0])}</th>`).join('')}</tr></thead><tbody>
     ${m.rows.length ? m.rows.map(r => `<tr>${r.map((v,i) => `<td${m.cols[i][2] === 'r' ? ' class="num"' : ''}>${esc(v)}</td>`).join('')}</tr>`).join('') : `<tr><td colspan="${m.cols.length}" style="color:#999">${esc(m.empty || '')}</td></tr>`}
   </tbody></table>
-  <table class="tot">${m.totals.map(t => `<tr${t.s ? ` class="${t.s}"` : ''}><td>${esc(t.k)}</td><td>${esc(t.v)}</td></tr>`).join('')}</table>
+  <div class="totwrap">${stamp}<table class="tot">${m.totals.map(t => `<tr${t.s ? ` class="${t.s}"` : ''}><td>${esc(t.k)}</td><td>${esc(t.v)}</td></tr>`).join('')}</table></div>
   ${m.left.length || m.right.length ? `<div class="foot"><div>${m.left.map(block).join('')}</div><div>${m.right.map(block).join('')}</div></div>` : ''}
   ${m.footer ? `<div class="thanks">${esc(m.footer)}</div>` : ''}`;
 }
@@ -1183,7 +1349,7 @@ async function modelCanvas(m, scale){
     breaks.push(y + 2);
   });
   y += 20;
-  const tx = W - M - 540, tw = 540;
+  const tx = W - M - 540, tw = 540, totTop = y;
   m.totals.forEach(t => {
     if (t.s === 'grand') { x.fillStyle = '#1a1a1a'; x.fillRect(tx, y, tw, 3); y += 14; font(28, 800); x.fillStyle = '#1a1a1a'; x.textAlign = 'left'; x.fillText(t.k, tx + 14, y); x.textAlign = 'right'; x.fillText(t.v, W - M - 14, y); y += 46; }
     else if (t.s === 'bal') { y += 4; x.fillStyle = A; x.fillRect(tx, y, tw, 56); font(28, 800); x.fillStyle = '#fff'; x.textAlign = 'left'; x.fillText(t.k, tx + 14, y + 13); x.textAlign = 'right'; x.fillText(t.v, W - M - 14, y + 13); y += 72; }
@@ -1194,7 +1360,7 @@ async function modelCanvas(m, scale){
   y = Math.max(col(m.left, M), col(m.right, M + colW + 40)) + 6;
   breaks.push(y - 4);
   if (m.footer) { x.fillStyle = '#eee'; x.fillRect(M, y, TW, 2); y += 22; font(20); x.fillStyle = '#777'; x.textAlign = 'center'; x.fillText(m.footer, W/2, y); y += 40; x.textAlign = 'left'; }
-  if (m.stamp) { const sc = m.stamp === 'CANCELLED' ? '#888' : '#1b7f4b'; x.save(); font(52, 900); const sw = x.measureText(m.stamp).width + 50; x.translate(W - M - sw/2 - 40, 330); x.rotate(-0.24); x.globalAlpha = .75; x.strokeStyle = sc; x.lineWidth = 7; x.strokeRect(-sw/2, -42, sw, 84); x.fillStyle = sc; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(m.stamp, 0, 2); x.restore(); }
+  if (m.stamp) { const sc = m.stamp === 'CANCELLED' ? '#888' : '#1b7f4b'; x.save(); font(52, 900); const sw = x.measureText(m.stamp).width + 50; x.translate(M + 40 + sw/2, totTop + 62); x.rotate(-0.24); x.globalAlpha = .75; x.strokeStyle = sc; x.lineWidth = 7; x.strokeRect(-sw/2, -42, sw, 84); x.fillStyle = sc; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(m.stamp, 0, 2); x.restore(); }
   const H = Math.max(y + M - 20, W);
   const out = document.createElement('canvas'); out.width = W * k; out.height = Math.round(H * k);
   const o = out.getContext('2d'); o.fillStyle = '#fff'; o.fillRect(0,0,out.width,out.height); o.drawImage(c, 0, 0);
@@ -1226,10 +1392,13 @@ async function outShare(which){
   try { await navigator.share({files:[f], title:outName(which)}); } catch(e) { if (e.name !== 'AbortError') outImage(which); }
 }
 try { if (navigator.canShare && navigator.canShare({files:[new File(['x'], 'x.png', {type:'image/png'})]})) $('#shareBtn').style.display = ''; } catch(e){}
-function outPrint(which){
+// Print the very same pages as the PDF, so paper, "Save as PDF" and WhatsApp PDFs all look identical
+async function outPrint(which){
   prepOut(which);
   const m = currentModel(which); if (!m) return;
-  $('#printArea').innerHTML = modelHTML(m);
+  const pages = pdfPages(await modelCanvas(m, 2));
+  $('#printArea').innerHTML = pages.map(c => `<img class="pp" src="${c.toDataURL('image/png')}" alt="">`).join('');
+  await Promise.all([...$('#printArea').querySelectorAll('img')].map(i => i.decode ? i.decode().catch(() => {}) : null));
   const t = document.title; document.title = outName(which);
   const t0 = Date.now();
   try { window.print(); } catch(e) {}
@@ -1244,16 +1413,18 @@ async function deflate(bytes){
   const out = new Response(new Blob([bytes]).stream().pipeThrough(cs));
   return new Uint8Array(await out.arrayBuffer());
 }
-async function canvasToPDF(cv){
-  const PW = 595.28, PH = 841.89;                          // A4 in points
+// Cut the rendered document into A4 pages (at row/section boundaries, with margins). Used for PDF and Print,
+// so both give exactly the same pages.
+function pdfPages(cv){
+  const PW = 595.28, PH = 841.89;
   const pagePx = Math.round(cv.width * PH / PW), mg = cv.margin || 0, brk = (cv.breaks || []).filter(b => b > 0 && b < cv.height);
   const pages = [];
   let y = 0;
   while (y < cv.height - mg * 0.5) {
-    const top = y === 0 ? 0 : mg;                          // page 1 already has its own top margin
-    const room = pagePx - top - mg;                        // keep a bottom margin on every page
+    const top = y === 0 ? 0 : mg;
+    const room = pagePx - top - mg;
     let end = cv.height;
-    if (cv.height - y > pagePx - top) {                    // doesn't fit: cut at the last row/section boundary that fits
+    if (cv.height - y > pagePx - top) {
       const fit = brk.filter(b => b > y + 50 && b <= y + room);
       end = fit.length ? fit[fit.length - 1] : y + room;
     }
@@ -1261,6 +1432,15 @@ async function canvasToPDF(cv){
     const c = document.createElement('canvas'); c.width = cv.width; c.height = pagePx > h && end < cv.height ? pagePx : h;
     const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0,0,c.width,c.height); x.drawImage(cv, 0, y, cv.width, end - y, 0, top, cv.width, end - y);
     y = end;
+    pages.push(c);
+  }
+  return pages;
+}
+async function canvasToPDF(cv){
+  const PW = 595.28, PH = 841.89;
+  const pages = [];
+  for (const c of pdfPages(cv)) {
+    const x = c.getContext('2d');
     const rgba = x.getImageData(0, 0, c.width, c.height).data, rgb = new Uint8Array(c.width * c.height * 3);
     for (let i = 0, j = 0; i < rgba.length; i += 4) { rgb[j++] = rgba[i]; rgb[j++] = rgba[i+1]; rgb[j++] = rgba[i+2]; }
     let data = await deflate(rgb), filter = '/FlateDecode';
@@ -1364,6 +1544,8 @@ function duplicateDoc(){
   const c = JSON.parse(JSON.stringify(cur)); const isQ = c.type === 'Quote';
   Object.assign(c, {id:uid(), number:(isQ ? S.qPrefix : S.invPrefix) + pad(isQ ? S.nextQ : S.nextInv), date:today(), due:addDays(today(), isQ?14:S.dueDays),
     status:'Draft', payments:[], depRet:{status:'Held', kept:'', reason:'', date:''}, created:Date.now(), createdBy:SY.who || '', createdById:SY.user || '', updatedBy:'', fromQuote:'', _new:true});
+  const ho = newHO(); if (c.handover) { ho.out.how = c.handover.out.how; ho.out.time = c.handover.out.time; ho.back.how = c.handover.back.how; ho.back.time = c.handover.back.time; }
+  c.handover = ho;
   if (!isOwner()) staffReprice(c);
   cur = c; PV = {kind:'invoice'}; fillEditor(); commit(); toast('Copied to ' + c.number);
 }
@@ -1410,6 +1592,159 @@ async function deleteDoc(){
   for (const k of Object.keys(cur)) delete cur[k];
   Object.assign(cur, {id, number, deleted:true, updated:Date.now(), updatedBy:SY.who || ''});
   cur = null; saveAll(); show('list'); toast('Deleted');
+}
+
+/* =================== jobs: deliveries, collections, pick-ups, returns =================== */
+const JOBTYPE = {deliver:['🚚','Delivery'], collect:['🏠','Customer collects'], pickup:['🚚','Pick-up'], return:['🏠','Customer returns']};
+function outLabel(d){ const o = ensureHO(d).out;
+  if (o.status === 'done') return `${o.how === 'collect' ? 'Collected' : 'Delivered'} ${fmtStamp(o.at)}${o.by ? ' by ' + o.by : ''}`;
+  if (o.status === 'out') return 'Out for delivery'; if (o.status === 'ready') return 'Ready for collection';
+  return o.how === 'collect' ? 'Waiting for customer to collect' : 'Waiting to be delivered'; }
+function backLabel(d){ const b = ensureHO(d).back;
+  if (b.status === 'checked') return `Checked in ${fmtStamp(b.at)}${b.by ? ' by ' + b.by : ''}${b.result && b.result.charges ? ' · charges ' + money(b.result.charges) : ''}`;
+  if (b.status === 'collected') return 'Picked up, not checked in yet';
+  return b.how === 'return' ? 'Waiting for customer to return' : 'Waiting to be picked up'; }
+function rentalLines(d){ return d.items.map((it, i) => ({it, i})).filter(x => { const c = catFor(x.it); return (x.it.desc || num(x.it.rate)) && (c ? c.perDay !== false : num(x.it.days) > 0); }); }
+function jobsList(){
+  const jobs = [];
+  live().filter(d => d.type === 'Invoice' && d.status !== 'Cancelled' && hasRental(d) && outDate(d)).forEach(d => {
+    const h = ensureHO(d);
+    jobs.push({d, dir:'out', how:h.out.how, date:outDate(d), time:h.out.time, done:h.out.status === 'done'});
+    if (backDate(d)) jobs.push({d, dir:'back', how:h.back.how, date:backDate(d), time:h.back.time, done:h.back.status === 'checked'});
+  });
+  return jobs.sort((a,b) => a.date.localeCompare(b.date) || (a.dir === 'out' ? -1 : 1));
+}
+function jobButtons(d, dir){
+  const h = ensureHO(d), o = h.out, b = h.back, id = d.id;
+  const btn = (label, act, cls) => `<button class="btn sm ${cls || ''}" onclick="jobAct('${id}','${act}')">${label}</button>`;
+  if (dir === 'out') {
+    if (o.status === 'done') return '';
+    if (o.how === 'deliver') return o.status === 'out' ? btn('✓ Delivered', 'outDone', 'pri') : btn('Out for delivery', 'outGo') + btn('✓ Delivered', 'outDone', 'pri');
+    return o.status === 'ready' ? btn('✓ Collected', 'outDone', 'pri') : btn('Mark ready', 'outReady') + btn('✓ Collected', 'outDone', 'pri');
+  }
+  if (b.status === 'checked') return '';
+  if (o.status !== 'done') return '';
+  if (b.how === 'pickup' && b.status !== 'collected') return btn('Picked up', 'backGot') + btn('Check in', 'checkIn', 'pri');
+  return btn('Check in returns', 'checkIn', 'pri');
+}
+function renderJobs(){
+  const showDone = $('#jobsDone').checked, t = today(), tm = addDays(t, 1), wk = addDays(t, 7);
+  const all = jobsList();
+  const jobs = all.filter(j => !j.done || (showDone && j.date >= addDays(t, -14)));
+  const blocked = j => j.dir === 'back' && ensureHO(j.d).out.status !== 'done';
+  const groups = [['Overdue', j => !j.done && j.date < t, 'bad'], ['Today', j => j.date === t], ['Tomorrow', j => j.date === tm],
+                  ['Next 7 days', j => j.date > tm && j.date <= wk], ['Later', j => j.date > wk], ['Earlier (completed)', j => j.done && j.date < t]];
+  const used = new Set(); let html = '';
+  groups.forEach(([name, test, cls]) => {
+    const g = jobs.filter(j => !used.has(j) && test(j)); g.forEach(j => used.add(j));
+    if (!g.length) return;
+    html += `<div class="jgroup ${cls || ''}">${name} (${g.length})</div>` + g.map(j => {
+      const d = j.d, h = ensureHO(d), [ic, label] = JOBTYPE[j.how];
+      const lines = rentalLines(d).map(x => `${num((j.dir === 'out' ? (h.out.counts || {})[x.i] : null) ?? x.it.qty)} × ${esc(x.it.desc)}`).join(', ');
+      const overdue = !j.done && j.date < t, phone = waPhone(d.client.phone);
+      const st = j.dir === 'out' ? outLabel(d) : backLabel(d);
+      const acts = [];
+      if (phone) acts.push(`<a class="btn sm" href="tel:+${phone}">Call</a>`);
+      if (phone && !j.done) acts.push(`<button class="btn sm" onclick="jobMsg('${d.id}','${j.dir}')">${overdue && j.dir === 'back' ? 'Nudge on WhatsApp' : 'WhatsApp reminder'}</button>`);
+      if (d.event.loc && (j.how === 'deliver' || j.how === 'pickup')) acts.push(`<a class="btn sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.event.loc + ', Jamaica')}">Map</a>`);
+      acts.push(`<button class="btn sm" onclick="openDoc('${d.id}')">${esc(d.number)}</button>`);
+      return `<div class="job t-${j.how}${overdue ? ' overdue' : ''}${j.done ? ' done' : ''}">
+        <div class="jh"><span class="jt">${ic} ${label}${overdue ? ' · OVERDUE' : ''}</span><span class="jw">${fmtDate(j.date)}${j.time ? ' · ' + esc(j.time) : ''}</span></div>
+        <div class="jc"><b>${esc(d.client.name || 'No name')}</b>${d.event.loc && j.how !== 'collect' && j.how !== 'return' ? ' · ' + esc(d.event.loc) : ''}</div>
+        <div class="ji">${lines || '—'}</div>
+        <div class="hint" style="margin-bottom:8px">${esc(st)}${blocked(j) ? ' (after the items go out)' : ''}</div>
+        <div class="jacts">${blocked(j) ? '' : jobButtons(d, j.dir)}${acts.join('')}</div></div>`;
+    }).join('');
+  });
+  $('#jobsBody').innerHTML = html || '<p class="hint">No deliveries or pick-ups coming up. Rental invoices with an event date appear here.</p>';
+}
+function touchDoc(d){ d.updated = Date.now(); d.updatedBy = SY.who || ''; saveAll(); }
+function afterJob(d){
+  if (cur === d) { fillEditor(); } 
+  if ($('#v-jobs').classList.contains('on')) renderJobs();
+}
+async function jobAct(id, act){
+  const d = DOCS.find(x => x.id === id && !x.deleted); if (!d) return;
+  if (cur === d) commit();
+  const h = ensureHO(d), who = SY.who || '';
+  if (act === 'outGo') { h.out.status = 'out'; touchDoc(d); toast('Marked out for delivery'); }
+  else if (act === 'outReady') { h.out.status = 'ready'; touchDoc(d); toast('Marked ready for collection'); }
+  else if (act === 'outDone') {
+    const lines = rentalLines(d);
+    const v = lines.length ? await askForm(h.out.how === 'collect' ? 'Items collected' : 'Items delivered', 'Confirm how many of each actually went out.',
+      lines.map(x => ({name:'q' + x.i, label:`${x.it.desc} (on invoice: ${num(x.it.qty)})`, type:'number', inputmode:'numeric', value:String(num(x.it.qty))})), 'Confirm',
+      v => Object.values(v).some(q => !(num(q) >= 0) || q === '') ? 'Enter a number for each item.' : '') : {};
+    if (!v) return;
+    h.out.counts = {}; lines.forEach(x => h.out.counts[x.i] = num(v['q' + x.i]));
+    h.out.status = 'done'; h.out.at = Date.now(); h.out.by = who;
+    touchDoc(d);
+    const short = lines.filter(x => h.out.counts[x.i] < num(x.it.qty));
+    toast(short.length ? `Recorded. ${short.map(x => x.it.desc).join(', ')} went out short of the invoice.` : (h.out.how === 'collect' ? 'Marked collected' : 'Marked delivered'));
+  }
+  else if (act === 'backGot') { h.back.status = 'collected'; touchDoc(d); toast('Marked picked up. Check the items in when you’re back.'); }
+  else if (act === 'checkIn') return checkIn(d);
+  afterJob(d);
+}
+async function checkIn(d){
+  const h = ensureHO(d), lines = rentalLines(d);
+  const sent = x => num(h.out.counts && h.out.counts[x.i] !== undefined ? h.out.counts[x.i] : x.it.qty);
+  const fields = [];
+  lines.forEach(x => { fields.push({name:'r' + x.i, label:`${x.it.desc}: returned (went out: ${sent(x)})`, type:'number', inputmode:'numeric', value:String(sent(x))});
+                       fields.push({name:'g' + x.i, label:`${x.it.desc}: of those, damaged`, type:'number', inputmode:'numeric', value:'0'}); });
+  const v = await askForm('Check in returned items', `${d.number} · ${d.client.name || ''}. Count what came back.`, fields, 'Check in', v => {
+    for (const x of lines) { const r = num(v['r' + x.i]), g = num(v['g' + x.i]);
+      if (v['r' + x.i] === '' || r < 0 || r > sent(x)) return `${x.it.desc}: returned must be between 0 and ${sent(x)}.`;
+      if (g < 0 || g > r) return `${x.it.desc}: damaged can’t be more than returned.`; }
+  });
+  if (!v) return;
+  let charges = 0; const notes = [], noCost = [];
+  const res = lines.map(x => { const c = catFor(x.it), r = num(v['r' + x.i]), g = num(v['g' + x.i]), missing = sent(x) - r, bad = missing + g, cost = num(c && c.replace);
+    if (bad) { if (cost) charges += bad * cost; else noCost.push(x.it.desc);
+      notes.push([missing ? `${missing} missing` : '', g ? `${g} damaged` : ''].filter(Boolean).join(', ') + ` ${x.it.desc}`); }
+    return {desc:x.it.desc, sent:sent(x), returned:r, damaged:g, cost}; });
+  const lateDays = backDate(d) && today() > backDate(d) ? Math.round((new Date(today()) - new Date(backDate(d))) / 864e5) : 0;
+  h.back.status = 'checked'; h.back.at = Date.now(); h.back.by = SY.who || ''; h.back.result = {lines:res, charges, notes, lateDays};
+  // settle against the refundable deposit
+  const dep = num(d.deposit), kept = Math.min(dep, charges);
+  if (dep) d.depRet = {status: !charges ? 'Returned' : kept >= dep ? 'Kept' : 'Part kept', kept: kept ? String(kept) : '', reason: notes.join('; '), date: today()};
+  let msg = !notes.length ? 'All items back in good order.' : `${notes.join('; ')}.`;
+  if (dep) msg += !charges ? ` Return the full deposit of ${money(dep)}.` : ` Keep ${money(kept)} of the deposit${dep - kept > 0 ? ', return ' + money(dep - kept) : ''}.`;
+  if (noCost.length) msg += ` No replacement cost set for ${noCost.join(', ')}: add it in the price list to charge for these.`;
+  // charges beyond the deposit: offer to add them to the invoice (owners; staff prices are locked)
+  const extra = charges - kept;
+  touchDoc(d);
+  if (extra > 0 && isOwner()) {
+    const add = await ask('Charges are more than the deposit', `${msg}
+
+That leaves ${money(extra)} not covered by the deposit. Add it to the invoice as a charge?`, [{label:`Add ${money(extra)} to invoice`, value:true, cls:'pri'}, {label:'Not now', value:null}]);
+    if (add) { d.items.push({desc:`Missing/damaged items: ${notes.join('; ')}`, qty:1, days:'', rate:extra}); if (d.status === 'Draft') d.status = 'Sent'; touchDoc(d); msg = 'Charge added to the invoice.'; }
+  }
+  if (lateDays > 0 && isOwner()) {
+    const rl = rentalLines(d);
+    const add = await ask(`Returned ${lateDays} day${lateDays > 1 ? 's' : ''} late`, `Due back ${fmtDate(backDate(d))}. Add ${lateDays} extra day${lateDays > 1 ? 's' : ''} to the rental lines? That’s ${money(rl.reduce((a, x) => a + num(x.it.qty) * num(x.it.rate) * lateDays, 0))} more.`,
+      [{label:`Add ${lateDays} day${lateDays > 1 ? 's' : ''}`, value:true, cls:'pri'}, {label:'No, don’t charge', value:null}]);
+    if (add) { rl.forEach(x => { x.it.days = String((num(x.it.days) || 1) + lateDays); }); touchDoc(d); }
+  }
+  await ask('Checked in', msg, [{label:'OK', value:true, cls:'pri'}]);
+  afterJob(d);
+}
+function jobMsg(id, dir){
+  const d = DOCS.find(x => x.id === id); if (!d) return;
+  const h = ensureHO(d), name = (d.client.name || '').split(' ')[0] || 'there';
+  const sentQ = x => num(h.out.status === 'done' && h.out.counts && h.out.counts[x.i] !== undefined ? h.out.counts[x.i] : x.it.qty);
+  const noun = (q, desc) => { let w = desc.replace(/ rental$/i, '').toLowerCase().trim(); if (q !== 1 && !/s$/.test(w)) w += /(ch|sh|x)$/.test(w) ? 'es' : 's'; return `${q} ${w}`; };
+  const list = rentalLines(d).map(x => noun(sentQ(x), x.it.desc));
+  const items = list.length > 1 ? list.slice(0, -1).join(', ') + ' and ' + list[list.length - 1] : list[0] || 'items';
+  const when = (date, time) => `${date === today() ? 'today' : date === addDays(today(), 1) ? 'tomorrow' : 'on ' + fmtDate(date)}${time ? ' (' + time + ')' : ''}`;
+  let txt;
+  if (dir === 'out') txt = h.out.how === 'collect'
+    ? `Hi ${name}, your ${items} from ${S.bizName} will be ready for collection ${when(outDate(d), h.out.time)}. See you then!`
+    : `Hi ${name}, ${S.bizName} will deliver your ${items} ${when(outDate(d), h.out.time)}${d.event.loc ? ' to ' + d.event.loc : ''}. Please make sure someone is there to receive them.`;
+  else if (backDate(d) < today()) txt = `Hi ${name}, the ${items} from ${S.bizName} were due back on ${fmtDate(backDate(d))}. Please let us know when we can ${h.back.how === 'pickup' ? 'collect them' : 'expect them'}. Thank you!`;
+  else txt = h.back.how === 'pickup'
+    ? `Hi ${name}, ${S.bizName} will collect the ${items} ${when(backDate(d), h.back.time)}. Please have them ready. Thank you!`
+    : `Hi ${name}, a reminder that the ${items} are due back to ${S.bizName} ${when(backDate(d), h.back.time)}. Thank you!`;
+  window.open('https://wa.me/' + waPhone(d.client.phone) + '?text=' + encodeURIComponent(txt), '_blank');
 }
 
 /* =================== customers =================== */
@@ -1488,10 +1823,11 @@ function renderCat(){
   $('#catBody').innerHTML = CAT.map((c,i) => `<tr><td class="d"><input value="${esc(c.name)}" data-i="${i}" data-k="name" placeholder="Item name"></td>
     <td class="r"><input type="number" step="any" min="0" inputmode="decimal" value="${esc(c.rate)}" data-i="${i}" data-k="rate" placeholder="Rate"></td>
     <td class="n"><input type="number" step="1" min="0" inputmode="numeric" value="${esc(c.stock)}" data-i="${i}" data-k="stock" placeholder="Stock"></td>
+    <td class="r"><input type="number" step="any" min="0" inputmode="decimal" value="${esc(c.replace || '')}" data-i="${i}" data-k="replace" placeholder="Replace J$" title="What you charge if one is lost or damaged beyond repair"></td>
     <td class="n" style="text-align:center"><label style="flex-direction:row;align-items:center;justify-content:center;gap:6px;min-height:40px;font-weight:400;color:var(--ink)"><input type="checkbox" data-i="${i}" data-k="perDay" ${c.perDay !== false ? 'checked' : ''} style="width:20px;min-height:20px"><span class="sm-only">Per day</span></label></td>
     <td class="x"><button class="btn sm" onclick="removeCat(${i})" aria-label="Remove">✕</button></td></tr>`).join('');
   $('#catBody').querySelectorAll('input').forEach(inp => inp.addEventListener('input', e => {
-    const c = CAT[+e.target.dataset.i], k = e.target.dataset.k; c[k] = k === 'perDay' ? e.target.checked : k === 'rate' ? num(e.target.value) : e.target.value; CATU = Date.now(); saveAll();
+    const c = CAT[+e.target.dataset.i], k = e.target.dataset.k; c[k] = k === 'perDay' ? e.target.checked : (k === 'rate' || k === 'replace') ? num(e.target.value) : e.target.value; CATU = Date.now(); saveAll();
   }));
 }
 async function startFresh(){
@@ -1571,7 +1907,7 @@ let syncing = false, syncAgain = false, syncT, syncState = 'off', syncMsg = '';
 
 const connected = () => !!(SY.url && SY.token);
 // The business's sync link. Put the Apps Script /exec link here so people only need a username and password.
-const DEFAULT_SYNC_URL = 'https://script.google.com/macros/s/YOUR-ID/exec';
+const DEFAULT_SYNC_URL = 'https://script.google.com/macros/s/AKfycbyTmIroYldHu-QH28wCeSXwKvQtSk4xHfBVDQUcoEA5Zmp4QrzgPqpIB6zjlqNY9_b07Q/exec';
 const needsLogin = () => !connected();                      // login is the front door: nothing shows until you're logged in
 const isOwner = () => !connected() || SY.role === 'Owner';
 function applyRole(){ document.body.classList.toggle('staff', !isOwner()); }
@@ -1700,6 +2036,7 @@ function mergeRemote(res, pushed){
   else if (v === 'v-customers') renderCustomers();
   else if (v === 'v-customer') renderCustomer();
   else if (v === 'v-reports') renderReports();
+  else if (v === 'v-jobs') renderJobs();
   else if (v === 'v-items' && !$('#v-items').contains(document.activeElement)) renderCat();
   else if (v === 'v-settings' && !$('#v-settings').contains(document.activeElement)) loadSettings();
   else if (v === 'v-edit' && cur) {

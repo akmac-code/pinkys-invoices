@@ -1,5 +1,5 @@
 // Offline support: keep the app's own files on the device. Sync calls to Google always go to the network.
-const CACHE = 'pinkys-invoices-v3';
+const CACHE = 'pinkys-invoices-v202611061750';
 const FILES = ['./', './index.html', './manifest.webmanifest', './favicon.ico',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon-180.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); self.skipWaiting(); });
