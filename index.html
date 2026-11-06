@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e8318a">
+<title>Pinky's Ventures Invoices</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201000%201000%22%3E%3Cg%20transform%3D%22translate%28-151.79%2070.00%29%20scale%280.90526%29%22%3E%3Cpolygon%20fill%3D%22%2322BFE3%22%20points%3D%22530%2C352%20608%2C290%20608%2C489.5%20530%2C513.5%22/%3E%0A%3Cpolygon%20fill%3D%22%23E8318A%22%20points%3D%22636%2C212%20712%2C152%20712%2C444.0%20636%2C478.9%22/%3E%0A%3Cpolygon%20fill%3D%22%2386C92A%22%20points%3D%22742%2C95%20820%2C30%20820%2C374.5%20742%2C427.3%22/%3E%0A%3Cpolygon%20fill%3D%22%23E8318A%22%20points%3D%22530%2C540%20600%2C560%20600%2C868%20530%2C915%22/%3E%0A%3Cpath%20fill%3D%22%23E8318A%22%20d%3D%22M528%2C530%20Q760%2C470%20905%2C312%20Q800%2C505%20605%2C577%20L530%2C582%20Z%22/%3E%0A%3Cpath%20fill%3D%22none%22%20stroke%3D%22%23E8318A%22%20stroke-width%3D%2258%22%20d%3D%22M838%2C486%20C935%2C546%20925%2C716%20760%2C719%20L690%2C719%22/%3E%0A%3Cpolygon%20fill%3D%22%23E8318A%22%20points%3D%22636%2C690%20700%2C690%20700%2C748%20636%2C832%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<meta name="apple-mobile-web-app-title" content="Pinky's Invoices">
+<meta name="application-name" content="Pinky's Invoices">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+  :root { --ink:#1a1a1a; --muted:#666; --line:#e3e3e3; --bg:#f4f4f5; --accent:#e8318a; --ok:#1b7f4b; --warn:#b26a00; --bad:#b00020; }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color:var(--ink); background:var(--bg); font-size:15px; }
+  header.top { background:#fff; border-bottom:1px solid var(--line); padding:10px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:10px; position:sticky; top:0; z-index:10; }
+  header.top h1 { margin:0; font-size:18px; flex:1 1 auto; }
+  header.top h1 .apptitle > span { color:var(--accent); }
+  header.top h1 { display:flex; align-items:center; gap:10px; min-width:0; }
+  header.top .appicon { height:42px; width:auto; flex:0 0 auto; }
+  header.top .apptitle { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  nav { display:flex; gap:6px; flex-wrap:wrap; }
+  nav button { border:1px solid var(--line); background:#fff; padding:8px 14px; border-radius:999px; font:inherit; cursor:pointer; color:var(--ink); }
+  nav button.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+  nav button b { display:none; }
+  main { padding:16px; max-width:1400px; margin:0 auto; }
+  .view { display:none; } .view.on { display:block; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:16px; }
+  .card h2 { margin:0 0 12px; font-size:16px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  label { display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--muted); font-weight:600; }
+  input, select, textarea { font:inherit; color:var(--ink); padding:9px 10px; border:1px solid #ccc; border-radius:8px; background:#fff; width:100%; min-height:40px; }
+  textarea { min-height:60px; resize:vertical; }
+  input:focus, select:focus, textarea:focus { outline:2px solid var(--accent); outline-offset:-1px; border-color:transparent; }
+  .btn { font:inherit; border:1px solid var(--line); background:#fff; padding:9px 14px; border-radius:8px; cursor:pointer; white-space:nowrap; color:var(--ink); min-height:40px; }
+  .btn.pri { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
+  .btn.danger { color:var(--bad); }
+  .btn.sm { padding:5px 10px; font-size:13px; min-height:32px; }
+  .btn.link { border:none; background:none; color:var(--accent); padding:4px 0; min-height:0; font-weight:600; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .between { justify-content:space-between; }
+  .split { display:grid; grid-template-columns: minmax(340px, 1fr) minmax(340px, 1fr); gap:16px; align-items:start; }
+  @media (max-width: 1000px) and (min-width:701px) { .split { grid-template-columns:1fr; } }
+  .items { width:100%; border-collapse:collapse; }
+  .items th { text-align:left; font-size:12px; color:var(--muted); padding:4px; }
+  .items td { padding:3px; vertical-align:top; }
+  .items td input, .items td select { padding:7px 8px; }
+  .items .n { width:76px; } .items .r { width:110px; } .items .x { width:40px; }
+  .items .amt { width:110px; text-align:right; padding-top:11px; font-variant-numeric:tabular-nums; }
+  .hint { font-size:12px; color:var(--muted); }
+  .status { font-size:12px; padding:3px 9px; border-radius:999px; font-weight:600; display:inline-block; white-space:nowrap; }
+  .s-Draft { background:#eee; color:#555; } .s-Sent { background:#e3efff; color:#1a4fa0; }
+  .s-Paid { background:#e1f4e8; color:var(--ok); } .s-Part { background:#fff1dc; color:var(--warn); }
+  .s-Overdue { background:#fde4e4; color:var(--bad); } .s-Accepted { background:#e1f4e8; color:var(--ok); }
+  .s-Declined, .s-Cancelled { background:#eee; color:#888; text-decoration:line-through; }
+  .tag { font-size:11px; padding:2px 7px; border-radius:6px; background:#f1f1f3; color:#555; font-weight:600; }
+  .list { width:100%; border-collapse:collapse; }
+  .list th, .list td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); }
+  .list th { font-size:12px; color:var(--muted); }
+  .list tr.click:hover { background:#fafafa; cursor:pointer; }
+  .list .num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .list .sub { display:block; font-size:12px; color:var(--muted); margin-top:2px; }
+  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:16px; }
+  .stat { background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px; }
+  .stat b { display:block; font-size:20px; margin-top:4px; font-variant-numeric:tabular-nums; }
+  .stat span { font-size:12px; color:var(--muted); }
+  .saved { font-size:12px; color:var(--muted); }
+  .toast { position:fixed; bottom:90px; left:50%; transform:translateX(-50%); background:#222; color:#fff; padding:10px 16px; border-radius:10px; font-size:14px; opacity:0; transition:opacity .2s; pointer-events:none; z-index:50; max-width:90vw; text-align:center; }
+  .toast.on { opacity:1; }
+  .sticky-prev { position:sticky; top:70px; }
+  .pill { border:1px solid var(--line); background:#fff; border-radius:999px; padding:6px 12px; font:inherit; font-size:13px; cursor:pointer; display:flex; align-items:center; gap:6px; color:var(--ink); }
+  .pill i { width:9px; height:9px; border-radius:50%; background:#bbb; display:inline-block; }
+  .pill.ok i { background:var(--ok); } .pill.busy i { background:#1a4fa0; } .pill.offline i { background:var(--warn); } .pill.err i { background:var(--bad); }
+  .dup { color:var(--bad); font-weight:700; }
+  .warnbox { background:#fff4e5; border:1px solid #f3c98b; color:#7a4a00; border-radius:10px; padding:10px 12px; font-size:13px; margin-bottom:10px; }
+  .warnbox b { color:#5a3600; }
+  .okbox { background:#eaf6ef; border:1px solid #b9e0c8; color:#1b5e3a; border-radius:10px; padding:10px 12px; font-size:13px; margin-bottom:10px; }
+  .prevbar { display:flex; align-items:center; justify-content:space-between; gap:8px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:8px 12px; margin-bottom:10px; font-size:13px; }
+  .seg { display:none; }
+  .actbar { display:flex; gap:8px; flex-wrap:wrap; }
+  .fab { display:none; }
+  .byline { font-size:12px; color:var(--muted); margin-top:4px; }
+  #printArea { display:none; }
+  body.staff .owner-only { display:none !important; }
+  body:not(.staff) .staff-only { display:none !important; }
+  .items input[readonly] { background:#f6f6f7; color:#333; border-color:#e2e2e5; }
+  body.login nav, body.login #syncPill { display:none; }
+  .loginbox { max-width:420px; margin:20px auto; display:flex; flex-direction:column; }
+  .loginhead { display:flex; align-items:center; gap:12px; margin-bottom:14px; font-size:18px; }
+  .loginhead .appicon { height:56px; }
+  #mForm label { margin-bottom:10px; }
+  .lock { position:fixed; inset:0; background:#f4f4f5; z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .lock[hidden] { display:none; }
+  .lockbox { background:#fff; border:1px solid var(--line); border-radius:16px; padding:24px; width:100%; max-width:340px; text-align:center; }
+  .lockbox .appicon { height:60px; }
+  .lockbox h3 { margin:10px 0 2px; }
+  .lockbox input { text-align:center; font-size:26px; letter-spacing:10px; }
+  .dfield { position:relative; display:flex; gap:4px; }
+  .dfield .dtext { flex:1; min-width:0; }
+  .dfield .dtext.bad { outline:2px solid var(--bad); outline-offset:-1px; }
+  .dfield .dpick { flex:0 0 42px; border:1px solid #ccc; border-radius:8px; background:#fff; font-size:18px; cursor:pointer; padding:0; position:relative; overflow:hidden; }
+  .dfield .dnative { position:absolute; right:0; bottom:0; width:42px; height:100%; opacity:0; pointer-events:none; border:0; padding:0; min-height:0; }
+  .modal { position:fixed; inset:0; background:rgba(0,0,0,.45); display:flex; align-items:center; justify-content:center; padding:20px; z-index:100; }
+  .modal[hidden] { display:none; }
+  .modal .box { background:#fff; border-radius:16px; padding:20px; width:100%; max-width:420px; box-shadow:0 10px 40px rgba(0,0,0,.3); }
+  .modal h3 { margin:0 0 8px; font-size:18px; }
+  .modal p { margin:0 0 18px; color:#444; line-height:1.45; white-space:pre-line; }
+  .modal .btns { display:flex; flex-direction:column; gap:8px; }
+  .modal .btn { width:100%; min-height:46px; font-size:16px; }
+  .btn.del { background:var(--bad); border-color:var(--bad); color:#fff; font-weight:600; }
+  .seg-spacer { display:none; }
+  .sm-only { display:none; }
+
+  /* ===== Document (invoice / receipt / statement) ===== */
+  .docwrap { background:#d9d9de; border-radius:14px; padding:16px; overflow:auto; }
+  .doc { background:#fff; width:100%; max-width:800px; margin:0 auto; padding:40px 44px; font-size:13px; color:#1a1a1a; box-shadow:0 2px 10px rgba(0,0,0,.08); position:relative; }
+  .doc .dh { display:flex; justify-content:space-between; gap:20px; align-items:flex-start; border-bottom:4px solid var(--accent); padding-bottom:18px; }
+  .doc .biz { display:flex; gap:14px; align-items:flex-start; }
+  .doc .biz img { max-width:90px; max-height:90px; object-fit:contain; }
+  .doc .biz.namelogo img { max-width:120px; max-height:145px; }
+  .doc .biz.namelogo { align-items:center; }
+  .doc .biz h3 { margin:0 0 4px; font-size:19px; }
+  .doc .biz p { margin:0; color:#555; line-height:1.45; white-space:pre-line; }
+  .doc .ttl { text-align:right; }
+  .doc .ttl h2 { margin:0; font-size:30px; letter-spacing:.06em; color:var(--accent); }
+  .doc .ttl table { margin-left:auto; margin-top:8px; border-collapse:collapse; }
+  .doc .ttl td { padding:2px 0 2px 14px; }
+  .doc .ttl td:first-child { color:#666; }
+  .doc .parties { display:flex; gap:24px; margin:20px 0; }
+  .doc .parties > div { flex:1; }
+  .doc .lbl { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#888; font-weight:700; margin-bottom:4px; }
+  .doc .parties p { margin:0; line-height:1.45; white-space:pre-line; }
+  .doc table.li { width:100%; border-collapse:collapse; margin-top:6px; }
+  .doc table.li th { background:var(--accent); color:#fff; text-align:left; padding:8px 10px; font-size:12px; }
+  .doc table.li td { padding:8px 10px; border-bottom:1px solid #eee; vertical-align:top; }
+  .doc table.li .num { text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .doc .tot { margin-left:auto; width:300px; margin-top:12px; border-collapse:collapse; }
+  .doc .tot td { padding:5px 10px; } .doc .tot td:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+  .doc .tot tr.muted td { color:#555; }
+  .doc .tot tr.grand td { border-top:2px solid #1a1a1a; font-weight:800; font-size:15px; padding-top:8px; }
+  .doc .tot tr.bal td { background:var(--accent); color:#fff; font-weight:800; font-size:15px; }
+  .doc .foot { margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .doc .foot p { margin:0 0 10px; white-space:pre-line; line-height:1.45; color:#333; }
+  .doc .foot p.small { font-size:12px; color:#555; }
+  .doc .thanks { margin-top:26px; text-align:center; color:#777; font-size:12px; border-top:1px solid #eee; padding-top:12px; white-space:pre-line; }
+  .doc .stamp { position:absolute; top:150px; right:60px; transform:rotate(-14deg); border:4px solid var(--ok); color:var(--ok); font-weight:900; font-size:30px; padding:4px 16px; border-radius:8px; opacity:.75; letter-spacing:.08em; }
+
+  /* ===== Phone layout ===== */
+  @media (max-width:700px){
+    body { font-size:16px; padding-bottom:calc(72px + env(safe-area-inset-bottom)); }
+    input, select, textarea { font-size:16px; min-height:44px; }
+    .btn { min-height:44px; }
+    header.top { padding:10px 12px; }
+    header.top { flex-wrap:nowrap; }
+    header.top h1 { font-size:16px; gap:7px; }
+    header.top .appicon { height:34px; }
+    #syncPill { flex:0 0 auto; padding:6px 10px; }
+    nav { position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid var(--line); display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap:0; padding:4px 4px calc(4px + env(safe-area-inset-bottom)); z-index:20; }
+    nav button { border:none; border-radius:10px; padding:6px 2px; font-size:11px; display:flex; flex-direction:column; align-items:center; gap:2px; }
+    nav button b { display:block; font-size:19px; line-height:1; font-weight:400; }
+    body.editing nav { display:none; }
+    main { padding:12px; }
+    .card { padding:14px; border-radius:12px; }
+    .fab { display:flex; position:fixed; right:16px; bottom:calc(84px + env(safe-area-inset-bottom)); width:58px; height:58px; border-radius:50%; background:var(--accent); color:#fff; border:none; font-size:30px; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,0,0,.25); z-index:15; }
+    .hide-m { display:none !important; }
+    .seg { display:flex; background:#e9e9ec; border-radius:10px; padding:3px; margin-bottom:12px; }
+    .seg button { flex:1; border:none; background:none; padding:9px; border-radius:8px; font:inherit; font-weight:600; color:#555; }
+    .seg button.on { background:#fff; color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.12); }
+    .split { display:block; }
+    #v-edit .col-prev { display:none; }
+    #v-edit.prev .col-prev { display:block; padding-bottom:70px; }
+    .sticky-prev { position:static; }
+    .docwrap { padding:8px; border-radius:10px; }
+    .actbar { position:fixed; left:0; right:0; bottom:0; background:#fff; border-top:1px solid var(--line); padding:8px 10px calc(8px + env(safe-area-inset-bottom)); z-index:20; display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; }
+    .actbar .btn { padding:8px 4px; font-size:14px; }
+    .actcard { display:none; }
+    .actcard-wrap { padding:0; border:none; background:none; margin:0; }
+    .seg-spacer { display:block; }
+    #v-edit.prev .col-form { display:block; }
+    #v-edit.prev .col-form > *:not(.actcard-wrap) { display:none; }
+    .items thead { display:none; }
+    .items tr { display:grid; grid-template-columns:1fr 1fr 1fr 40px; gap:4px; border-bottom:1px solid var(--line); padding:6px 0; }
+    .items td.d { grid-column:1 / -1; }
+    .items .n, .items .r, .items .amt { width:auto; }
+    .items td.amt { grid-column:1 / 4; text-align:left; padding-top:2px; }
+    .items.pay tr { grid-template-columns:1fr 1fr 40px; }
+    .items.pay td.amt { grid-column:auto; }
+    .list .hm { display:none; }
+    .sm-only { display:inline; }
+    .list th, .list td { padding:9px 4px; font-size:14px; }
+    .list td:first-child, .list th:first-child { padding-left:2px; }
+    .status { font-size:11px; padding:3px 7px; }
+    .list.tight td, .list.tight th { font-size:12.5px; padding:9px 3px; }
+    .grid, .stats { grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); }
+    .dfield .dtext { padding:9px 6px; letter-spacing:-.2px; }
+    .dfield .dpick { flex-basis:36px; font-size:16px; }
+    .dfield .dnative { width:36px; }
+    #logoIn { max-width:100%; }
+    .logo-lbl { flex:1 1 100% !important; }
+    .doc { padding:20px 16px; }
+    .doc .dh, .doc .parties { flex-direction:column; }
+    .doc .foot { grid-template-columns:1fr; }
+    .doc .ttl { text-align:left; } .doc .ttl table { margin-left:0; } .doc .ttl td { padding:2px 14px 2px 0; }
+    .doc .tot { width:100%; }
+    .doc table.li th, .doc table.li td { padding:7px 4px; font-size:11.5px; }
+    .doc .ttl h2 { font-size:24px; }
+    .doc .stamp { top:16px; right:16px; font-size:22px; }
+    .toast { bottom:calc(140px + env(safe-area-inset-bottom)); }
+  }
+
+  @media (max-width:400px){
+    header.top h1 { font-size:15px; gap:6px; }
+    header.top .appicon { height:30px; }
+    #syncPill { font-size:12px; padding:5px 8px; }
+  }
+  @media (max-width:340px){ header.top h1 { font-size:13.5px; } }
+
+  @media print {
+    @page { size: A4; margin: 12mm; }
+    body { background:#fff; padding:0; }
+    body > *:not(#printArea) { display:none !important; }
+    #printArea { display:block !important; box-shadow:none; max-width:none; padding:0; }
+    * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1><svg class="appicon" xmlns="http://www.w3.org/2000/svg" viewBox="490 0 460 950" aria-hidden="true"><polygon fill="#22BFE3" points="530,352 608,290 608,489.5 530,513.5"/><polygon fill="#E8318A" points="636,212 712,152 712,444.0 636,478.9"/><polygon fill="#86C92A" points="742,95 820,30 820,374.5 742,427.3"/><polygon fill="#E8318A" points="530,540 600,560 600,868 530,915"/><path fill="#E8318A" d="M528,530 Q760,470 905,312 Q800,505 605,577 L530,582 Z"/><path fill="none" stroke="#E8318A" stroke-width="58" d="M838,486 C935,546 925,716 760,719 L690,719"/><polygon fill="#E8318A" points="636,690 700,690 700,748 636,832"/></svg><span class="apptitle"><span>Pinky's Ventures</span> Invoices</span></h1>
+  <button class="pill" id="syncPill" onclick="syncPillClick()" title="Sync status"><i></i><span>Sync off</span></button>
+  <nav>
+    <button data-v="list" class="on"><b>🧾</b>Invoices</button>
+    <button data-v="customers"><b>👥</b>Customers</button>
+    <button data-v="reports" class="owner-only"><b>📊</b>Reports</button>
+    <button data-v="items" class="owner-only"><b>🏷️</b>Price list</button>
+    <button data-v="settings"><b>⚙️</b>Settings</button>
+  </nav>
+</header>
+
+<main>
+  <!-- ===== INVOICE LIST ===== -->
+  <section class="view on" id="v-list">
+    <div class="row" style="margin-bottom:14px">
+      <button class="btn pri hide-m" onclick="newDoc('Invoice')">+ New invoice</button>
+      <button class="btn" onclick="newDoc('Quote')">+ New quote</button>
+      <input id="q" placeholder="Search customer or number…" style="flex:1 1 180px; max-width:340px" oninput="renderList()">
+      <select id="fstat" style="width:auto" onchange="renderList()">
+        <option value="">All</option><option>Unpaid</option><option>Overdue</option><option>Paid</option><option>Quotes</option><option>Draft</option><option value="dep">Deposit held</option>
+      </select>
+      <select id="fline" style="width:auto" onchange="renderList()"></select>
+    </div>
+    <div class="stats owner-only" id="stats"></div>
+    <div class="card" style="padding:4px 8px">
+      <table class="list"><thead><tr><th class="hm">No.</th><th>Customer</th><th class="hm">Date</th><th>Status</th><th class="num">Total</th><th class="num hm">Balance</th></tr></thead>
+      <tbody id="listBody"></tbody></table>
+      <p id="empty" class="hint" style="padding:14px 8px; display:none">Nothing here yet. Tap “+ New invoice” to start.</p>
+    </div>
+    <button class="fab" onclick="newDoc('Invoice')" aria-label="New invoice">+</button>
+  </section>
+
+  <!-- ===== EDITOR ===== -->
+  <section class="view" id="v-edit">
+    <div class="row between" style="margin-bottom:10px">
+      <button class="btn link" onclick="closeEditor()">← Back</button>
+      <span class="saved" id="savedNote"></span>
+    </div>
+    <div class="seg"><button id="segEdit" class="on" onclick="setSeg(false)">Edit</button><button id="segPrev" onclick="setSeg(true)">Preview</button></div>
+    <div class="split">
+      <div class="col-form">
+        <div class="card">
+          <h2 id="edTitle" style="margin-bottom:0">Invoice</h2>
+          <div class="byline" id="byline"></div>
+          <div class="grid" style="margin-top:12px">
+            <label>Number<input id="f-number"></label>
+            <label>Date<input type="date" id="f-date"></label>
+            <label id="dueLbl"><span>Due date</span><input type="date" id="f-due"></label>
+            <label>Status<select id="f-status"></select></label>
+            <label>Business line<select id="f-line"></select></label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Customer</h2>
+          <div class="grid">
+            <label>Name<input id="f-cname" list="clientList" autocomplete="off"></label>
+            <label>Phone / WhatsApp<input id="f-cphone" inputmode="tel"></label>
+            <label>Email<input id="f-cemail" inputmode="email"></label>
+          </div>
+          <datalist id="clientList"></datalist>
+          <label style="margin-top:10px">Address<textarea id="f-caddr" rows="2"></textarea></label>
+          <div class="grid" style="margin-top:10px">
+            <label>Event / delivery date<input type="date" id="f-edate"></label>
+            <label>Return / pickup date<input type="date" id="f-rdate"></label>
+            <label>Event location<input id="f-eloc"></label>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row between" style="margin-bottom:8px">
+            <h2 style="margin:0">Items</h2>
+            <div class="row">
+              <select id="quickAdd" style="width:auto; max-width:230px"><option value="">+ Add from price list…</option></select>
+              <button class="btn sm owner-only" onclick="addItem()">+ Blank line</button>
+            </div>
+          </div>
+          <div id="bookWarn"></div>
+          <p class="hint staff-only" id="staffItemHint">Add items with “+ Add from price list”. Prices come from the price list; ask an owner if one needs changing.</p>
+          <table class="items"><thead><tr><th>Description</th><th class="n">Qty</th><th class="n daysCol">Days</th><th class="r">Rate (J$)</th><th class="amt">Amount</th><th class="x"></th></tr></thead>
+          <tbody id="itemBody"></tbody></table>
+          <div class="grid" style="margin-top:14px">
+            <label class="owner-only">Discount (J$)<input type="number" step="any" min="0" id="f-discount" inputmode="decimal"></label>
+            <label>Delivery / setup (J$)<input type="number" step="any" min="0" id="f-delivery" inputmode="decimal"></label>
+            <label>Refundable deposit (J$)<input type="number" step="any" min="0" id="f-deposit" inputmode="decimal"></label>
+          </div>
+          <label style="margin-top:10px">Notes on this invoice<textarea id="f-notes" rows="2" placeholder="e.g. Tables to be returned clean. Breakages charged at replacement cost."></textarea></label>
+        </div>
+
+        <div class="card" id="payCard">
+          <div class="row between"><h2 style="margin:0">Payments</h2><span class="hint" id="payTotals"></span></div>
+          <table class="items pay" style="margin-top:8px"><tbody id="payBody"></tbody></table>
+          <div class="grid" style="margin-top:10px">
+            <label>Amount (J$)<input type="number" step="any" min="0" id="p-amt" inputmode="decimal"></label>
+            <label>Date<input type="date" id="p-date"></label>
+            <label>Method<select id="p-method"><option>Cash</option><option>Bank transfer</option><option>Lynk</option><option>Card</option><option>Cheque</option><option>Other</option></select></label>
+            <label>Reference (optional)<input id="p-ref" placeholder="e.g. transfer ref"></label>
+          </div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn pri" onclick="addPayment()">Record payment</button>
+            <button class="btn sm" onclick="$('#p-amt').value = totals(cur).bal.toFixed(2)">Fill balance</button>
+          </div>
+        </div>
+
+        <div class="card" id="depCard">
+          <h2>Deposit return</h2>
+          <div id="depInfo" class="hint" style="margin:-6px 0 10px"></div>
+          <div class="grid">
+            <label>Deposit status<select id="f-depst"><option>Held</option><option>Returned</option><option>Part kept</option><option>Kept</option></select></label>
+            <label id="keptLbl">Amount kept (J$)<input type="number" step="any" min="0" id="f-depkept" inputmode="decimal"></label>
+            <label>Date<input type="date" id="f-depdate"></label>
+          </div>
+          <label style="margin-top:10px" id="reasonLbl">Reason kept (damage / missing items)<input id="f-depreason"></label>
+        </div>
+
+        <div class="card actcard-wrap">
+          <div class="actbar">
+            <button class="btn pri" onclick="outImage()">Save image</button>
+            <button class="btn" onclick="outWhatsApp()">WhatsApp</button>
+            <button class="btn" onclick="outPDF()">PDF</button>
+            <button class="btn hide-m" id="shareBtn" onclick="outShare()" style="display:none">Share…</button>
+          </div>
+          <p class="hint actcard" style="margin-bottom:0">Buttons send whatever the preview is showing: the invoice, or a receipt. PDF downloads straight away; use Print below for paper.</p>
+        </div>
+        <div class="card">
+          <div class="row">
+            <button class="btn sm" id="convertBtn" onclick="convertToInvoice()">Turn quote into invoice</button>
+            <button class="btn sm" onclick="outPrint()">Print</button>
+            <button class="btn sm" onclick="duplicateDoc()">Duplicate</button>
+            <button class="btn sm" onclick="openCustomer(cur.client.name)">Customer page</button>
+            <button class="btn sm danger" onclick="deleteDoc()">Delete</button>
+          </div>
+        </div>
+        <div style="height:70px" class="seg-spacer"></div>
+      </div>
+
+      <div class="col-prev sticky-prev">
+        <div class="prevbar" id="prevBar"></div>
+        <div class="docwrap"><div class="doc" id="doc"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CUSTOMERS ===== -->
+  <section class="view" id="v-customers">
+    <div class="row" style="margin-bottom:14px">
+      <input id="cq" placeholder="Search customers…" style="flex:1 1 200px; max-width:340px" oninput="renderCustomers()">
+      <select id="csort" style="width:auto" onchange="renderCustomers()"><option value="owed">Most owed</option><option value="recent">Most recent</option><option value="name">A–Z</option><option value="billed">Biggest customers</option></select>
+    </div>
+    <div class="card" style="padding:4px 8px">
+      <table class="list"><thead><tr><th>Customer</th><th class="num hm">Invoices</th><th class="num hm">Billed</th><th class="num">Owed</th></tr></thead>
+      <tbody id="custBody"></tbody></table>
+      <p id="cempty" class="hint" style="padding:14px 8px; display:none">Customers appear here once they're on an invoice.</p>
+    </div>
+  </section>
+
+  <!-- ===== CUSTOMER DETAIL ===== -->
+  <section class="view" id="v-customer">
+    <button class="btn link" onclick="show('customers')" style="margin-bottom:10px">← Customers</button>
+    <div class="split">
+      <div>
+        <div class="card">
+          <h2 id="cuName" style="margin-bottom:4px"></h2>
+          <div class="hint" id="cuInfo"></div>
+          <div class="stats" id="cuStats" style="margin:14px 0 4px"></div>
+          <div class="row">
+            <button class="btn pri" onclick="newDoc('Invoice', CUST)">+ New invoice</button>
+            <button class="btn" onclick="newDoc('Quote', CUST)">+ New quote</button>
+          </div>
+        </div>
+        <div class="card" style="padding:4px 8px">
+          <table class="list tight"><thead><tr><th>No.</th><th class="hm">Date</th><th>Status</th><th class="num">Total</th><th class="num">Balance</th></tr></thead>
+          <tbody id="cuBody"></tbody></table>
+        </div>
+        <div class="card">
+          <h2>Statement</h2>
+          <div class="row">
+            <label style="flex-direction:row; align-items:center; gap:6px; font-size:13px"><input type="checkbox" id="stOnlyOpen" style="width:auto; min-height:0" onchange="renderStatement()"> Only unpaid invoices</label>
+          </div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn pri" onclick="outImage('stmt')">Save image</button>
+            <button class="btn" onclick="outWhatsApp('stmt')">WhatsApp</button>
+            <button class="btn" onclick="outPDF('stmt')">PDF</button>
+            <button class="btn" onclick="outPrint('stmt')">Print</button>
+          </div>
+        </div>
+      </div>
+      <div class="sticky-prev">
+        <div class="docwrap"><div class="doc" id="stmtDoc"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REPORTS ===== -->
+  <section class="view" id="v-reports">
+    <div class="row" style="margin-bottom:14px">
+      <select id="rmonth" style="width:auto" onchange="renderReports()"></select>
+    </div>
+    <div class="stats" id="rStats"></div>
+    <div class="card" style="padding:4px 8px">
+      <table class="list tight"><thead><tr><th>Business line</th><th class="num">Invoiced</th><th class="num">Collected</th><th class="num hm">Deposits kept</th><th class="num">Still owed</th></tr></thead>
+      <tbody id="rBody"></tbody></table>
+    </div>
+    <p class="hint" style="margin-top:-6px">“Invoiced” counts invoices dated in the period (not quotes, not cancelled; deposits excluded). “Collected” counts payments received in the period, deposits included. “Still owed” is today's unpaid balance on that period's invoices.</p>
+    <div class="card">
+      <h2>Export for your accountant</h2>
+      <p class="hint" style="margin-top:-6px">Spreadsheet files (CSV) for the period picked above. They open in Excel and Google Sheets.</p>
+      <div class="row">
+        <button class="btn" onclick="exportCSV('invoices')">Invoices CSV</button>
+        <button class="btn" onclick="exportCSV('payments')">Payments CSV</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICE LIST ===== -->
+  <section class="view" id="v-items">
+    <div class="card">
+      <h2>Price list</h2>
+      <p class="hint" style="margin-top:-6px">Items you rent or sell often. Rate is per item (per day for rentals). Put in <b>Stock owned</b> for rental items and the app warns you when two bookings on the same dates need more than you have. Leave it blank for things like ice. Untick <b>Per day</b> for things sold once (ice, delivery): their Days column shows “—”.</p>
+      <table class="items"><thead><tr><th>Item</th><th class="r">Rate (J$)</th><th class="n">Stock owned</th><th class="n">Per day</th><th class="x"></th></tr></thead>
+      <tbody id="catBody"></tbody></table>
+      <button class="btn sm" style="margin-top:10px" onclick="addCat()">+ Add item</button>
+    </div>
+  </section>
+
+  <!-- ===== LOGIN ===== -->
+  <section class="view" id="v-login">
+    <div class="card loginbox">
+      <div class="loginhead"><svg class="appicon" xmlns="http://www.w3.org/2000/svg" viewBox="490 0 460 950" aria-hidden="true"><polygon fill="#22BFE3" points="530,352 608,290 608,489.5 530,513.5"/><polygon fill="#E8318A" points="636,212 712,152 712,444.0 636,478.9"/><polygon fill="#86C92A" points="742,95 820,30 820,374.5 742,427.3"/><polygon fill="#E8318A" points="530,540 600,560 600,868 530,915"/><path fill="#E8318A" d="M528,530 Q760,470 905,312 Q800,505 605,577 L530,582 Z"/><path fill="none" stroke="#E8318A" stroke-width="58" d="M838,486 C935,546 925,716 760,719 L690,719"/><polygon fill="#E8318A" points="636,690 700,690 700,748 636,832"/></svg><div><b>Pinky's Ventures</b><br><span class="hint">Invoices</span></div></div>
+      <label>Sync link<input id="lgUrl" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off"></label>
+      <div id="lgLogin">
+        <h2 style="margin:14px 0 8px">Log in</h2>
+        <label>Username<input id="lgUser" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+        <label style="margin-top:8px">Password<input id="lgPass" type="password" autocomplete="current-password"></label>
+        <button class="btn pri" style="width:100%; margin-top:12px" onclick="doLogin()">Log in</button>
+        <p class="hint" style="margin-bottom:0">First time connecting this business? <button class="btn link" onclick="showSetup(true)">Set up the owner account</button></p>
+      </div>
+      <div id="lgSetup" hidden>
+        <h2 style="margin:14px 0 4px">Set up the owner account</h2>
+        <p class="hint" style="margin-top:0">Only done once, by the first owner. Other people are added later from Settings → Team.</p>
+        <label>Setup key (from the script)<input id="suKey" type="password" autocomplete="off"></label>
+        <label style="margin-top:8px">Your name<input id="suName" placeholder="e.g. Akeem"></label>
+        <label style="margin-top:8px">Username<input id="suUser" autocapitalize="none" spellcheck="false" placeholder="e.g. akeem"></label>
+        <label style="margin-top:8px">Password (8+ characters)<input id="suPass" type="password" autocomplete="new-password"></label>
+        <label style="margin-top:8px">Password again<input id="suPass2" type="password" autocomplete="new-password"></label>
+        <button class="btn pri" style="width:100%; margin-top:12px" onclick="doSetup()">Create owner account</button>
+        <p class="hint" style="margin-bottom:0"><button class="btn link" onclick="showSetup(false)">← Back to log in</button></p>
+      </div>
+      <p id="lgMsg" class="hint" style="color:var(--bad); font-weight:600"></p>
+      <button class="btn link" id="lgBack" onclick="show('settings')">← Not now, keep using this device offline</button>
+    </div>
+  </section>
+
+  <!-- ===== SETTINGS ===== -->
+  <section class="view" id="v-settings">
+    <div class="card" id="syncCard">
+      <h2>Account & sync</h2>
+      <div id="acctOff">
+        <p class="hint" style="margin-top:-6px">This device isn't connected. Invoices stay on this device only. Connect to your Google Sheet to share invoices between phones and computers, with a login for each person.</p>
+        <button class="btn pri" onclick="show('login')">Connect & log in</button>
+      </div>
+      <div id="acctOn">
+        <p style="margin:-4px 0 4px">Logged in as <b id="acctName"></b> <span class="tag" id="acctRole"></span> <span class="hint" id="acctUser"></span></p>
+        <p class="hint" id="syncInfo" style="margin:0 0 10px"></p>
+        <div class="row">
+          <button class="btn" onclick="sync(true)">Sync now</button>
+          <button class="btn" onclick="changeMyPassword()">Change password</button>
+          <button class="btn danger" onclick="logOut()">Log out</button>
+        </div>
+      </div>
+    </div>
+    <div class="card" id="pinCard">
+      <h2>App lock (PIN)</h2>
+      <p class="hint" style="margin-top:-6px" id="pinInfo"></p>
+      <div class="row">
+        <button class="btn" id="pinSetBtn" onclick="setPin()">Set PIN</button>
+        <button class="btn danger" id="pinOffBtn" onclick="removePin()">Remove PIN</button>
+      </div>
+    </div>
+    <div class="card owner-only" id="teamCard">
+      <div class="row between"><h2 style="margin:0">Team</h2><button class="btn sm pri" onclick="editUser()">+ Add person</button></div>
+      <p class="hint">Owners see everything. Staff can make invoices and quotes and record payments, but only see their own work: no reports, totals, price list or settings.</p>
+      <table class="list"><thead><tr><th>Name</th><th>Role</th><th class="hm">Last login</th><th></th></tr></thead><tbody id="teamBody"></tbody></table>
+      <p class="hint" id="teamMsg"></p>
+    </div>
+    <div class="card owner-only">
+      <h2>Business details</h2>
+      <div class="grid">
+        <label>Business name<input data-s="bizName"></label>
+        <label>Tagline<input data-s="tagline"></label>
+        <label>Phone<input data-s="phone"></label>
+        <label>Email<input data-s="email"></label>
+        <label>TRN (optional)<input data-s="trn"></label>
+      </div>
+      <label style="margin-top:10px">Address<textarea data-s="address" rows="2"></textarea></label>
+      <div class="row" style="margin-top:12px">
+        <label class="logo-lbl" style="flex:0 0 auto">Logo<input type="file" accept="image/*" id="logoIn"></label>
+        <img id="logoPrev" style="max-height:60px; display:none" alt="">
+        <button class="btn sm" onclick="S.logo='';S.updatedAt=Date.now();saveAll();loadSettings();">Remove logo</button>
+        <label style="flex:0 0 auto">Accent colour<input type="color" data-s="accent" style="width:70px; padding:2px"></label>
+        <label style="flex:0 0 auto">Logo already shows the name?<select data-s="logoHasName"><option value="1">Yes, hide name text</option><option value="0">No, print name too</option></select></label>
+        <button class="btn sm" onclick="S.logo=PV_LOGO;S.logoHasName='1';S.updatedAt=Date.now();saveAll();loadSettings();">Use Pinky's Ventures logo</button>
+      </div>
+    </div>
+    <div class="card owner-only">
+      <h2>Numbering, tax & business lines</h2>
+      <div class="grid">
+        <label>Invoice prefix<input data-s="invPrefix"></label>
+        <label>Next invoice no.<input type="number" min="1" data-s="nextInv"></label>
+        <label>Quote prefix<input data-s="qPrefix"></label>
+        <label>Next quote no.<input type="number" min="1" data-s="nextQ"></label>
+        <label>Receipt prefix<input data-s="rcPrefix"></label>
+        <label>Next receipt no.<input type="number" min="1" data-s="nextRc"></label>
+        <label>Payment due (days after invoice date, 0 = same day)<input type="number" min="0" data-s="dueDays"></label>
+      </div>
+      <div class="grid" style="margin-top:10px">
+        <label>Charge GCT?<select data-s="taxOn"><option value="0">No</option><option value="1">Yes</option></select></label>
+        <label>Tax label<input data-s="taxLabel"></label>
+        <label>Tax rate %<input type="number" step="any" data-s="taxRate"></label>
+        <label>Show “Days” column?<select data-s="showDays"><option value="1">Yes</option><option value="0">No</option></select></label>
+      </div>
+      <label style="margin-top:10px">Business lines (comma separated)<input data-s="lines"></label>
+      <p class="hint">Only turn on GCT if the company is registered for GCT with TAJ.</p>
+    </div>
+    <div class="card owner-only">
+      <h2>Printed on every invoice</h2>
+      <label>Payment details<textarea data-s="payment" rows="3"></textarea></label>
+      <label style="margin-top:10px">Terms<textarea data-s="terms" rows="3"></textarea></label>
+      <label style="margin-top:10px">Footer<input data-s="footer"></label>
+    </div>
+    <div class="card owner-only">
+      <h2>Backup</h2>
+      <p class="hint" style="margin-top:-6px">Sync keeps a copy in your Google Sheet. A backup file is a second safety net. Without sync, this is the only copy outside this browser.</p>
+      <div class="row">
+        <button class="btn" onclick="exportData()">Export backup</button>
+        <label class="btn" style="flex-direction:row; align-items:center; color:inherit; font-weight:400; font-size:inherit">Import backup<input type="file" accept=".json,application/json" id="importIn" style="display:none"></label>
+      </div>
+      <p class="hint" id="storeNote"></p>
+    </div>
+    <div class="card owner-only" id="freshCard">
+      <h2>Start fresh</h2>
+      <p class="hint" style="margin-top:-6px">Deletes every invoice, quote and receipt on this device and resets numbering to PV-0001, QT-0001 and RC-0001. Your business details, logo, price list and settings are kept. Use this to clear out test invoices <b>before</b> connecting to Google.</p>
+      <button class="btn danger" onclick="startFresh()">Delete all invoices on this device</button>
+    </div>
+  </section>
+</main>
+<div class="doc" id="printArea"></div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle"><div class="box"><h3 id="mTitle"></h3><p id="mText"></p><div id="mForm"></div><p id="mErr" style="color:var(--bad);font-weight:600;margin:0 0 10px" hidden></p><div class="btns" id="mBtns"></div></div></div>
+<div class="lock" id="lock" hidden>
+  <div class="lockbox">
+    <svg class="appicon" xmlns="http://www.w3.org/2000/svg" viewBox="490 0 460 950" aria-hidden="true"><polygon fill="#22BFE3" points="530,352 608,290 608,489.5 530,513.5"/><polygon fill="#E8318A" points="636,212 712,152 712,444.0 636,478.9"/><polygon fill="#86C92A" points="742,95 820,30 820,374.5 742,427.3"/><polygon fill="#E8318A" points="530,540 600,560 600,868 530,915"/><path fill="#E8318A" d="M528,530 Q760,470 905,312 Q800,505 605,577 L530,582 Z"/><path fill="none" stroke="#E8318A" stroke-width="58" d="M838,486 C935,546 925,716 760,719 L690,719"/><polygon fill="#E8318A" points="636,690 700,690 700,748 636,832"/></svg>
+    <h3>Enter PIN</h3>
+    <p class="hint" id="lockWho"></p>
+    <input id="lockPin" type="password" inputmode="numeric" autocomplete="off" maxlength="6" aria-label="PIN">
+    <p id="lockErr" style="color:var(--bad);font-weight:600;min-height:1.2em;margin:8px 0"></p>
+    <button class="btn pri" style="width:100%" onclick="tryUnlock()">Unlock</button>
+    <button class="btn link" style="margin-top:12px" onclick="forgotPin()">Forgot PIN?</button>
+  </div>
+</div>
+
+<script>
+/* =================== storage & model =================== */
+const KEY = 'pinkys_invoice_builder_v1';
+const PV_LOGO = 'data:image/png;base64,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hg4desopp3z88ceKOHZNCio2OXny5DFjxqi3rhBiw4YNzz77rPp06dKlr732Wj4SOW3atOHDhxNRq5Z2NMRU2z3EFI/Hu3Xr9sQTT6iUGHXj33333RlnnCGlZA9ij9cCrly5csGCBZ9//vn8+fPnz5//3nvv3XrrrYcddtjy5cvz3wkGg2ecccZucHjruc5dJt00TU+RUt50000vv/zyuHHjlGmvVEZFlKZpappWUVHxzDPPHHHEEffdd19tXtDrMn50Xb/ooosuvvhi9YZExAcffPDss8/Wdf2hhx6ybVvXdXWsyy67rLUZN49Ro0YVFRXVljOJKBgM1nAaWwlKmpoyZcrf/va3iy66SKU2apr23nvvXX311S2bwtiWXfTq7nH9VnSN8Ba0ZhUQANxxxx133HFHwctW8DzvN7/5TYsUg9Sfp1BSUjJixIja01W5DwMHDmyN5BG1yGfMmDFjxozPP//8tddemzt37vz588vKylQOmwogKGXwF7/4Ra9evU4++eTqbpRe13EB4LTTTvvtb3+rQgwA8Omnn3722WdjxozJRyKJaNSoUVOmTGntSGR+4O6///4axQW7nLKtdD3ZbPbCCy9ctmzZvffeq3hBCHHvvfcGAoHdI2LtQSh5LP8a2L59e8GgLBGVlZVVfyItqKvVvypqlGbl+UL998Ybb7zmmmtaNetMrczDDjvsxRdf3KXN30pRc03TDjzwQJXOt2XLloULF77//vuvvPLKV199pewU5W7ccccdM2fOrH4Zoq5b8jwvFoup3KH8KD/22GNPPvnk9u3b88H5iy++2DCMhpSFtWB7hdr5UbAn4l6e5911113HHHNMfnxVLWCHtxH69u1bvaz+66+/rv301aeqgiuf89u7d2/YLVXD1bM58t41AAwbNuyNN95QkvlucByq5zXtzhmbf2fnE8C7des2derU22677csvv7znnntUlFrJkCtXrty4cWN1OUzUb/+cf/75Pp/P8zz1B0888cRNN92kTul5Xvfu3U877bTd6Zh5dSD/+HebzqcMUSHEf/7znyFDhihi7vDtJ9TdjRw5Ut2sGu3XX3+9rKxM13XbttUjUDFjInrmmWfysxMAVEFt6w2ROvKwYcOOPfbY6dOnH3vssUcddVT+SanvTJgwYbdlcylGqGvG5nNhW/yk6XRaxQTUi0pdhhIXAOCKK6449NBD8yJgJpNJJpMN6tGo7J999913xowZeVqtqKjYvHlz/jZ+/OMfF/TwWw81iiZrQNO03akbqSEqKSl5+umno9GoMkc7dlRSzbDBgwcPGzYsPwibN2++7LLLHMdRIpaqtEHE66+/ftGiRfkxGTBggJKuW9VoB4Brrrlm9uzZr7322uzZs994440rrrgir5cvWbLkpz/9aV4Og9ZPacmL/wWna4t3xCKi1atXjxs37sEHH0ylUvlFoVK51ANKpVKbN2/O/1U4HC4uLm5cj8ZLL730mWeeUYOYvwEppc/nu+CCC3aPD59fabNnz16zZo3jOLUnlsom2muvvQ4//PDd9sZWas3w4cP/85//zJw5U0k4HZgXlLNqmuYll1xyySWX6LqunsWTTz65evXqs88+e/jw4UKIb7755qmnnnr77bcVb6p0rwsvvDAYDLZeMgvsnOacP9Hvf//7t99+++uvv1aL8KmnnpoxY8aZZ57Zqlei5sC6deueffZZVTRZV7rRUUcdVVxc3CIzVhHuI4888tVXX1188cV33nnn8ccfP3ny5GHDhoXDYSFEKpVaunTpH/7wh2+++SZ/ugMOOKBbt247KSy7rLJwXfeggw6qroiof8yaNatVS32qF0Q1/OGp+ouWLcrKF0SpyMLVV19do5BG/fuPf/xjvhJGjXhrF0Sp8z700EPVy4F+/etft0YTkepTwvO8bDY7YcIE9TKsq8GZsttVjHbMmDHJZLJGM49WKoh64IEH8h+pkf/8888Nw1AvTJX5+t1337Xsc6lRENXwFf7pp5+2yJWogf3++++7deumen9Uj5d169atV69e+X4WKvqgnpqqH60+YcQufXhN01RgUg26yqBGRJXd1NpvxXz+iUI+b9ysBdVupDX0bTWCedReACr6cN11151zzjmu6yojLT9Hd8Pbu/7Law0xxTTNJ598UlXQqheUei75x6QGQS3OIUOG/O9//wsEAq1kwdWYJNVPofTgAw444JZbblF107qul5aWqjh6az8L1Wel4HTNo6UmiVqJa9asqaystG1bJd0rR9vzvC1btvzwww+qpFp1x1Pqz7333jt+/Pga7Q7ELs1jIpo1a1a3bt2UjOS6ruM4o0ePnjBhQmu0TqgB1RNCnVp1jFCwayGTydi2HY/HW/waHMdRp85ms57nFYwvqOjDAw88cPjhh6tcEc/z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';
+const DEFAULT_SETTINGS = {
+  bizName: "Pinky's Ventures Limited",
+  tagline: "Event Rentals · Ice · Pinky's HQ",
+  address: "71 Caledonia Road\nMandeville, Manchester",
+  phone: "876-232-4477", email: "", trn: "", logo: PV_LOGO, logoHasName: "1", logoV2: 1,
+  accent: "#e8318a",
+  invPrefix: "PV-", nextInv: 1, qPrefix: "QT-", nextQ: 1, rcPrefix: "RC-", nextRc: 1, dueDays: 0, dueV2: 1,
+  taxOn: "0", taxLabel: "GCT", taxRate: 15, showDays: "1",
+  lines: "Rentals, Ice, Bar, Other", linesV2: 1,
+  payment: "Cash, Lynk or bank transfer to:\nBank: \nAccount name: Pinky's Ventures Limited\nAccount #: ",
+  terms: "Rental items must be returned in the same condition. Damaged or missing items are charged at replacement cost. Refundable deposit is returned after items are checked.",
+  footer: "Thank you for your business!"
+};
+const DEFAULT_CATALOG = ["Table rental","Chair rental","Tent rental","Generator rental","Ice (bag)","Table cloth"].map(n => ({name:n, rate:0, stock:'', perDay: !/\bice\b/i.test(n)}));
+const fixCat = c => Object.assign({id:uid(), stock:'', perDay: !/\bice\b/i.test(c.name || '')}, c);
+let S, CAT, CATU = 0, DOCS, cur = null, mem = null, PV = {kind:'invoice'}, CUST = '';
+
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+function migrateDoc(d){
+  if (d.deleted) return d;
+  if (!d.client) d.client = {name:'', phone:'', email:'', addr:''};
+  if (!d.event) d.event = {date:'', ret:'', loc:''};
+  if (!d.items) d.items = [];
+  if (!d.payments) {
+    d.payments = [];
+    if (num(d.paid) > 0) d.payments.push({id:uid(), date:d.date || today(), amount:num(d.paid), method:'Cash', ref:'', receiptNo:''});
+  }
+  delete d.paid;
+  if (d.status === 'Paid') d.status = 'Sent';
+  if (!d.line) d.line = lineList()[0];
+  if (d.line === 'Generator' && !lineList().includes('Generator')) d.line = 'Rentals';   // generator rentals now count as Rentals
+  if (!d.depRet) d.depRet = {status:'Held', kept:'', reason:'', date:''};
+  if (!d.updated) d.updated = d.created || 1;
+  return d;
+}
+function load(){
+  let d = null;
+  try { d = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e) { d = mem; }
+  d = d || {};
+  S = Object.assign({}, DEFAULT_SETTINGS, d.settings || {});
+  if (!S.updatedAt && d.settings) S.updatedAt = 1;
+  upgradeSettings(d.settings, S);
+  CAT = (d.catalog || DEFAULT_CATALOG).map(fixCat);
+  CATU = d.catalogUpdated || 1;                       // always > 0 so an owner's first sync uploads the price list
+  if (!S.updatedAt) S.updatedAt = 1;
+  DOCS = (d.docs || []).map(migrateDoc);
+}
+// Upgrade settings saved by older versions. Checks the SAVED copy, not the merged one (defaults would hide what's missing).
+function upgradeSettings(saved, s){
+  if (!saved) return false;
+  let ch = false;
+  if (s.accent === '#c2185b') { s.accent = '#e8318a'; ch = true; }
+  if (!saved.dueV2) { if (saved.dueDays === undefined || num(saved.dueDays) === 7) s.dueDays = 0; s.dueV2 = 1; ch = true; }
+  if (!saved.linesV2) { if (!saved.lines || /^\s*Rentals,\s*Ice,\s*Bar,\s*Generator,\s*Other\s*$/.test(saved.lines)) s.lines = 'Rentals, Ice, Bar, Other'; s.linesV2 = 1; ch = true; }
+  if (!saved.logoV2) { if (!saved.logo) { s.logo = PV_LOGO; s.logoHasName = '1'; } s.logoV2 = 1; ch = true; }
+  return ch;
+}
+function persist(){
+  const d = {settings:S, catalog:CAT, catalogUpdated:CATU, docs:DOCS, savedAt:new Date().toISOString()};
+  mem = d;
+  try { localStorage.setItem(KEY, JSON.stringify(d)); return true; }
+  catch(e){ toast('Could not save — storage full or blocked. Export a backup.'); return false; }
+}
+function saveAll(){ const ok = persist(); queueSync(); return ok; }
+
+/* =================== helpers =================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num = v => { const n = parseFloat(v); return isFinite(n) ? n : 0; };
+const money = n => (num(n) < 0 ? '−' : '') + 'J$' + Math.abs(num(n)).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+const today = () => { const d = new Date(); return new Date(d - d.getTimezoneOffset()*6e4).toISOString().slice(0,10); };
+const addDays = (iso, n) => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + num(n)); return d.toISOString().slice(0,10); };
+const fmtDate = iso => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); return m ? `${m[3]}/${m[2]}/${m[1]}` : (iso || ''); };   // Jamaica: dd/mm/yyyy
+const fmtStamp = ms => { const d = new Date(ms); const p = n => String(n).padStart(2,'0'); let h = d.getHours(), ap = h < 12 ? 'am' : 'pm'; h = h % 12 || 12;
+  return `${p(d.getDate())}/${p(d.getMonth()+1)}/${d.getFullYear()} ${h}:${p(d.getMinutes())}${ap}`; };
+const pad = n => String(n).padStart(4, '0');
+const lineList = () => String(S.lines || 'Other').split(',').map(x => x.trim()).filter(Boolean);
+const ckey = name => String(name || '').trim().toLowerCase();
+// In-app confirmation box (browser pop-ups get blocked in some apps/viewers, which silently cancels the action)
+function ask(title, text, buttons){
+  return new Promise(resolve => {
+    const m = $('#modal'), prevFocus = document.activeElement;
+    $('#mTitle').textContent = title; $('#mText').textContent = text || ''; $('#mText').hidden = !text;
+    $('#mBtns').innerHTML = ''; $('#mForm').innerHTML = ''; $('#mErr').hidden = true;
+    const done = v => { m.hidden = true; document.removeEventListener('keydown', onKey); try { prevFocus && prevFocus.focus && prevFocus.focus(); } catch(e){} resolve(v); };
+    buttons.forEach(b => { const el = document.createElement('button'); el.className = 'btn ' + (b.cls || ''); el.textContent = b.label; el.onclick = () => done(b.value); $('#mBtns').appendChild(el); });
+    const onKey = e => { if (e.key === 'Escape') done(null); };
+    document.addEventListener('keydown', onKey);
+    m.onclick = e => { if (e.target === m) done(null); };
+    m.hidden = false;
+    const safe = [...$('#mBtns').children].find((el, i) => !buttons[i].cls || !/del/.test(buttons[i].cls)); if (safe) safe.focus();
+  });
+}
+const CANCEL = {label:'Cancel', value:null};
+// Small form in the same box. validate(values) returns an error message, or nothing when OK.
+function askForm(title, text, fields, okLabel, validate){
+  return new Promise(resolve => {
+    const m = $('#modal');
+    $('#mTitle').textContent = title; $('#mText').textContent = text || ''; $('#mText').hidden = !text; $('#mErr').hidden = true;
+    $('#mForm').innerHTML = fields.map(fd => `<label>${esc(fd.label)}${fd.options
+      ? `<select data-f="${fd.name}">${fd.options.map(o => `<option${o === fd.value ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select>`
+      : `<input data-f="${fd.name}" type="${fd.type || 'text'}" value="${esc(fd.value || '')}"${fd.inputmode ? ` inputmode="${fd.inputmode}"` : ''}${fd.disabled ? ' disabled' : ''} autocomplete="${fd.type === 'password' ? 'new-password' : 'off'}" autocapitalize="none" spellcheck="false">`}</label>`).join('');
+    $('#mBtns').innerHTML = '';
+    const vals = () => { const o = {}; $('#mForm').querySelectorAll('[data-f]').forEach(el => o[el.dataset.f] = el.value); return o; };
+    const done = v => { m.hidden = true; document.removeEventListener('keydown', onKey); resolve(v); };
+    const submit = async () => { const v = vals(); const err = validate ? await validate(v) : ''; if (err) { $('#mErr').textContent = err; $('#mErr').hidden = false; return; } done(v); };
+    [{label:okLabel || 'Save', cls:'pri', go:submit}, {label:'Cancel', go:() => done(null)}].forEach(b => { const el = document.createElement('button'); el.className = 'btn ' + (b.cls || ''); el.textContent = b.label; el.onclick = b.go; $('#mBtns').appendChild(el); });
+    const onKey = e => { if (e.key === 'Escape') done(null); if (e.key === 'Enter' && e.target.tagName === 'INPUT') submit(); };
+    document.addEventListener('keydown', onKey);
+    m.onclick = e => { if (e.target === m) done(null); };
+    m.hidden = false;
+    const first = $('#mForm').querySelector('input:not([disabled]),select'); if (first) first.focus();
+  });
+}
+function toast(m){ const t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('on'), 2600); }
+const live = () => DOCS.filter(d => !d.deleted);
+// Only touch the DOM when content really changed, so a button being tapped isn't replaced mid-tap
+function setHTML(el, html){ if (el._h !== html) { el.innerHTML = html; el._h = html; } }
+const lineAmt = i => num(i.qty) * (S.showDays === '1' ? (num(i.days)||1) : 1) * num(i.rate);
+const daysTxt = i => num(i.days) > 0 ? String(num(i.days)) : '—';
+const paidOf = d => (d.payments || []).reduce((a,p) => a + num(p.amount), 0);
+
+function totals(doc){
+  const sub = doc.items.reduce((a,i) => a + lineAmt(i), 0);
+  const disc = num(doc.discount), del = num(doc.delivery);
+  const taxable = Math.max(0, sub - disc + del);
+  const tax = S.taxOn === '1' ? taxable * num(S.taxRate) / 100 : 0;
+  const total = taxable + tax;
+  const dep = num(doc.deposit);
+  const due = total + dep;
+  const paid = paidOf(doc);
+  const ds = (doc.depRet || {}).status || 'Held';
+  const kept = !dep ? 0 : ds === 'Kept' ? dep : ds === 'Part kept' ? Math.min(dep, num(doc.depRet.kept)) : 0;
+  const refunded = !dep || ds === 'Held' ? 0 : dep - kept;
+  return {sub, disc, del, tax, total, dep, due, paid, bal: Math.max(0, due - paid), kept, refunded, depHeld: dep && ds === 'Held' && paid > 0 ? Math.min(dep, paid) : 0};
+}
+function effStatus(d){
+  if (d.type === 'Quote' || d.status === 'Cancelled') return d.status;
+  const t = totals(d);
+  if (t.due > 0 && t.paid > 0 && t.bal <= 0.005) return 'Paid';
+  if (t.paid > 0) return 'Part paid';
+  if (d.status === 'Sent' && d.due && d.due < today()) return 'Overdue';
+  return d.status;
+}
+const statusCls = s => 's-' + (s === 'Part paid' ? 'Part' : s);
+const isOpenInv = d => d.type === 'Invoice' && d.status !== 'Cancelled';
+
+/* =================== dd/mm/yyyy date fields =================== */
+// Native date boxes follow the device's region (often mm/dd/yyyy). We show our own dd/mm/yyyy box
+// and keep the original <input type=date> hidden as the real value (ISO yyyy-mm-dd), so the rest of the app is unchanged.
+function parseDMY(t){
+  t = String(t || '').trim(); if (!t) return '';
+  let m = /^(\d{1,2})[\/\-. ](\d{1,2})[\/\-. ](\d{2}|\d{4})$/.exec(t) || (/^\d{8}$/.test(t) ? [t, t.slice(0,2), t.slice(2,4), t.slice(4)] : null);
+  if (!m) return null;
+  let d = +m[1], mo = +m[2], y = +m[3]; if (y < 100) y += 2000;
+  const dt = new Date(y, mo - 1, d);
+  if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
+  return `${y}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+}
+function enhanceDates(){
+  const VD = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+  document.querySelectorAll('input[type=date]').forEach(nat => {
+    const wrap = document.createElement('span'); wrap.className = 'dfield';
+    const txt = document.createElement('input'); txt.className = 'dtext'; txt.placeholder = 'dd/mm/yyyy'; txt.inputMode = 'numeric'; txt.autocomplete = 'off'; txt.setAttribute('aria-label', (nat.closest('label') || {}).textContent || 'Date');
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'dpick'; btn.textContent = '📅'; btn.title = 'Pick a date'; btn.setAttribute('aria-label', 'Pick a date');
+    nat.parentNode.insertBefore(wrap, nat); wrap.append(txt, btn, nat); nat.classList.add('dnative'); nat.tabIndex = -1;
+    // keep the visible box in step whenever the app sets the value in code
+    Object.defineProperty(nat, 'value', { get(){ return VD.get.call(nat); }, set(v){ VD.set.call(nat, v); txt.value = fmtDate(v); txt.classList.remove('bad'); } });
+    const fire = () => { nat.dispatchEvent(new Event('input', {bubbles:true})); nat.dispatchEvent(new Event('change', {bubbles:true})); };
+    txt.addEventListener('input', () => {
+      const iso = parseDMY(txt.value);
+      if (iso === null) { txt.classList.toggle('bad', txt.value.replace(/\D/g, '').length >= 6); return; }
+      txt.classList.remove('bad');
+      if (iso !== VD.get.call(nat)) { VD.set.call(nat, iso); fire(); }
+    });
+    txt.addEventListener('blur', () => { const iso = parseDMY(txt.value); if (iso === null) { txt.value = fmtDate(VD.get.call(nat)); txt.classList.remove('bad'); } else txt.value = fmtDate(iso); });
+    nat.addEventListener('change', () => { txt.value = fmtDate(VD.get.call(nat)); txt.classList.remove('bad'); });
+    btn.addEventListener('click', () => { try { nat.showPicker(); } catch(e) { nat.style.pointerEvents = 'auto'; nat.focus(); nat.click(); setTimeout(() => nat.style.pointerEvents = '', 500); } });
+  });
+}
+enhanceDates();
+
+/* =================== navigation =================== */
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => show(b.dataset.v));
+function show(v){
+  if (needsLogin() && v !== 'login') v = 'login';
+  if (!isOwner() && (v === 'reports' || v === 'items')) v = 'list';
+  document.body.classList.toggle('editing', v === 'edit');
+  document.body.classList.toggle('login', v === 'login');
+  if (v === 'login') prepLogin();
+  const navV = v === 'customer' ? 'customers' : v;
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.v === navV));
+  document.querySelectorAll('.view').forEach(s => s.classList.toggle('on', s.id === 'v-' + v));
+  if (v === 'list') renderList();
+  if (v === 'customers') renderCustomers();
+  if (v === 'customer') renderCustomer();
+  if (v === 'reports') renderReports();
+  if (v === 'items') renderCat();
+  if (v === 'settings') loadSettings();
+  window.scrollTo(0,0);
+}
+function closeEditor(){ if (cur && cur._new && !isBlank(cur)) commit(); cur = null; show(CUST && backToCust ? 'customer' : 'list'); }
+let backToCust = false;
+const isBlank = d => !d.client.name && !d.items.some(i => i.desc || num(i.rate));
+function setSeg(prev){ $('#v-edit').classList.toggle('prev', prev); $('#segEdit').classList.toggle('on', !prev); $('#segPrev').classList.toggle('on', prev); window.scrollTo(0,0); }
+
+/* =================== invoice list =================== */
+function fillLineSelect(sel, withAll){
+  const v = sel.value;
+  sel.innerHTML = (withAll ? '<option value="">All lines</option>' : '') + lineList().map(l => `<option>${esc(l)}</option>`).join('');
+  if (v) sel.value = v;
+}
+function renderList(){
+  fillLineSelect($('#fline'), true);
+  const q = $('#q').value.trim().toLowerCase(), f = $('#fstat').value, fl = $('#fline').value;
+  const docs = live().sort((a,b) => (b.date||'').localeCompare(a.date||'') || b.created - a.created);
+  const cnt = {}; docs.forEach(d => cnt[d.number] = (cnt[d.number]||0) + 1);
+  let out = '', n = 0;
+  for (const d of docs){
+    const st = effStatus(d), t = totals(d);
+    if (q && !((d.client.name||'') + ' ' + d.number + ' ' + (d.client.phone||'')).toLowerCase().includes(q)) continue;
+    if (fl && d.line !== fl) continue;
+    if (f === 'Unpaid' && (!isOpenInv(d) || st === 'Paid')) continue;
+    if (f === 'Overdue' && st !== 'Overdue') continue;
+    if (f === 'Paid' && st !== 'Paid') continue;
+    if (f === 'Quotes' && d.type !== 'Quote') continue;
+    if (f === 'Draft' && d.status !== 'Draft') continue;
+    if (f === 'dep' && !(t.dep && d.depRet.status === 'Held' && d.type === 'Invoice')) continue;
+    n++;
+    const ev = (d.event.date ? ' · event ' + fmtDate(d.event.date) : '') + (isOwner() && d.createdBy && d.createdById && d.createdById !== SY.user ? ' · by ' + d.createdBy : '');
+    out += `<tr class="click" onclick="openDoc('${d.id}')"><td class="hm">${esc(d.number)}${cnt[d.number] > 1 ? ' <span class="dup" title="Two documents share this number — change the one you haven’t sent">⚠</span>' : ''}<span class="sub">${esc(d.line)}</span></td><td>${esc(d.client.name || '—')}<span class="sub"><span class="sm-only">${esc(d.number)}${cnt[d.number] > 1 ? ' <span class="dup">⚠</span>' : ''} · </span>${fmtDate(d.date)}${esc(ev)}</span></td><td class="hm">${fmtDate(d.date)}</td><td><span class="status ${statusCls(st)}">${d.type==='Quote'?'Quote · ':''}${st}</span></td><td class="num">${money(t.due)}</td><td class="num hm">${d.type==='Quote'?'—':money(t.bal)}</td></tr>`;
+  }
+  $('#listBody').innerHTML = out;
+  $('#empty').style.display = n ? 'none' : 'block';
+  const inv = live().filter(isOpenInv), ym = today().slice(0,7);
+  const owed = inv.reduce((a,d) => a + totals(d).bal, 0);
+  const month = inv.filter(d => (d.date||'').startsWith(ym)).reduce((a,d) => a + totals(d).total, 0);
+  const coll = inv.reduce((a,d) => a + d.payments.filter(p => (p.date||'').startsWith(ym)).reduce((x,p) => x + num(p.amount), 0), 0);
+  const held = inv.reduce((a,d) => a + totals(d).depHeld, 0);
+  const overdue = inv.filter(d => effStatus(d) === 'Overdue').length;
+  $('#stats').innerHTML = `<div class="stat"><span>Owed to you</span><b>${money(owed)}</b></div><div class="stat"><span>Invoiced this month</span><b>${money(month)}</b></div><div class="stat"><span>Collected this month</span><b>${money(coll)}</b></div><div class="stat"><span>Deposits you're holding</span><b>${money(held)}</b></div><div class="stat"><span>Overdue invoices</span><b>${overdue}</b></div>`;
+}
+
+/* =================== editor =================== */
+function blankDoc(type){
+  const isQ = type === 'Quote';
+  return { id: uid(), type, number: (isQ ? S.qPrefix : S.invPrefix) + pad(isQ ? S.nextQ : S.nextInv), date: today(),
+    due: addDays(today(), isQ ? 14 : S.dueDays), status: 'Draft', line: lineList()[0],
+    client: {name:'', phone:'', email:'', addr:''}, event: {date:'', ret:'', loc:''},
+    items: isOwner() ? [{desc:'', qty:1, days:1, rate:''}] : [], discount:'', delivery:'', deposit:'', payments:[], notes:'',
+    depRet: {status:'Held', kept:'', reason:'', date:''},
+    created: Date.now(), createdBy: SY.who || '', createdById: SY.user || '', _new: true };
+}
+function newDoc(type, custKey){
+  cur = blankDoc(type);
+  backToCust = !!custKey;
+  if (custKey) { const c = customers().get(custKey); if (c) { cur.client = Object.assign({}, c.client); const last = c.docs[0]; if (last) cur.line = last.line; } }
+  PV = {kind:'invoice'}; fillEditor(); setSeg(false); show('edit');
+  if (!custKey) setTimeout(() => { if (document.activeElement === document.body || !document.activeElement) $('#f-cname').focus(); }, 50);
+}
+function openDoc(id){ const d = DOCS.find(x => x.id === id && !x.deleted); if (!d) return; cur = d; backToCust = $('#v-customer').classList.contains('on'); PV = {kind:'invoice'}; fillEditor(); setSeg(false); show('edit'); }
+
+const FIELDS = { 'f-number':['number'], 'f-date':['date'], 'f-due':['due'], 'f-status':['status'], 'f-line':['line'],
+  'f-cname':['client','name'], 'f-cphone':['client','phone'], 'f-cemail':['client','email'], 'f-caddr':['client','addr'],
+  'f-edate':['event','date'], 'f-rdate':['event','ret'], 'f-eloc':['event','loc'],
+  'f-discount':['discount'], 'f-delivery':['delivery'], 'f-deposit':['deposit'], 'f-notes':['notes'],
+  'f-depst':['depRet','status'], 'f-depkept':['depRet','kept'], 'f-depreason':['depRet','reason'], 'f-depdate':['depRet','date'] };
+const getP = (o,p) => p.length === 2 ? o[p[0]][p[1]] : o[p[0]];
+const setP = (o,p,v) => { if (p.length === 2) o[p[0]][p[1]] = v; else o[p[0]] = v; };
+
+function fillEditor(){
+  const isQ = cur.type === 'Quote';
+  $('#f-status').innerHTML = (isQ ? ['Draft','Sent','Accepted','Declined'] : ['Draft','Sent','Cancelled']).map(s => `<option>${s}</option>`).join('');
+  fillLineSelect($('#f-line'));
+  if (cur.line && !lineList().includes(cur.line)) $('#f-line').insertAdjacentHTML('beforeend', `<option>${esc(cur.line)}</option>`);
+  for (const [id,p] of Object.entries(FIELDS)) $('#' + id).value = getP(cur,p) ?? '';
+  $('#edTitle').textContent = (isQ ? 'Quote ' : 'Invoice ') + cur.number;
+  $('#dueLbl span').textContent = isQ ? 'Valid until' : 'Due date';
+  $('#convertBtn').style.display = isQ ? '' : 'none';
+  $('#p-date').value = today(); $('#p-amt').value = ''; $('#p-ref').value = '';
+  renderItems(); refreshQuickAdd(); refreshClients(); refreshAll();
+}
+function refreshAll(){
+  const isQ = cur.type === 'Quote', t = totals(cur);
+  $('#payCard').style.display = isQ ? 'none' : '';
+  $('#depCard').style.display = !isQ && t.dep > 0 ? '' : 'none';
+  const ds = cur.depRet.status;
+  $('#keptLbl').style.display = ds === 'Part kept' ? '' : 'none';
+  $('#reasonLbl').style.display = ds === 'Part kept' || ds === 'Kept' ? '' : 'none';
+  $('#depInfo').textContent = !t.dep ? '' : ds === 'Held' ? `Holding ${money(t.dep)}. When the items come back, set what happened.` :
+    ds === 'Returned' ? `Give back ${money(t.dep)}.` : ds === 'Kept' ? `Keeping all ${money(t.dep)}.` : `Keep ${money(t.kept)}, give back ${money(t.refunded)}.`;
+  $('#edTitle').textContent = (isQ ? 'Quote ' : 'Invoice ') + cur.number;
+  const by = [];
+  if (cur.createdBy) by.push('Created by ' + cur.createdBy);
+  if (cur.updatedBy && cur.updated) by.push('last edit ' + cur.updatedBy + ', ' + fmtStamp(cur.updated));
+  if (cur.fromQuote) by.push('from quote ' + cur.fromQuote);
+  if (cur.convertedTo) by.push('turned into invoice ' + cur.convertedTo);
+  $('#byline').textContent = by.join(' · ');
+  renderPayments(); renderBookWarn(); renderPreview();
+}
+for (const [id,p] of Object.entries(FIELDS)){
+  $('#' + id).addEventListener('input', e => { setP(cur, p, e.target.value); changed(); });
+  $('#' + id).addEventListener('change', e => { setP(cur, p, e.target.value); if (id === 'f-cname') fillClient(); changed(); });
+}
+$('#f-date').addEventListener('change', () => { if (cur.type === 'Invoice') { cur.due = addDays(cur.date, S.dueDays); $('#f-due').value = cur.due; changed(); }});
+$('#f-depst').addEventListener('change', () => { if (cur.depRet.status !== 'Held' && !cur.depRet.date) { cur.depRet.date = today(); $('#f-depdate').value = cur.depRet.date; } changed(); });
+
+let saveT;
+function changed(){ refreshAll(); clearTimeout(saveT); saveT = setTimeout(commit, 400); $('#savedNote').textContent = 'Saving…'; }
+function commit(){
+  clearTimeout(saveT);
+  if (!cur || cur.deleted) return;
+  if (cur._new){
+    delete cur._new; DOCS.push(cur);
+    fixCounters();
+  }
+  cur.updated = Date.now(); cur.updatedBy = SY.who || '';
+  if (!cur.createdById && SY.user) { cur.createdById = SY.user; cur.createdBy = cur.createdBy || SY.who; }
+  if (saveAll()) savedNote();
+}
+function savedNote(){ if (!cur) return; $('#savedNote').textContent = cur._new ? 'Not saved yet — starts when you type' : 'Saved on this device ✓'; }
+
+function renderItems(){
+  const sd = S.showDays === '1';
+  document.querySelectorAll('.daysCol').forEach(e => e.style.display = sd ? '' : 'none');
+  $('#itemBody').innerHTML = cur.items.map((it,i) => `<tr>
+    <td class="d"><input value="${esc(it.desc)}" placeholder="Description" data-i="${i}" data-k="desc"${isOwner() ? '' : ' readonly'}></td>
+    <td class="n"><input type="number" step="any" min="0" inputmode="decimal" value="${esc(it.qty)}" data-i="${i}" data-k="qty" title="Qty" placeholder="Qty"></td>
+    <td class="n" style="${sd?'':'display:none'}"><input type="number" step="any" min="0" inputmode="decimal" value="${esc(it.days)}" data-i="${i}" data-k="days" title="Days — leave blank for items not charged per day (shows —)" placeholder="—"></td>
+    <td class="r"><input type="number" step="any" min="0" inputmode="decimal" value="${esc(it.rate)}" data-i="${i}" data-k="rate" placeholder="Rate"${isOwner() ? '' : ' readonly title="Price comes from the price list"'}></td>
+    <td class="amt" id="amt${i}">${money(lineAmt(it))}</td>
+    <td class="x"><button class="btn sm" onclick="delItem(${i})" title="Remove line" aria-label="Remove line">✕</button></td></tr>`).join('');
+  $('#itemBody').querySelectorAll('input').forEach(inp => inp.addEventListener('input', e => {
+    const i = +e.target.dataset.i, k = e.target.dataset.k; cur.items[i][k] = e.target.value;
+    if (k === 'desc') delete cur.items[i].catId;
+    $('#amt' + i).textContent = money(lineAmt(cur.items[i])); changed();
+  }));
+}
+function addItem(it){ cur.items.push(it || {desc:'', qty:1, days:1, rate:''}); renderItems(); changed(); }
+function delItem(i){ cur.items.splice(i,1); if (!cur.items.length && isOwner()) cur.items.push({desc:'', qty:1, days:1, rate:''}); renderItems(); changed(); }
+function refreshQuickAdd(){
+  $('#quickAdd').innerHTML = '<option value="">+ Add from price list…</option>' + CAT.filter(c => c.name).map(c => `<option value="${c.id}">${esc(c.name)} — ${money(c.rate)}</option>`).join('');
+}
+$('#quickAdd').onchange = e => { const c = CAT.find(x => x.id === e.target.value); if (c){
+  const blank = cur.items.length === 1 && !cur.items[0].desc && !num(cur.items[0].rate);
+  const days = cur.event.date && cur.event.ret ? Math.max(1, Math.round((new Date(cur.event.ret) - new Date(cur.event.date)) / 864e5)) : 1;
+  const it = {desc:c.name, qty:1, days: c.perDay === false ? '' : days, rate:c.rate, catId:c.id};
+  if (blank) { cur.items[0] = it; renderItems(); changed(); } else addItem(it);
+  const rows = $('#itemBody').querySelectorAll('tr'); const q = rows[rows.length - 1].querySelector('[data-k=qty]'); if (q) { q.focus(); q.select(); }
+} e.target.value = ''; };
+
+/* ---- payments ---- */
+function renderPayments(){
+  if (cur.type === 'Quote') return;
+  const t = totals(cur);
+  $('#payTotals').textContent = `Paid ${money(t.paid)} · Balance ${money(t.bal)}`;
+  setHTML($('#payBody'), cur.payments.length ? cur.payments.map((p,i) => `<tr>
+    <td class="d">${fmtDate(p.date)} · ${esc(p.method)}${p.ref ? ' · ' + esc(p.ref) : ''}${p.by ? `<span class="hint"> · by ${esc(p.by)}</span>` : ''}</td>
+    <td class="amt" style="padding-top:8px">${money(p.amount)}</td>
+    <td style="white-space:nowrap"><button class="btn sm" onclick="showReceipt('${p.id}')">Receipt${p.receiptNo ? ' ' + esc(p.receiptNo) : ''}</button></td>
+    <td class="x"><button class="btn sm" onclick="delPayment(${i})" aria-label="Remove payment">✕</button></td></tr>`).join('')
+    : '<tr><td class="hint" style="padding:6px 4px">No payments yet.</td></tr>');
+}
+function addPayment(){
+  const amt = num($('#p-amt').value);
+  if (amt <= 0) { toast('Enter the amount received'); $('#p-amt').focus(); return; }
+  const p = {id:uid(), date:$('#p-date').value || today(), amount:amt, method:$('#p-method').value, ref:$('#p-ref').value.trim(), receiptNo:'', by:SY.who || ''};
+  ensureReceiptNo(p);
+  cur.payments.push(p);
+  if (cur.status === 'Draft') { cur.status = 'Sent'; $('#f-status').value = 'Sent'; }
+  $('#p-amt').value = ''; $('#p-ref').value = '';
+  PV = {kind:'receipt', pid:p.id};
+  changed();
+  toast(`Payment recorded · receipt ${p.receiptNo} ready to send`);
+  if (window.innerWidth <= 700) setSeg(true);
+}
+async function delPayment(i){
+  const p = cur.payments[i];
+  const ok = await ask('Remove this payment?', `${money(p.amount)} received ${fmtDate(p.date)} (${p.method}).${p.receiptNo ? '\nReceipt ' + p.receiptNo + ' will no longer be valid.' : ''}`,
+    [{label:'Remove payment', value:true, cls:'del'}, CANCEL]);
+  if (!ok) return;
+  const at = cur.payments.indexOf(p); if (at < 0) return;
+  cur.payments.splice(at,1); if (PV.pid === p.id) PV = {kind:'invoice'}; changed();
+}
+function ensureReceiptNo(p){
+  if (p.receiptNo) return;
+  fixCounters();
+  p.receiptNo = S.rcPrefix + pad(S.nextRc); S.nextRc = num(S.nextRc) + 1;
+}
+function showReceipt(pid){
+  const p = cur.payments.find(x => x.id === pid); if (!p) return;
+  if (!p.receiptNo) { ensureReceiptNo(p); changed(); }
+  PV = {kind:'receipt', pid}; renderPreview();
+  if (window.innerWidth <= 700) setSeg(true); else $('#prevBar').scrollIntoView({block:'nearest'});
+}
+
+/* ---- double-booking ---- */
+function catFor(it){ return it.catId ? CAT.find(c => c.id === it.catId) : CAT.find(c => c.name && ckey(c.name) === ckey(it.desc)); }
+function rangeOf(d){ const s = d.event.date; if (!s) return null; const e = d.event.ret && d.event.ret >= s ? d.event.ret : s; return [s, e]; }
+function holdsStock(d){ return !d.deleted && d.status !== 'Cancelled' && d.status !== 'Declined' && (d.type === 'Invoice' || (d.status === 'Accepted' && !d.convertedTo)); }
+function bookingIssues(doc){
+  const r = rangeOf(doc); if (!r) return [];
+  const need = {};
+  doc.items.forEach(it => { const c = catFor(it); if (c && num(c.stock) > 0) need[c.id] = (need[c.id]||0) + num(it.qty); });
+  const issues = [];
+  for (const [cid, qty] of Object.entries(need)){
+    const c = CAT.find(x => x.id === cid), others = [];
+    let otherQty = 0;
+    live().forEach(o => { if (o.id === doc.id || !holdsStock(o)) return; const orr = rangeOf(o); if (!orr || orr[1] < r[0] || orr[0] > r[1]) return;
+      const q = o.items.reduce((a,it) => { const oc = catFor(it); return a + (oc && oc.id === cid ? num(it.qty) : 0); }, 0);
+      if (q) { otherQty += q; others.push({d:o, q}); } });
+    if (qty + otherQty > num(c.stock)) issues.push({c, qty, otherQty, others, short: qty + otherQty - num(c.stock)});
+  }
+  return issues;
+}
+function renderBookWarn(){
+  const iss = bookingIssues(cur);
+  setHTML($('#bookWarn'), iss.map(x => `<div class="warnbox">⚠ <b>${esc(x.c.name)}: short by ${x.short}.</b> You own ${num(x.c.stock)}; this ${cur.type.toLowerCase()} needs ${x.qty}${x.others.length ? ', and ' + x.others.map(o => `${esc(o.d.number)} (${esc(o.d.client.name || 'no name')}, ${fmtDate(o.d.event.date)}) has ${o.q}`).join(', ') : ''}.</div>`).join(''));
+}
+
+/* ---- customers (autofill) ---- */
+function customers(){
+  const m = new Map();
+  live().slice().sort((a,b) => (b.date||'').localeCompare(a.date||'') || (b.updated||0) - (a.updated||0)).forEach(d => {
+    const k = ckey(d.client.name); if (!k) return;
+    if (!m.has(k)) m.set(k, {key:k, client:Object.assign({}, d.client), docs:[]});
+    const c = m.get(k); c.docs.push(d);
+    for (const f of ['phone','email','addr']) if (!c.client[f] && d.client[f]) c.client[f] = d.client[f];
+  });
+  return m;
+}
+function refreshClients(){ $('#clientList').innerHTML = [...customers().values()].map(c => `<option value="${esc(c.client.name)}">`).join(''); }
+function fillClient(){
+  const c = customers().get(ckey(cur.client.name));
+  if (!c || c.docs.every(d => d === cur)) return;
+  for (const k of ['phone','email','addr']) if (!cur.client[k] && c.client[k]) cur.client[k] = c.client[k];
+  $('#f-cphone').value = cur.client.phone; $('#f-cemail').value = cur.client.email; $('#f-caddr').value = cur.client.addr;
+}
+
+/* =================== document models =================== */
+function invoiceModel(d){
+  const t = totals(d), sd = S.showDays === '1', isQ = d.type === 'Quote', st = effStatus(d);
+  const items = d.items.filter(i => i.desc || num(i.rate));
+  const cols = sd ? [['Description',.46,'l'],['Qty',.09,'r'],['Days',.09,'r'],['Rate',.16,'r'],['Amount',.20,'r']]
+                  : [['Description',.55,'l'],['Qty',.10,'r'],['Rate',.15,'r'],['Amount',.20,'r']];
+  const rows = items.map(i => sd ? [i.desc, String(num(i.qty)), daysTxt(i), money(i.rate), money(lineAmt(i))] : [i.desc, String(num(i.qty)), money(i.rate), money(lineAmt(i))]);
+  const tot = [{k:'Subtotal', v:money(t.sub)}];
+  if (t.disc) tot.push({k:'Discount', v:'−' + money(t.disc)});
+  if (t.del) tot.push({k:'Delivery / setup', v:money(t.del)});
+  if (S.taxOn === '1') tot.push({k:`${S.taxLabel} (${num(S.taxRate)}%)`, v:money(t.tax)});
+  if (t.dep) tot.push({k:'Refundable deposit', v:money(t.dep)});
+  tot.push({k:'Total', v:money(t.due), s:'grand'});
+  if (!isQ && t.paid) { tot.push({k:'Paid', v:'−' + money(t.paid), s:'muted'}); tot.push({k:'Balance due', v:money(t.bal), s:'bal'}); }
+  const left = [], right = [];
+  if (!isQ && S.payment && t.bal > 0.005) left.push({label:'How to pay', text:S.payment});
+  if (!isQ && d.payments.length) left.push({label:'Payments received', text:d.payments.map(p => `${fmtDate(p.date)} — ${money(p.amount)} (${p.method}${p.receiptNo ? ', ' + p.receiptNo : ''})`).join('\n')});
+  if (!isQ && t.dep && d.depRet.status !== 'Held') right.push({label:'Deposit', text: d.depRet.status === 'Returned' ? `Returned in full (${money(t.dep)})${d.depRet.date ? ' on ' + fmtDate(d.depRet.date) : ''}.` :
+    `${money(t.kept)} kept${d.depRet.reason ? ' for: ' + d.depRet.reason : ''}.${t.refunded ? ' ' + money(t.refunded) + ' returned' : ''}${d.depRet.date ? ' (' + fmtDate(d.depRet.date) + ')' : ''}.`});
+  if (d.notes) right.push({label:'Notes', text:d.notes});
+  if (S.terms) right.push({label:'Terms', text:S.terms, small:true});
+  const ev = [d.event.date ? 'Date: ' + fmtDate(d.event.date) + (d.event.ret && d.event.ret !== d.event.date ? ' → ' + fmtDate(d.event.ret) : '') : '', d.event.loc ? 'Location: ' + d.event.loc : ''].filter(Boolean);
+  const parties = [{label: isQ ? 'Prepared for' : 'Bill to', lines:[d.client.name || '—', d.client.addr, d.client.phone, d.client.email].filter(Boolean), bold:true}];
+  if (ev.length) parties.push({label:'Event', lines:ev});
+  return { title: isQ ? 'QUOTE' : 'INVOICE',
+    meta: [['No.', d.number, true], ['Date', fmtDate(d.date)], d.due ? [isQ ? 'Valid until' : 'Due', fmtDate(d.due)] : null].filter(Boolean),
+    parties, cols, rows, empty:'No items yet', totals:tot, left, right, footer:S.footer,
+    stamp: !isQ && st === 'Paid' ? 'PAID' : d.status === 'Cancelled' ? 'CANCELLED' : null };
+}
+function receiptModel(d, p){
+  const t = totals(d);
+  const upTo = d.payments.slice(0, d.payments.indexOf(p) + 1).reduce((a,x) => a + num(x.amount), 0);
+  const balAfter = Math.max(0, t.due - upTo);
+  return { title:'RECEIPT',
+    meta: [['No.', p.receiptNo, true], ['Date', fmtDate(p.date)], ['Invoice', d.number]],
+    parties: [{label:'Received from', lines:[d.client.name || '—', d.client.phone].filter(Boolean), bold:true},
+              {label:'Payment', lines:[`Method: ${p.method}`, p.ref ? `Reference: ${p.ref}` : ''].filter(Boolean)}],
+    cols: [['Description',.7,'l'],['Amount',.3,'r']],
+    rows: [[`Payment towards invoice ${d.number}` + (d.event.date ? ` (event ${fmtDate(d.event.date)})` : ''), money(p.amount)]],
+    totals: [{k:'Amount received', v:money(p.amount), s:'grand'}, {k:'Invoice total', v:money(t.due), s:'muted'}, {k:'Paid to date', v:money(upTo), s:'muted'},
+             balAfter > 0.005 ? {k:'Balance remaining', v:money(balAfter), s:'bal'} : {k:'Balance remaining', v:money(0), s:'muted'}],
+    left: p.by ? [{label:'Received by', text:p.by}] : [], right: [], footer:S.footer,
+    stamp: balAfter <= 0.005 ? 'PAID IN FULL' : null };
+}
+function statementModel(c, onlyOpen){
+  let docs = c.docs.filter(isOpenInv).sort((a,b) => (a.date||'').localeCompare(b.date||''));
+  if (onlyOpen) docs = docs.filter(d => totals(d).bal > 0.005);
+  const sum = docs.reduce((a,d) => { const t = totals(d); a.due += t.due; a.paid += t.paid; a.bal += t.bal; return a; }, {due:0, paid:0, bal:0});
+  const left = [];
+  if (S.payment && sum.bal > 0.005) left.push({label:'How to pay', text:S.payment});
+  return { title:'STATEMENT', meta:[['Date', fmtDate(today()), true], ['Invoices', String(docs.length)]],
+    parties:[{label:'Account', lines:[c.client.name, c.client.addr, c.client.phone, c.client.email].filter(Boolean), bold:true}],
+    cols:[['Date',.18,'l'],['Invoice',.22,'l'],['Total',.2,'r'],['Paid',.2,'r'],['Balance',.2,'r']],
+    rows: docs.map(d => { const t = totals(d); return [fmtDate(d.date), d.number + (d.due && t.bal > 0.005 && d.due < today() ? ' (overdue)' : ''), money(t.due), money(t.paid), money(t.bal)]; }),
+    empty: onlyOpen ? 'Nothing owed — all paid up.' : 'No invoices yet',
+    totals:[{k:'Total invoiced', v:money(sum.due)}, {k:'Total paid', v:money(sum.paid), s:'muted'}, {k:'Balance owed', v:money(sum.bal), s: sum.bal > 0.005 ? 'bal' : 'grand'}],
+    left, right:[], footer:S.footer, stamp: docs.length && sum.bal <= 0.005 ? 'ALL PAID' : null };
+}
+
+/* =================== render: HTML =================== */
+function modelHTML(m){
+  const bizLines = [S.address, [S.phone, S.email].filter(Boolean).join(' · '), S.trn ? 'TRN: ' + S.trn : ''].filter(Boolean).join('\n');
+  const block = b => `<div class="lbl">${esc(b.label)}</div><p${b.small ? ' class="small"' : ''}>${esc(b.text)}</p>`;
+  return `${m.stamp ? `<div class="stamp"${m.stamp === 'CANCELLED' ? ' style="color:#888;border-color:#888"' : ''}>${esc(m.stamp)}</div>` : ''}
+  <div class="dh">
+    <div class="biz${S.logo && S.logoHasName === '1' ? ' namelogo' : ''}">${S.logo ? `<img src="${S.logo}" alt="${esc(S.bizName)}">` : ''}<div>${S.logo && S.logoHasName === '1' ? '' : `<h3>${esc(S.bizName)}</h3>`}${S.tagline ? `<p style="color:var(--accent);font-weight:600">${esc(S.tagline)}</p>` : ''}<p>${esc(bizLines)}</p></div></div>
+    <div class="ttl"><h2>${esc(m.title)}</h2><table>${m.meta.map(([k,v,b]) => `<tr><td>${esc(k)}</td><td>${b ? '<b>' + esc(v) + '</b>' : esc(v)}</td></tr>`).join('')}</table></div>
+  </div>
+  <div class="parties">${m.parties.map(p => `<div><div class="lbl">${esc(p.label)}</div><p>${p.lines.map((l,i) => i === 0 && p.bold ? '<b>' + esc(l) + '</b>' : esc(l)).join('\n')}</p></div>`).join('')}</div>
+  <table class="li"><thead><tr>${m.cols.map(c => `<th${c[2] === 'r' ? ' class="num"' : ''}>${esc(c[0])}</th>`).join('')}</tr></thead><tbody>
+    ${m.rows.length ? m.rows.map(r => `<tr>${r.map((v,i) => `<td${m.cols[i][2] === 'r' ? ' class="num"' : ''}>${esc(v)}</td>`).join('')}</tr>`).join('') : `<tr><td colspan="${m.cols.length}" style="color:#999">${esc(m.empty || '')}</td></tr>`}
+  </tbody></table>
+  <table class="tot">${m.totals.map(t => `<tr${t.s ? ` class="${t.s}"` : ''}><td>${esc(t.k)}</td><td>${esc(t.v)}</td></tr>`).join('')}</table>
+  ${m.left.length || m.right.length ? `<div class="foot"><div>${m.left.map(block).join('')}</div><div>${m.right.map(block).join('')}</div></div>` : ''}
+  ${m.footer ? `<div class="thanks">${esc(m.footer)}</div>` : ''}`;
+}
+function currentModel(which){
+  if (which === 'stmt') { const c = customers().get(CUST); return c ? statementModel(c, $('#stOnlyOpen').checked) : null; }
+  if (PV.kind === 'receipt') { const p = cur.payments.find(x => x.id === PV.pid); if (p) return receiptModel(cur, p); PV = {kind:'invoice'}; }
+  return invoiceModel(cur);
+}
+function renderPreview(){
+  document.documentElement.style.setProperty('--accent', S.accent);
+  setHTML($('#doc'), modelHTML(currentModel()));
+  if (PV.kind === 'receipt') { const p = cur.payments.find(x => x.id === PV.pid);
+    setHTML($('#prevBar'), `<span>Showing <b>receipt ${esc(p.receiptNo)}</b> (${money(p.amount)})</span><button class="btn sm" onclick="PV={kind:'invoice'};renderPreview()">Show ${cur.type.toLowerCase()}</button>`);
+  } else setHTML($('#prevBar'), `<span>Showing <b>${cur.type.toLowerCase()} ${esc(cur.number)}</b></span>${cur.payments.length ? '<span class="hint">Tap “Receipt” on a payment to show its receipt</span>' : ''}`);
+}
+
+/* =================== render: image (canvas) =================== */
+function loadImg(src){ return new Promise(r => { if (!src) return r(null); const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = src; }); }
+function wrap(ctx, text, maxW){
+  const out = [];
+  String(text||'').split('\n').forEach(par => {
+    const words = par.split(' '); let line = '';
+    words.forEach(w => { const test = line ? line + ' ' + w : w; if (ctx.measureText(test).width > maxW && line) { out.push(line); line = w; } else line = test; });
+    out.push(line);
+  });
+  return out;
+}
+async function modelCanvas(m, scale){
+  const W = 1240, M = 80, F = 'system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif', A = S.accent || '#e8318a';
+  const logo = await loadImg(S.logo);
+  const k = scale || 1;
+  const c = document.createElement('canvas'); c.width = W * k; c.height = 6000 * k;
+  const x = c.getContext('2d'); x.scale(k, k);
+  const breaks = [];
+  const font = (sz, w) => x.font = `${w||400} ${sz}px ${F}`;
+  x.fillStyle = '#fff'; x.fillRect(0,0,W,6000); x.textBaseline = 'top';
+  let y = M, bx = M;
+  const nameInLogo = logo && S.logoHasName === '1';
+  const LB = nameInLogo ? 220 : 150;
+  let lh = 0;
+  if (logo) { const s = Math.min(LB/logo.width, LB/logo.height); lh = logo.height*s; x.drawImage(logo, M, y, logo.width*s, lh); bx = M + logo.width*s + 28; }
+  const bizLines = [S.address, [S.phone, S.email].filter(Boolean).join(' · '), S.trn ? 'TRN: ' + S.trn : ''].filter(Boolean).join('\n').split('\n');
+  const textH = (S.tagline ? 30 : 0) + bizLines.length * 28 - 6;
+  let ly = nameInLogo ? y + Math.max(0, (lh - textH) / 2) : y;
+  if (!nameInLogo) { font(34, 800); x.fillStyle = '#1a1a1a'; x.fillText(S.bizName, bx, y); ly = y + 46; }
+  if (S.tagline) { font(20, 600); x.fillStyle = A; x.fillText(S.tagline, bx, ly); ly += 30; }
+  font(20); x.fillStyle = '#555';
+  bizLines.forEach(l => { x.fillText(l, bx, ly); ly += 28; });
+  x.textAlign = 'right'; font(56, 800); x.fillStyle = A; x.fillText(m.title, W - M, y);
+  let ry = y + 74;
+  m.meta.forEach(([k,v,b]) => { font(21, b ? 700 : 400); x.fillStyle = '#1a1a1a'; x.fillText(v, W - M, ry); const vw = x.measureText(v).width; font(21); x.fillStyle = '#777'; x.fillText(k, W - M - vw - 20, ry); ry += 32; });
+  x.textAlign = 'left';
+  y = Math.max(ly, ry, logo ? y + LB + 10 : 0) + 16;
+  x.fillStyle = A; x.fillRect(M, y, W - 2*M, 6); y += 36;
+  const colW = (W - 2*M - 40) / 2;
+  let py = y;
+  m.parties.forEach((p, pi) => { let yy = y, bxp = M + pi * (colW + 40);
+    font(16, 700); x.fillStyle = '#888'; x.fillText(p.label.toUpperCase(), bxp, yy); yy += 26;
+    p.lines.forEach((l,i) => { font(22, i === 0 && p.bold ? 700 : 400); x.fillStyle = '#1a1a1a'; wrap(x, l, colW).forEach(w => { x.fillText(w, bxp, yy); yy += 30; }); });
+    py = Math.max(py, yy); });
+  y = py + 24;
+  const TW = W - 2*M; let cx = M; const pos = m.cols.map(cc => { const p = {x:cx, w:cc[1]*TW, a:cc[2], h:cc[0]}; cx += p.w; return p; });
+  breaks.push(y - 10);
+  x.fillStyle = A; x.fillRect(M, y, TW, 48); font(19, 700); x.fillStyle = '#fff';
+  pos.forEach(p => { x.textAlign = p.a === 'r' ? 'right' : 'left'; x.fillText(p.h, p.a === 'r' ? p.x + p.w - 14 : p.x + 14, y + 14); });
+  y += 48; x.textAlign = 'left';
+  if (!m.rows.length) { font(21); x.fillStyle = '#999'; x.fillText(m.empty || '', M + 14, y + 12); y += 52; }
+  m.rows.forEach(r => {
+    font(21);
+    const cells = r.map((v,i) => pos[i].a === 'l' ? wrap(x, v, pos[i].w - 28) : [v]);
+    const h = Math.max(...cells.map(cl => cl.length)) * 30 + 22;
+    x.fillStyle = '#1a1a1a';
+    cells.forEach((cl,i) => { const p = pos[i]; x.textAlign = p.a === 'r' ? 'right' : 'left'; cl.forEach((l,k) => x.fillText(l, p.a === 'r' ? p.x + p.w - 14 : p.x + 14, y + 12 + k*30)); });
+    x.textAlign = 'left'; y += h; x.fillStyle = '#eee'; x.fillRect(M, y - 1, TW, 2);
+    breaks.push(y + 2);
+  });
+  y += 20;
+  const tx = W - M - 540, tw = 540;
+  m.totals.forEach(t => {
+    if (t.s === 'grand') { x.fillStyle = '#1a1a1a'; x.fillRect(tx, y, tw, 3); y += 14; font(28, 800); x.fillStyle = '#1a1a1a'; x.textAlign = 'left'; x.fillText(t.k, tx + 14, y); x.textAlign = 'right'; x.fillText(t.v, W - M - 14, y); y += 46; }
+    else if (t.s === 'bal') { y += 4; x.fillStyle = A; x.fillRect(tx, y, tw, 56); font(28, 800); x.fillStyle = '#fff'; x.textAlign = 'left'; x.fillText(t.k, tx + 14, y + 13); x.textAlign = 'right'; x.fillText(t.v, W - M - 14, y + 13); y += 72; }
+    else { font(22); x.fillStyle = t.s === 'muted' ? '#555' : '#444'; x.textAlign = 'left'; x.fillText(t.k, tx + 14, y); x.textAlign = 'right'; x.fillStyle = t.s === 'muted' ? '#555' : '#1a1a1a'; x.fillText(t.v, W - M - 14, y); y += 36; }
+  });
+  x.textAlign = 'left'; y += 24; breaks.push(y - 10);
+  const col = (blocks, bxp) => { let yy = y; blocks.forEach(b => { font(16, 700); x.fillStyle = '#888'; x.fillText(b.label.toUpperCase(), bxp, yy); yy += 26; const sz = b.small ? 18 : 20; font(sz); x.fillStyle = b.small ? '#555' : '#333'; wrap(x, b.text, colW).forEach(l => { x.fillText(l, bxp, yy); yy += sz * 1.4; }); yy += 16; }); return yy; };
+  y = Math.max(col(m.left, M), col(m.right, M + colW + 40)) + 6;
+  breaks.push(y - 4);
+  if (m.footer) { x.fillStyle = '#eee'; x.fillRect(M, y, TW, 2); y += 22; font(20); x.fillStyle = '#777'; x.textAlign = 'center'; x.fillText(m.footer, W/2, y); y += 40; x.textAlign = 'left'; }
+  if (m.stamp) { const sc = m.stamp === 'CANCELLED' ? '#888' : '#1b7f4b'; x.save(); font(52, 900); const sw = x.measureText(m.stamp).width + 50; x.translate(W - M - sw/2 - 40, 330); x.rotate(-0.24); x.globalAlpha = .75; x.strokeStyle = sc; x.lineWidth = 7; x.strokeRect(-sw/2, -42, sw, 84); x.fillStyle = sc; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(m.stamp, 0, 2); x.restore(); }
+  const H = Math.max(y + M - 20, W);
+  const out = document.createElement('canvas'); out.width = W * k; out.height = Math.round(H * k);
+  const o = out.getContext('2d'); o.fillStyle = '#fff'; o.fillRect(0,0,out.width,out.height); o.drawImage(c, 0, 0);
+  out.breaks = breaks.map(b => Math.round(b * k)); out.margin = M * k;
+  return out;
+}
+
+/* =================== output actions =================== */
+const safe = s => String(s || '').replace(/[^\w\- ]+/g, '').trim();
+function outName(which){
+  if (which === 'stmt') { const c = customers().get(CUST); return `Statement ${safe(c && c.client.name)} ${fmtDate(today()).replace(/\//g, '-')}`; }
+  if (PV.kind === 'receipt') { const p = cur.payments.find(x => x.id === PV.pid); return `${p.receiptNo} ${safe(cur.client.name)}`; }
+  return `${cur.number} ${safe(cur.client.name)}`.trim();
+}
+const toBlob = cv => new Promise(r => cv.toBlob(r, 'image/png'));
+function prepOut(which){ if (which !== 'stmt') { commit(); if (cur.status === 'Draft' && PV.kind === 'invoice') { cur.status = 'Sent'; $('#f-status').value = 'Sent'; commit(); refreshAll(); } } }
+async function outImage(which){
+  prepOut(which);
+  const m = currentModel(which); if (!m) return;
+  const blob = await toBlob(await modelCanvas(m));
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = outName(which) + '.png';
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  toast('Image saved to Downloads');
+}
+async function outShare(which){
+  prepOut(which);
+  const blob = await toBlob(await modelCanvas(currentModel(which)));
+  const f = new File([blob], outName(which) + '.png', {type:'image/png'});
+  try { await navigator.share({files:[f], title:outName(which)}); } catch(e) { if (e.name !== 'AbortError') outImage(which); }
+}
+try { if (navigator.canShare && navigator.canShare({files:[new File(['x'], 'x.png', {type:'image/png'})]})) $('#shareBtn').style.display = ''; } catch(e){}
+function outPrint(which){
+  prepOut(which);
+  const m = currentModel(which); if (!m) return;
+  $('#printArea').innerHTML = modelHTML(m);
+  const t = document.title; document.title = outName(which);
+  const t0 = Date.now();
+  try { window.print(); } catch(e) {}
+  document.title = t;
+  // A real print window pauses the page. If print() came straight back, the viewer blocked it: give a PDF instead.
+  if (Date.now() - t0 < 300) setTimeout(() => { toast('Printing is blocked here, so a PDF was downloaded instead'); outPDF(which); }, 50);
+}
+/* ---- PDF built in the app (no print window needed, works where pop-ups are blocked) ---- */
+async function deflate(bytes){
+  if (typeof CompressionStream === 'undefined') return null;
+  const cs = new CompressionStream('deflate');            // zlib format = PDF FlateDecode
+  const out = new Response(new Blob([bytes]).stream().pipeThrough(cs));
+  return new Uint8Array(await out.arrayBuffer());
+}
+async function canvasToPDF(cv){
+  const PW = 595.28, PH = 841.89;                          // A4 in points
+  const pagePx = Math.round(cv.width * PH / PW), mg = cv.margin || 0, brk = (cv.breaks || []).filter(b => b > 0 && b < cv.height);
+  const pages = [];
+  let y = 0;
+  while (y < cv.height - mg * 0.5) {
+    const top = y === 0 ? 0 : mg;                          // page 1 already has its own top margin
+    const room = pagePx - top - mg;                        // keep a bottom margin on every page
+    let end = cv.height;
+    if (cv.height - y > pagePx - top) {                    // doesn't fit: cut at the last row/section boundary that fits
+      const fit = brk.filter(b => b > y + 50 && b <= y + room);
+      end = fit.length ? fit[fit.length - 1] : y + room;
+    }
+    const h = Math.min(pagePx, top + (end - y));
+    const c = document.createElement('canvas'); c.width = cv.width; c.height = pagePx > h && end < cv.height ? pagePx : h;
+    const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0,0,c.width,c.height); x.drawImage(cv, 0, y, cv.width, end - y, 0, top, cv.width, end - y);
+    y = end;
+    const rgba = x.getImageData(0, 0, c.width, c.height).data, rgb = new Uint8Array(c.width * c.height * 3);
+    for (let i = 0, j = 0; i < rgba.length; i += 4) { rgb[j++] = rgba[i]; rgb[j++] = rgba[i+1]; rgb[j++] = rgba[i+2]; }
+    let data = await deflate(rgb), filter = '/FlateDecode';
+    if (!data) { data = Uint8Array.from(atob(c.toDataURL('image/jpeg', 0.92).split(',')[1]), ch => ch.charCodeAt(0)); filter = '/DCTDecode'; }
+    pages.push({w:c.width, h:c.height, data, filter});
+  }
+  const enc = new TextEncoder(), parts = [], offs = []; let len = 0;
+  const put = p => { const b = typeof p === 'string' ? enc.encode(p) : p; parts.push(b); len += b.length; };
+  const obj = (n, head, stream) => { offs[n] = len; put(`${n} 0 obj\n${head}\n`); if (stream) { put('stream\n'); put(stream); put('\nendstream\n'); } put('endobj\n'); };
+  put('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+  const n = pages.length, kids = pages.map((_, i) => `${3 + i*3} 0 R`).join(' ');
+  obj(1, '<< /Type /Catalog /Pages 2 0 R >>');
+  obj(2, `<< /Type /Pages /Kids [${kids}] /Count ${n} >>`);
+  pages.forEach((p, i) => {
+    const pg = 3 + i*3, ct = pg + 1, im = pg + 2;
+    const dh = p.h * PW / p.w;                             // drawn height in points
+    obj(pg, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /XObject << /Im0 ${im} 0 R >> >> /Contents ${ct} 0 R >>`);
+    const cmd = enc.encode(`q ${PW} 0 0 ${dh.toFixed(2)} 0 ${(PH - dh).toFixed(2)} cm /Im0 Do Q`);
+    obj(ct, `<< /Length ${cmd.length} >>`, cmd);
+    obj(im, `<< /Type /XObject /Subtype /Image /Width ${p.w} /Height ${p.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter ${p.filter} /Length ${p.data.length} >>`, p.data);
+  });
+  const xref = len, total = 3 + n*3;
+  put(`xref\n0 ${total}\n0000000000 65535 f \n` + offs.slice(1, total).map(o => String(o).padStart(10, '0') + ' 00000 n \n').join(''));
+  put(`trailer\n<< /Size ${total} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`);
+  return new Blob(parts, {type:'application/pdf'});
+}
+async function outPDF(which){
+  prepOut(which);
+  const m = currentModel(which); if (!m) return;
+  toast('Making PDF…');
+  const blob = await canvasToPDF(await modelCanvas(m, 2));
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = outName(which) + '.pdf';
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+  toast('PDF saved to Downloads');
+}
+
+function waPhone(p){ let d = String(p||'').replace(/\D/g, ''); if (d.length === 7) d = '1876' + d; else if (d.length === 10) d = '1' + d; return d; }
+function summaryText(which){
+  if (which === 'stmt') {
+    const c = customers().get(CUST), m = statementModel(c, $('#stOnlyOpen').checked);
+    return `${S.bizName}\nStatement for ${c.client.name} — ${fmtDate(today())}\n\n` + m.rows.map(r => `• ${r[1]} (${r[0]}): total ${r[2]}, balance ${r[4]}`).join('\n') +
+      `\n\nBalance owed: ${m.totals[2].v}` + (S.payment ? `\n\n${S.payment}` : '');
+  }
+  const t = totals(cur);
+  if (PV.kind === 'receipt') {
+    const p = cur.payments.find(x => x.id === PV.pid), m = receiptModel(cur, p);
+    return `${S.bizName}\nReceipt ${p.receiptNo} — ${fmtDate(p.date)}\nReceived ${money(p.amount)} from ${cur.client.name || 'customer'} (${p.method}${p.ref ? ', ref ' + p.ref : ''}) for invoice ${cur.number}.\n${m.totals[3].k}: ${m.totals[3].v}\n\nThank you!`;
+  }
+  const isQ = cur.type === 'Quote';
+  let s = `${S.bizName}\n${isQ ? 'Quote' : 'Invoice'} ${cur.number} — ${fmtDate(cur.date)}\n`;
+  if (cur.client.name) s += `For: ${cur.client.name}\n`;
+  if (cur.event.date) s += `Event: ${fmtDate(cur.event.date)}${cur.event.loc ? ', ' + cur.event.loc : ''}\n`;
+  s += '\n' + cur.items.filter(i => i.desc).map(i => `• ${i.desc} × ${num(i.qty)}${S.showDays === '1' && num(i.days) > 1 ? ' × ' + num(i.days) + ' days' : ''} = ${money(lineAmt(i))}`).join('\n');
+  if (t.del) s += `\n• Delivery / setup = ${money(t.del)}`;
+  if (t.disc) s += `\n• Discount = −${money(t.disc)}`;
+  if (t.tax) s += `\n• ${S.taxLabel} = ${money(t.tax)}`;
+  if (t.dep) s += `\n• Refundable deposit = ${money(t.dep)}`;
+  s += `\n\nTotal: ${money(t.due)}`;
+  if (!isQ && t.paid) s += `\nPaid: ${money(t.paid)}\nBalance due: ${money(t.bal)}`;
+  if (!isQ && cur.due && t.bal > 0) s += `\nDue by: ${fmtDate(cur.due)}`;
+  if (!isQ && S.payment && t.bal > 0) s += `\n\n${S.payment}`;
+  return s;
+}
+function canShareFiles(){
+  try { return !!(navigator.share && navigator.canShare && navigator.canShare({files:[new File(['x'], 'x.pdf', {type:'application/pdf'})]})); } catch(e) { return false; }
+}
+function saveBlob(blob, name){
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+}
+// WhatsApp links can only carry text, so files go through the phone's Share sheet (pick WhatsApp there).
+async function outWhatsApp(which){
+  prepOut(which);
+  const m = currentModel(which); if (!m) return;
+  const name = outName(which);
+  const c = which === 'stmt' ? (customers().get(CUST) || {client:{}}).client : cur.client;
+  const what = which === 'stmt' ? 'statement' : PV.kind === 'receipt' ? 'receipt' : cur.type.toLowerCase();
+  // start building both files now, so they're ready the moment a choice is tapped (phones only allow sharing right after a tap)
+  const files = {
+    img: modelCanvas(m).then(toBlob).then(b => new File([b], name + '.png', {type:'image/png'})),
+    pdf: modelCanvas(m, 2).then(canvasToPDF).then(b => new File([b], name + '.pdf', {type:'application/pdf'}))
+  };
+  const share = canShareFiles();
+  const choice = await ask('Send on WhatsApp', `Send this ${what}${c.name ? ' to ' + c.name : ''} as:` +
+      (share ? '\n\nYour share menu opens next: pick WhatsApp, then the chat.' : '\n\nThis device can’t attach files directly: the file will be saved and the WhatsApp chat opened, then tap 📎 to attach it.'),
+    [{label:'Image (best for phones)', value:'img', cls:'pri'}, {label:'PDF (best for printing)', value:'pdf'}, CANCEL]);
+  if (!choice) return;
+  const file = await files[choice];
+  if (share) {
+    try { await navigator.share({files:[file]}); return; }
+    catch(e) { if (e.name === 'AbortError') return; }      // cancelled by user: do nothing
+  }
+  saveBlob(file, file.name);
+  const p = waPhone(c.phone);
+  toast(`${choice === 'pdf' ? 'PDF' : 'Image'} saved. In WhatsApp tap 📎 and pick it from your files.`);
+  setTimeout(() => window.open('https://wa.me/' + p, '_blank'), 600);
+}
+
+/* =================== editor actions =================== */
+function duplicateDoc(){
+  const c = JSON.parse(JSON.stringify(cur)); const isQ = c.type === 'Quote';
+  Object.assign(c, {id:uid(), number:(isQ ? S.qPrefix : S.invPrefix) + pad(isQ ? S.nextQ : S.nextInv), date:today(), due:addDays(today(), isQ?14:S.dueDays),
+    status:'Draft', payments:[], depRet:{status:'Held', kept:'', reason:'', date:''}, created:Date.now(), createdBy:SY.who || '', createdById:SY.user || '', updatedBy:'', fromQuote:'', _new:true});
+  if (!isOwner()) staffReprice(c);
+  cur = c; PV = {kind:'invoice'}; fillEditor(); commit(); toast('Copied to ' + c.number);
+}
+// staff copies use today's price-list prices (lines no longer on the price list are dropped)
+function staffReprice(d){
+  const before = d.items.length;
+  d.items = d.items.map(it => { const c = catFor(it); return c ? Object.assign({}, it, {desc:c.name, rate:c.rate, catId:c.id}) : null; }).filter(Boolean);
+  d.discount = '';
+  if (d.items.length < before) setTimeout(() => toast('Some lines weren’t on the price list and were removed'), 800);
+}
+async function convertToInvoice(){
+  if (!await ask(cur.convertedTo ? 'This quote was already turned into an invoice' : 'Turn this quote into an invoice?',
+    cur.convertedTo ? `${cur.number} already became invoice ${cur.convertedTo}. Make another invoice from it anyway?` : `A new invoice will be created from ${cur.number}. The quote is kept and marked Accepted.`, [{label:'Create invoice', value:true, cls:'pri'}, CANCEL])) return;
+  const q = cur, newNum = S.invPrefix + pad(S.nextInv);
+  if (q.status === 'Draft' || q.status === 'Sent') q.status = 'Accepted';
+  q.convertedTo = newNum; commit();
+  const c = JSON.parse(JSON.stringify(q)); delete c.convertedTo;
+  Object.assign(c, {id:uid(), type:'Invoice', number:S.invPrefix + pad(S.nextInv), date:today(), due:addDays(today(), S.dueDays), status:'Draft',
+    payments:[], created:Date.now(), createdBy:SY.who || '', createdById:SY.user || '', updatedBy:'', _new:true, fromQuote:cur.number});
+  if (!isOwner()) staffReprice(c);
+  cur = c; PV = {kind:'invoice'}; fillEditor(); commit(); toast('Invoice ' + c.number + ' created');
+}
+async function deleteDoc(){
+  if (cur._new) {
+    if (!isBlank(cur) && !await ask('Discard this new ' + cur.type.toLowerCase() + '?', 'It hasn’t been saved yet.', [{label:'Discard', value:true, cls:'del'}, {label:'Keep editing', value:null}])) return;
+    cur = null; show('list'); return;
+  }
+  const hasPay = cur.payments && cur.payments.length;
+  if (!isOwner() && (cur.status !== 'Draft' || hasPay)) {
+    const c = await ask('Only an owner can delete this', `${cur.number} has been sent or has payments. You can mark it cancelled instead, or ask an owner to delete it.`,
+      [{label:'Mark cancelled', value:'cancel', cls:'pri'}, {label:'Keep it', value:null}]);
+    if (c === 'cancel') { cur.status = 'Cancelled'; $('#f-status').value = 'Cancelled'; changed(); toast(cur.number + ' marked cancelled'); }
+    return;
+  }
+  const name = cur.client.name ? ` for ${cur.client.name}` : '';
+  const choice = await ask(`Delete ${cur.number}?`,
+    `This ${cur.type.toLowerCase()}${name} (${money(totals(cur).due)}) will be removed from this device and every synced device. This can’t be undone.` +
+    (hasPay ? `\n\nIt has ${cur.payments.length} payment(s) recorded. If the job fell through, “Mark cancelled” keeps your records and receipt numbers complete.` : ''),
+    [{label:'Delete', value:'delete', cls:'del'}].concat(hasPay && cur.type === 'Invoice' ? [{label:'Mark cancelled instead', value:'cancel'}] : []).concat([{label:'Keep it', value:null}]));
+  if (choice === 'cancel') { cur.status = 'Cancelled'; $('#f-status').value = 'Cancelled'; changed(); toast(cur.number + ' marked cancelled'); return; }
+  if (choice !== 'delete' || !cur) return;
+  clearTimeout(saveT);
+  const id = cur.id, number = cur.number;
+  for (const k of Object.keys(cur)) delete cur[k];
+  Object.assign(cur, {id, number, deleted:true, updated:Date.now(), updatedBy:SY.who || ''});
+  cur = null; saveAll(); show('list'); toast('Deleted');
+}
+
+/* =================== customers =================== */
+function custStats(c){
+  const inv = c.docs.filter(isOpenInv);
+  return inv.reduce((a,d) => { const t = totals(d); a.billed += t.total; a.owed += t.bal; a.n++; return a; }, {billed:0, owed:0, n:0, last:c.docs[0] ? c.docs[0].date : ''});
+}
+function renderCustomers(){
+  const q = ckey($('#cq').value), sort = $('#csort').value;
+  let list = [...customers().values()].map(c => Object.assign(c, {st:custStats(c)}));
+  if (q) list = list.filter(c => (c.key + ' ' + (c.client.phone||'')).includes(q));
+  list.sort((a,b) => sort === 'name' ? a.key.localeCompare(b.key) : sort === 'recent' ? (b.st.last||'').localeCompare(a.st.last||'') : sort === 'billed' ? b.st.billed - a.st.billed : b.st.owed - a.st.owed || (b.st.last||'').localeCompare(a.st.last||''));
+  $('#custBody').innerHTML = list.map(c => `<tr class="click" onclick="openCustomer(${esc(JSON.stringify(c.key))})"><td>${esc(c.client.name)}<span class="sub">${esc(c.client.phone || '')}</span></td><td class="num hm">${c.st.n}</td><td class="num hm">${money(c.st.billed)}</td><td class="num"${c.st.owed > 0.005 ? ' style="color:var(--bad);font-weight:600"' : ''}>${money(c.st.owed)}</td></tr>`).join('');
+  $('#cempty').style.display = list.length ? 'none' : 'block';
+}
+function openCustomer(name){ const k = ckey(name); if (!k) return toast('Add a customer name first'); if (cur && cur._new && !isBlank(cur)) commit(); CUST = k; show('customer'); }
+function renderCustomer(){
+  const c = customers().get(CUST); if (!c) { show('customers'); return; }
+  const st = custStats(c);
+  $('#cuName').textContent = c.client.name;
+  $('#cuInfo').textContent = [c.client.phone, c.client.email, c.client.addr].filter(Boolean).join(' · ');
+  const paid = c.docs.filter(isOpenInv).reduce((a,d) => a + totals(d).paid, 0);
+  $('#cuStats').innerHTML = `<div class="stat"><span>Billed</span><b>${money(st.billed)}</b></div><div class="stat"><span>Paid</span><b>${money(paid)}</b></div><div class="stat"><span>Owes</span><b>${money(st.owed)}</b></div>`;
+  $('#cuBody').innerHTML = c.docs.map(d => { const s = effStatus(d), t = totals(d); return `<tr class="click" onclick="openDoc('${d.id}')"><td>${esc(d.number)}<span class="sub">${fmtDate(d.date)}</span></td><td class="hm">${fmtDate(d.date)}</td><td><span class="status ${statusCls(s)}">${d.type==='Quote'?'Quote · ':''}${s}</span></td><td class="num">${money(t.due)}</td><td class="num">${d.type==='Quote'?'—':money(t.bal)}</td></tr>`; }).join('');
+  renderStatement();
+}
+function renderStatement(){ const m = currentModel('stmt'); if (m) setHTML($('#stmtDoc'), modelHTML(m)); }
+
+/* =================== reports =================== */
+function renderReports(){
+  const sel = $('#rmonth'), v = sel.value;
+  const months = new Set([today().slice(0,7)]);
+  live().forEach(d => { if (d.date) months.add(d.date.slice(0,7)); (d.payments||[]).forEach(p => p.date && months.add(p.date.slice(0,7))); });
+  const ms = [...months].sort().reverse();
+  const yrs = [...new Set(ms.map(m => m.slice(0,4)))];
+  sel.innerHTML = ms.map(m => `<option value="${m}">${new Date(m + '-15').toLocaleDateString('en-GB', {month:'long', year:'numeric'})}</option>`).join('') +
+    yrs.map(y => `<option value="${y}">Year ${y}</option>`).join('') + '<option value="">All time</option>';
+  sel.value = v !== '' && ![...sel.options].some(o => o.value === v) ? ms[0] : v || (sel.dataset.init ? '' : ms[0]); sel.dataset.init = 1;
+  const per = sel.value, inP = dt => !per || (dt || '').startsWith(per);
+  const rows = {}; lineList().forEach(l => rows[l] = {inv:0, coll:0, kept:0, owed:0});
+  live().filter(isOpenInv).forEach(d => {
+    const r = rows[d.line] || (rows[d.line] = {inv:0, coll:0, kept:0, owed:0}), t = totals(d);
+    if (inP(d.date)) { r.inv += t.total; r.owed += t.bal; }
+    d.payments.forEach(p => { if (inP(p.date)) r.coll += num(p.amount); });
+    if (t.kept && inP(d.depRet.date || d.date)) r.kept += t.kept;
+  });
+  const T = Object.values(rows).reduce((a,r) => { for (const k in r) a[k] += r[k]; return a; }, {inv:0, coll:0, kept:0, owed:0});
+  $('#rBody').innerHTML = Object.entries(rows).map(([l,r]) => `<tr><td>${esc(l)}</td><td class="num">${money(r.inv)}</td><td class="num">${money(r.coll)}</td><td class="num hm">${money(r.kept)}</td><td class="num">${money(r.owed)}</td></tr>`).join('') +
+    `<tr style="font-weight:700"><td>Total</td><td class="num">${money(T.inv)}</td><td class="num">${money(T.coll)}</td><td class="num hm">${money(T.kept)}</td><td class="num">${money(T.owed)}</td></tr>`;
+  const nInv = live().filter(d => isOpenInv(d) && inP(d.date)).length;
+  const held = live().filter(isOpenInv).reduce((a,d) => a + totals(d).depHeld, 0);
+  $('#rStats').innerHTML = `<div class="stat"><span>Invoiced</span><b>${money(T.inv)}</b></div><div class="stat"><span>Collected</span><b>${money(T.coll)}</b></div><div class="stat"><span>Invoices</span><b>${nInv}</b></div><div class="stat"><span>Deposits held now</span><b>${money(held)}</b></div>`;
+}
+function csv(rows){ return rows.map(r => r.map(v => { v = v == null ? '' : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(',')).join('\r\n'); }
+function exportCSV(kind){
+  const per = $('#rmonth').value, inP = dt => !per || (dt || '').startsWith(per);
+  let rows;
+  if (kind === 'invoices') {
+    rows = [['Number','Type','Business line','Date','Due','Customer','Phone','Event date','Status','Subtotal','Discount','Delivery','Tax','Total (excl deposit)','Deposit','Deposit status','Deposit kept','Paid','Balance','Created by','From quote']];
+    live().filter(d => inP(d.date)).sort((a,b) => (a.date||'').localeCompare(b.date||'')).forEach(d => { const t = totals(d);
+      rows.push([d.number, d.type, d.line, fmtDate(d.date), fmtDate(d.due), d.client.name, d.client.phone, fmtDate(d.event.date), effStatus(d), t.sub.toFixed(2), t.disc.toFixed(2), t.del.toFixed(2), t.tax.toFixed(2), t.total.toFixed(2), t.dep.toFixed(2), t.dep ? d.depRet.status : '', t.kept.toFixed(2), t.paid.toFixed(2), d.type === 'Quote' ? '' : t.bal.toFixed(2), d.createdBy || '', d.fromQuote || '']); });
+  } else {
+    rows = [['Date','Receipt','Invoice','Customer','Business line','Method','Reference','Amount','Recorded by']];
+    const ps = [];
+    live().filter(isOpenInv).forEach(d => d.payments.forEach(p => { if (inP(p.date)) ps.push([p.date, p.receiptNo, d.number, d.client.name, d.line, p.method, p.ref, num(p.amount).toFixed(2), p.by || '']); }));
+    ps.sort((a,b) => a[0].localeCompare(b[0])); ps.forEach(r => r[0] = fmtDate(r[0])); rows = rows.concat(ps);
+  }
+  const blob = new Blob(['﻿' + csv(rows)], {type:'text/csv'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `pinkys-${kind}-${per || 'all-time'}.csv`;
+  document.body.appendChild(a); a.click(); setTimeout(() => a.remove(), 1000);
+  toast(`${rows.length - 1} ${kind} exported`);
+}
+
+/* =================== price list =================== */
+function renderCat(){
+  $('#catBody').innerHTML = CAT.map((c,i) => `<tr><td class="d"><input value="${esc(c.name)}" data-i="${i}" data-k="name" placeholder="Item name"></td>
+    <td class="r"><input type="number" step="any" min="0" inputmode="decimal" value="${esc(c.rate)}" data-i="${i}" data-k="rate" placeholder="Rate"></td>
+    <td class="n"><input type="number" step="1" min="0" inputmode="numeric" value="${esc(c.stock)}" data-i="${i}" data-k="stock" placeholder="Stock"></td>
+    <td class="n" style="text-align:center"><label style="flex-direction:row;align-items:center;justify-content:center;gap:6px;min-height:40px;font-weight:400;color:var(--ink)"><input type="checkbox" data-i="${i}" data-k="perDay" ${c.perDay !== false ? 'checked' : ''} style="width:20px;min-height:20px"><span class="sm-only">Per day</span></label></td>
+    <td class="x"><button class="btn sm" onclick="removeCat(${i})" aria-label="Remove">✕</button></td></tr>`).join('');
+  $('#catBody').querySelectorAll('input').forEach(inp => inp.addEventListener('input', e => {
+    const c = CAT[+e.target.dataset.i], k = e.target.dataset.k; c[k] = k === 'perDay' ? e.target.checked : k === 'rate' ? num(e.target.value) : e.target.value; CATU = Date.now(); saveAll();
+  }));
+}
+async function startFresh(){
+  if (connected()) return ask('Not while connected', 'This device is connected to the Google Sheet, so this would delete real records everywhere. Delete test invoices one by one instead, or log out first.', [{label:'OK', value:null}]);
+  const n = live().length;
+  const c = await ask(`Delete all ${n} invoices and quotes?`, 'This can’t be undone. Export a backup first if you might want them. Business details, logo and price list are kept.',
+    [{label:`Delete all ${n}`, value:true, cls:'del'}, CANCEL]);
+  if (!c) return;
+  DOCS = []; cur = null; CUST = '';
+  S.nextInv = 1; S.nextQ = 1; S.nextRc = 1;
+  Object.assign(SY, {since:0, lastPush:0, bases:{}, nums:[], rcs:[]}); saveSync();
+  persist(); loadSettings(); toast('All invoices cleared. Next invoice is ' + S.invPrefix + pad(1));
+}
+async function removeCat(i){
+  const c = CAT[i]; if (!c) return;
+  if (!await ask('Remove from price list?', `“${c.name || 'This item'}” will be removed. Invoices that already use it are not changed.`, [{label:'Remove', value:true, cls:'del'}, CANCEL])) return;
+  const at = CAT.indexOf(c); if (at >= 0) { CAT.splice(at,1); CATU = Date.now(); saveAll(); renderCat(); }
+}
+function addCat(){ CAT.push({id:uid(), name:'', rate:0, stock:'', perDay:true}); CATU = Date.now(); saveAll(); renderCat(); const ins = $('#catBody').querySelectorAll('tr:last-child input'); if (ins[0]) ins[0].focus(); }
+
+/* =================== settings =================== */
+function loadSettings(){
+  document.querySelectorAll('[data-s]').forEach(el => el.value = S[el.dataset.s] ?? '');
+  $('#logoPrev').src = S.logo || ''; $('#logoPrev').style.display = S.logo ? '' : 'none';
+  document.documentElement.style.setProperty('--accent', S.accent);
+  renderAccount();
+  const bytes = (localStorage.getItem(KEY) || '').length;
+  $('#storeNote').textContent = `${live().length} invoices/quotes on this device · about ${(bytes/1024).toFixed(0)} KB used.`;
+}
+document.querySelectorAll('[data-s]').forEach(el => el.addEventListener('input', () => {
+  S[el.dataset.s] = el.type === 'number' ? num(el.value) : el.value;
+  if (el.dataset.s === 'accent') document.documentElement.style.setProperty('--accent', S.accent);
+  S.updatedAt = Date.now(); saveAll();
+}));
+$('#logoIn').onchange = e => {
+  const f = e.target.files[0]; if (!f) return;
+  const img = new Image(); img.onload = () => {
+    const s = Math.min(1, 300 / Math.max(img.width, img.height));
+    const cv = document.createElement('canvas'); cv.width = Math.round(img.width*s); cv.height = Math.round(img.height*s);
+    cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+    S.logo = cv.toDataURL('image/png'); S.updatedAt = Date.now(); saveAll(); loadSettings(); toast('Logo saved');
+  };
+  img.src = URL.createObjectURL(f);
+};
+function exportData(){
+  const blob = new Blob([JSON.stringify({settings:S, catalog:CAT, catalogUpdated:CATU, docs:DOCS, exportedAt:new Date().toISOString(), app:'pinkys-invoice-builder'}, null, 1)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `pinkys-invoices-backup-${today()}.json`;
+  document.body.appendChild(a); a.click(); setTimeout(() => a.remove(), 1000); toast('Backup downloaded');
+}
+$('#importIn').onchange = e => {
+  const f = e.target.files[0]; if (!f) return;
+  const r = new FileReader(); r.onload = async () => {
+    try {
+      const d = JSON.parse(r.result); if (!d.docs || !d.settings) throw 0;
+      const choice = await ask('Import backup', `This backup has ${d.docs.filter(x => !x.deleted).length} invoices/quotes. What should happen to the ${live().length} already here?`,
+        [{label:'Add backup to what’s here', value:'merge', cls:'pri'}, {label:'Replace everything here', value:'replace', cls:'del'}, CANCEL]);
+      if (!choice) { e.target.value = ''; return; }
+      const merge = choice === 'merge';
+      const now = Date.now();
+      if (merge) { const ids = new Set(DOCS.map(x => x.id)); d.docs.forEach(x => { if (!ids.has(x.id)) { x.updated = now; DOCS.push(migrateDoc(x)); } }); }
+      else { DOCS = d.docs.map(x => { x.updated = now; return migrateDoc(x); }); S = Object.assign({}, DEFAULT_SETTINGS, d.settings, {updatedAt:now}); CAT = (d.catalog || CAT).map(fixCat); CATU = now; }
+      fixCounters(); saveAll(); loadSettings(); toast('Backup imported');
+    } catch(err) { toast('That file isn’t a valid backup'); }
+    e.target.value = '';
+  };
+  r.readAsText(f);
+};
+
+/* =================== accounts & sync (Google Sheet via Apps Script) =================== */
+const SYNC_KEY = 'pinkys_invoice_sync_v1';
+let SY = {url:'', token:'', user:'', who:'', role:'', since:0, lastPush:0, lastOk:0, bases:{}, nums:[], rcs:[], pin:null};
+try { Object.assign(SY, JSON.parse(localStorage.getItem(SYNC_KEY) || '{}')); } catch(e){}
+if (!SY.bases) SY.bases = {};
+delete SY.key;                                               // old shared-key setup is replaced by personal logins
+const saveSync = () => { try { localStorage.setItem(SYNC_KEY, JSON.stringify(SY)); } catch(e){} };
+let syncing = false, syncAgain = false, syncT, syncState = 'off', syncMsg = '';
+
+const connected = () => !!(SY.url && SY.token);
+const needsLogin = () => !!(SY.url && !SY.token);
+const isOwner = () => !connected() || SY.role === 'Owner';
+function applyRole(){ document.body.classList.toggle('staff', !isOwner()); }
+
+async function api(action, data, url){
+  const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 30000);
+  try {
+    const r = await fetch(url || SY.url, {method:'POST', body: JSON.stringify(Object.assign({action, token:SY.token}, data || {})), signal: ctl.signal});
+    return await r.json();
+  } catch(e) {
+    let framed = false; try { framed = window.self !== window.top; } catch(x) { framed = true; }
+    if (e.name === 'AbortError') throw new Error('Timed out. Check your internet.');
+    if (/fetch|network|load failed/i.test(e.message)) throw new Error(framed
+      ? 'This app is open inside a preview window, which blocks connections. Download the file and open it in Chrome (the address bar should start with file:///).'
+      : 'Could not reach the sync link. Check the link and your internet. If it keeps happening, check Executions in Apps Script.');
+    throw e;
+  } finally { clearTimeout(to); }
+}
+
+function setSync(state, msg){
+  syncState = state; syncMsg = msg || '';
+  const p = $('#syncPill'); p.className = 'pill ' + state;
+  p.querySelector('span').textContent = {off:'Sync off', ok:'Synced', busy:'Syncing…', offline:'Offline', err:'Sync error'}[state];
+  p.title = msg || p.querySelector('span').textContent;
+  renderSyncInfo();
+}
+function renderSyncInfo(){
+  const el = $('#syncInfo'); if (!el) return;
+  const when = SY.lastOk ? fmtStamp(SY.lastOk) : 'never';
+  el.textContent = (syncState === 'err' ? 'Problem: ' + syncMsg + ' · ' : syncState === 'offline' ? 'Offline. Changes are saved here and go up when you reconnect. · ' : '') + 'Last synced: ' + when;
+}
+function renderAccount(){
+  $('#acctOff').hidden = connected(); $('#acctOn').hidden = !connected();
+  if (connected()) { $('#acctName').textContent = SY.who; $('#acctRole').textContent = SY.role; $('#acctUser').textContent = '(' + SY.user + ')'; }
+  renderSyncInfo();
+  $('#pinInfo').textContent = SY.pin ? 'On. The app asks for your PIN when it opens and after 3 minutes away.' : 'Off. Anyone holding this phone or computer can open the app.';
+  $('#pinSetBtn').textContent = SY.pin ? 'Change PIN' : 'Set PIN'; $('#pinOffBtn').hidden = !SY.pin;
+  $('#teamCard').style.display = connected() && isOwner() ? '' : 'none';
+  if (connected() && isOwner()) loadTeam();
+}
+function syncPillClick(){ if (connected() && syncState !== 'err') sync(true); else show(needsLogin() ? 'login' : 'settings'); }
+function queueSync(){ if (!connected()) return; clearTimeout(syncT); syncT = setTimeout(sync, 1500); }
+function sumOf(d){ const t = totals(d); return {status: d.type === 'Quote' ? 'Quote · ' + d.status : effStatus(d), total:+t.due.toFixed(2), paid:+t.paid.toFixed(2), bal: d.type === 'Quote' ? 0 : +t.bal.toFixed(2)}; }
+
+async function sync(manual){
+  if (!connected()) return setSync('off');
+  if (syncing) { syncAgain = true; return; }
+  if (!navigator.onLine) return setSync('offline');
+  syncing = true; setSync('busy');
+  const started = Date.now();
+  const outDocs = DOCS.filter(d => !d._new && (d.updated || 0) > SY.lastPush);
+  const pushed = {}; outDocs.forEach(d => pushed[d.id] = {updated:d.updated, copy:JSON.parse(JSON.stringify(d))});
+  const docs = outDocs.map(d => Object.assign({}, d, {_s: d.deleted ? {} : sumOf(d), _base: SY.bases[d.id] || 0}));
+  const meta = [];
+  if (isOwner()) {
+    if ((S.updatedAt || 0) > SY.lastPush) meta.push({key:'settings', updated:S.updatedAt, json:S});
+    if (CATU > SY.lastPush) meta.push({key:'catalog', updated:CATU, json:CAT});
+  }
+  try {
+    const res = await api('sync', {since:SY.since, docs, meta});
+    if (res.auth) { syncing = false; return authLost(res.error); }
+    if (!res.ok) throw new Error(res.error || 'Sync failed');
+    if (res.me) {
+      const roleWas = SY.role;
+      SY.who = res.me.name; SY.role = res.me.role;
+      if (roleWas === 'Owner' && SY.role === 'Staff') { wipeLocal(); saveSync(); applyRole(); show('list'); syncing = false; toast('Your account is now Staff'); return sync(); }
+      applyRole();
+    }
+    SY.nums = res.numbers || SY.nums; SY.rcs = res.receipts || SY.rcs;
+    mergeRemote(res, pushed);
+    SY.since = res.srvNow; SY.lastPush = started; SY.lastOk = Date.now(); saveSync();
+    setSync('ok');
+    if (manual) toast('Synced');
+  } catch(e) {
+    setSync(navigator.onLine ? 'err' : 'offline', e.message);
+  }
+  syncing = false;
+  if (syncAgain) { syncAgain = false; queueSync(); }
+}
+
+function mergeRemote(res, pushed){
+  pushed = pushed || {};
+  let changed = false, curChanged = false;
+  const conflictIds = new Set(res.conflicts || []), deniedIds = new Set(res.denied || []), copies = [];
+  // our pushes the sheet accepted: remember that version as our new base
+  Object.keys(pushed).forEach(id => { if (!conflictIds.has(id) && !deniedIds.has(id)) SY.bases[id] = pushed[id].updated; });
+  (res.docs || []).forEach(rd => {
+    delete rd._s;
+    if (!rd.deleted) migrateDoc(rd);
+    SY.bases[rd.id] = rd.updated;
+    const l = DOCS.find(d => d.id === rd.id);
+    if (!l) { DOCS.push(rd); changed = true; return; }
+    const conflict = conflictIds.has(rd.id), denied = deniedIds.has(rd.id);
+    if (conflict || denied || (rd.updated || 0) > (l.updated || 0)) {
+      const mine = pushed[rd.id];
+      if (denied) setTimeout(() => toast(`${rd.number}: only an owner can do that, so it was put back.`), 2500);
+      // Someone else changed this invoice while we did too: keep their saved version, keep ours as a copy
+      if (conflict && mine && mine.copy.deleted && !rd.deleted) setTimeout(() => toast(`${rd.number} wasn't deleted: ${rd.updatedBy || 'someone'} changed it at the same time.`), 3000);
+      if (conflict && mine && !mine.copy.deleted && JSON.stringify(stripMeta(rd)) !== JSON.stringify(stripMeta(mine.copy))) copies.push({theirs:rd, mine:mine.copy});
+      for (const k of Object.keys(l)) delete l[k];
+      Object.assign(l, rd); changed = true;
+      if (l === cur) curChanged = true;
+    }
+  });
+  copies.forEach(c => {
+    const copy = Object.assign(JSON.parse(JSON.stringify(c.mine)), {id:uid(), number:c.mine.number + '-COPY', status:'Draft', updated:Date.now(), updatedBy:SY.who || '', createdById:SY.user || '', createdBy:SY.who || '',
+      notes:`[Conflict copy: ${c.theirs.updatedBy || 'someone'} changed ${c.mine.number} while you were also editing it. Their version is ${c.mine.number}. Compare the two, put any missing changes into ${c.mine.number}, then delete this copy.]\n` + (c.mine.notes || '')});
+    (copy.payments || []).forEach(p => { p.receiptNo = p.receiptNo ? p.receiptNo + '-COPY' : ''; });
+    DOCS.push(copy);
+  });
+  const deniedMissing = [...deniedIds].filter(id => !(res.docs || []).some(d => d.id === id)).map(id => (DOCS.find(d => d.id === id) || {}).number).filter(Boolean);
+  if (deniedMissing.length) setTimeout(() => toast(`${deniedMissing.join(', ')} couldn’t be saved to the sheet: prices must come from the price list and staff can’t give discounts.`), 1500);
+  if (copies.length) { toast(`${copies.map(c => c.mine.number).join(', ')} was changed by ${copies[0].theirs.updatedBy || 'someone else'} at the same time. Your changes are saved as ${copies[0].mine.number}-COPY.`); queueSync(); }
+  (res.meta || []).forEach(m => {
+    if (m.key === 'settings' && m.updated && m.updated >= (S.updatedAt || 0)) { S = Object.assign({}, DEFAULT_SETTINGS, m.json, {updatedAt:m.updated}); if (upgradeSettings(m.json, S)) S.updatedAt = Date.now(); changed = true; }
+    if (m.key === 'catalog' && m.updated && m.updated >= CATU) { CAT = (m.json || []).map(fixCat); CATU = m.updated; changed = true; }
+  });
+  saveSync();
+  fixCounters(); persist();
+  if (!changed && !copies.length) return;
+  document.documentElement.style.setProperty('--accent', S.accent);
+  const v = document.querySelector('.view.on').id;
+  if (cur && cur.deleted) { cur = null; if (v === 'v-edit') { show('list'); toast('This invoice was deleted on another device'); } return; }
+  if (v === 'v-list') renderList();
+  else if (v === 'v-customers') renderCustomers();
+  else if (v === 'v-customer') renderCustomer();
+  else if (v === 'v-reports') renderReports();
+  else if (v === 'v-items' && !$('#v-items').contains(document.activeElement)) renderCat();
+  else if (v === 'v-settings' && !$('#v-settings').contains(document.activeElement)) loadSettings();
+  else if (v === 'v-edit' && cur) {
+    if (curChanged && !$('#v-edit').contains(document.activeElement)) { fillEditor(); toast(`Updated by ${cur.updatedBy || 'another device'}`); }
+    else { refreshAll(); refreshQuickAdd(); refreshClients(); }
+  }
+}
+function stripMeta(d){ const c = Object.assign({}, d); delete c.updated; delete c.updatedBy; delete c._s; return c; }
+function fixCounters(){
+  const mx = (pre, list) => list.reduce((m, n) => { if (n && n.startsWith(pre)) { const v = parseInt(n.slice(pre.length), 10); if (isFinite(v)) return Math.max(m, v); } return m; }, 0);
+  // include numbers used by everyone (staff only hold their own invoices, the sheet tells us the rest)
+  const nums = live().map(d => d.number).concat(SY.nums || []);
+  const rcs = live().flatMap(d => (d.payments || []).map(p => p.receiptNo)).concat(SY.rcs || []);
+  S.nextInv = Math.max(num(S.nextInv), mx(S.invPrefix, nums) + 1);
+  S.nextQ = Math.max(num(S.nextQ), mx(S.qPrefix, nums) + 1);
+  S.nextRc = Math.max(num(S.nextRc), mx(S.rcPrefix, rcs) + 1);
+  if (cur && cur._new) { const isQ = cur.type === 'Quote'; const want = (isQ ? S.qPrefix : S.invPrefix) + pad(isQ ? S.nextQ : S.nextInv);
+    if (nums.some(n => n === cur.number) && live().every(d => d !== cur)) { cur.number = want; const f = $('#f-number'); if (f) f.value = want; } }
+}
+
+/* ---- login / setup / logout ---- */
+function prepLogin(){
+  $('#lgUrl').value = SY.url || '';
+  $('#lgMsg').textContent = '';
+  $('#lgBack').hidden = needsLogin();                       // once connected, this device must log in again
+  showSetup(false);
+  if (SY.user) $('#lgUser').value = SY.user;
+  checkSetupNeeded();
+}
+function showSetup(on){ $('#lgSetup').hidden = !on; $('#lgLogin').hidden = on; $('#lgMsg').textContent = ''; }
+const urlOK = u => /^https:\/\/script\.google(usercontent)?\.com\/.+/.test(u);
+async function checkSetupNeeded(){
+  const url = $('#lgUrl').value.trim(); if (!urlOK(url)) return;
+  try { const r = await api('status', {}, url); if (r.ok && !r.hasUsers) { showSetup(true); $('#lgMsg').textContent = ''; } } catch(e) {}
+}
+$('#lgUrl').addEventListener('change', checkSetupNeeded);
+$('#lgPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+async function doLogin(){
+  const url = $('#lgUrl').value.trim(), username = $('#lgUser').value.trim(), password = $('#lgPass').value;
+  if (!urlOK(url)) return ($('#lgMsg').textContent = 'Paste the Apps Script link (it starts with https://script.google.com/ and ends with /exec).');
+  if (!username || !password) return ($('#lgMsg').textContent = 'Enter your username and password.');
+  $('#lgMsg').textContent = 'Logging in…';
+  try { const r = await api('login', {username, password}, url); if (!r.ok) return ($('#lgMsg').textContent = r.error); loggedIn(url, r); }
+  catch(e) { $('#lgMsg').textContent = e.message; }
+}
+async function doSetup(){
+  const url = $('#lgUrl').value.trim();
+  const v = {setupKey:$('#suKey').value.trim(), name:$('#suName').value.trim(), username:$('#suUser').value.trim(), password:$('#suPass').value};
+  if (!urlOK(url)) return ($('#lgMsg').textContent = 'Paste the Apps Script link first.');
+  if (!v.setupKey || !v.name || !v.username) return ($('#lgMsg').textContent = 'Fill in every box.');
+  if (v.password.length < 8) return ($('#lgMsg').textContent = 'Password must be at least 8 characters.');
+  if (v.password !== $('#suPass2').value) return ($('#lgMsg').textContent = 'The two passwords don’t match.');
+  $('#lgMsg').textContent = 'Creating account…';
+  try { const r = await api('setup', v, url); if (!r.ok) return ($('#lgMsg').textContent = r.error); loggedIn(url, r); toast('Owner account created'); }
+  catch(e) { $('#lgMsg').textContent = e.message; }
+}
+function loggedIn(url, r){
+  const prev = SY.user, u = r.user;
+  // a different person on this device (or staff on a device that had someone else's data): start clean
+  if ((prev && prev !== u.username) || (!prev && u.role !== 'Owner' && DOCS.length) || (SY.url && url !== SY.url)) wipeLocal();
+  else if (!prev) {                                            // first connection: this device's existing invoices become this owner's
+    const now = Date.now();
+    DOCS.forEach(d => { if (!d.createdById) { d.createdById = u.username; d.createdBy = d.createdBy || u.name; d.updated = now; } });
+    SY.since = 0; SY.lastPush = 0; SY.bases = {};
+    // settings/price list keep their real edit times: the sheet's copy wins unless this device edited more recently
+    persist();
+  }
+  Object.assign(SY, {url, token:r.token, user:u.username, who:u.name, role:u.role});
+  saveSync(); applyRole();
+  $('#lgPass').value = ''; ['#suKey','#suPass','#suPass2'].forEach(x => $(x).value = '');
+  show('list'); sync(true);
+  toast(`Welcome, ${u.name}`);
+}
+function wipeLocal(){
+  DOCS = []; cur = null; CUST = '';
+  Object.assign(SY, {since:0, lastPush:0, bases:{}, nums:[], rcs:[]});
+  persist(); saveSync();
+}
+function authLost(msg){
+  const wasStaff = SY.role !== 'Owner';
+  SY.token = '';
+  if (wasStaff) wipeLocal();                                  // a switched-off staff phone keeps nothing
+  saveSync(); applyRole(); setSync('off');
+  show('login'); $('#lgMsg').textContent = 'You’ve been logged out: your password was changed or your account was switched off. Log in again, or ask an owner.';
+}
+const unsynced = () => DOCS.filter(d => !d._new && (d.updated || 0) > SY.lastPush).length + (cur && cur._new && !isBlank(cur) ? 1 : 0);
+async function logOut(){
+  if (cur && cur._new && !isBlank(cur)) commit();
+  if (unsynced()) await sync();
+  const left = unsynced();
+  const c = await ask('Log out of this device?', left
+      ? `${left} change(s) haven't reached the Google Sheet yet (you may be offline). Logging out now will lose them.`
+      : 'Invoices on this device will be cleared. They are safe in the Google Sheet and come back when you log in again.',
+    [{label: left ? 'Log out anyway' : 'Log out', value:true, cls:'del'}, {label: left ? 'Stay logged in' : 'Cancel', value:null}]);
+  if (!c) return;
+  wipeLocal(); SY.token = ''; SY.pin = null; saveSync(); applyRole(); setSync('off'); show('login');
+}
+async function changeMyPassword(){
+  const v = await askForm('Change password', 'Your other devices will be logged out and need the new password.',
+    [{name:'old', label:'Current password', type:'password'}, {name:'pw', label:'New password (8+ characters)', type:'password'}, {name:'pw2', label:'New password again', type:'password'}],
+    'Change password', async v => {
+      if (v.pw.length < 8) return 'New password must be at least 8 characters.';
+      if (v.pw !== v.pw2) return 'The new passwords don’t match.';
+      try { const r = await api('password', {old:v.old, password:v.pw}); if (!r.ok) return r.error; SY.token = r.token; saveSync(); } catch(e) { return e.message; }
+    });
+  if (v) toast('Password changed');
+}
+
+/* ---- team (owners) ---- */
+let TEAM = [];
+async function loadTeam(){
+  try { const r = await api('users.list'); if (r.auth) return authLost(r.error); if (!r.ok) throw new Error(r.error); TEAM = r.users; renderTeam(); $('#teamMsg').textContent = ''; }
+  catch(e) { $('#teamMsg').textContent = 'Can’t load the team right now: ' + e.message; }
+}
+function renderTeam(){
+  $('#teamBody').innerHTML = TEAM.map((u,i) => `<tr><td>${esc(u.name)}<span class="sub">${esc(u.username)}${u.username === SY.user ? ' · you' : ''}</span></td>
+    <td><span class="tag">${u.role}</span>${u.active ? '' : ' <span class="status s-Cancelled">Off</span>'}</td>
+    <td class="hm">${u.lastLogin ? fmtStamp(u.lastLogin) : 'never'}</td>
+    <td style="text-align:right"><button class="btn sm" onclick="editUser(${i})">Edit</button></td></tr>`).join('');
+}
+async function editUser(i){
+  const u = i === undefined ? null : TEAM[i];
+  const fields = [
+    {name:'name', label:'Name', value:u ? u.name : ''},
+    {name:'username', label:'Username (for logging in)', value:u ? u.username : '', disabled:!!u},
+    {name:'role', label:'Role', options:['Staff','Owner'], value:u ? u.role : 'Staff'},
+    {name:'active', label:'Can log in?', options:['Yes','No — switch off'], value:u && !u.active ? 'No — switch off' : 'Yes'},
+    {name:'password', label:u ? 'New password (leave blank to keep theirs)' : 'Starting password (8+ characters)', type:'password'}];
+  const v = await askForm(u ? 'Edit ' + u.name : 'Add a person',
+    u ? 'Switching someone off logs them out everywhere straight away. Their invoices stay.' : 'Give them their username and starting password in person or by private message. They can change it after logging in.',
+    fields, u ? 'Save' : 'Add person', async v => {
+      if (!v.name.trim()) return 'Enter their name.';
+      if (!u && !/^[a-z0-9._-]{2,}$/i.test(v.username.trim())) return 'Username: letters, numbers, dots or dashes, no spaces.';
+      if ((!u || v.password) && v.password.length < 8) return 'Password must be at least 8 characters.';
+      try {
+        const r = await api('users.save', {user:{username:u ? u.username : v.username.trim(), name:v.name.trim(), role:v.role, active:v.active === 'Yes', password:v.password || undefined}});
+        if (!r.ok) return r.error; TEAM = r.users; renderTeam();
+      } catch(e) { return e.message; }
+    });
+  if (v) toast(u ? 'Saved' : `${v.name} added`);
+}
+
+/* ---- PIN lock ---- */
+let hiddenAt = 0, pinFails = 0, pinWaitUntil = 0;
+async function hashPin(pin, salt){
+  const txt = salt + ':' + pin;
+  try { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join(''); }
+  catch(e) { let h = 2166136261; for (let k = 0; k < 2000; k++) for (let i = 0; i < txt.length; i++) { h ^= txt.charCodeAt(i) + k; h = Math.imul(h, 16777619) >>> 0; } return 'f' + h.toString(16); }
+}
+function lockNow(){
+  if (!SY.pin) return;
+  $('#lock').hidden = false; $('#lockPin').value = ''; $('#lockErr').textContent = '';
+  $('#lockWho').textContent = connected() ? SY.who : '';
+  setTimeout(() => $('#lockPin').focus(), 50);
+}
+async function tryUnlock(){
+  if (!$('#lockPin').value) return;
+  if (Date.now() < pinWaitUntil) return ($('#lockErr').textContent = `Too many tries. Wait ${Math.ceil((pinWaitUntil - Date.now())/1000)} seconds.`);
+  const ok = await hashPin($('#lockPin').value, SY.pin.salt) === SY.pin.hash;
+  if (ok) { pinFails = 0; $('#lock').hidden = true; return; }
+  pinFails++; $('#lockPin').value = '';
+  if (pinFails >= 5) { pinWaitUntil = Date.now() + 30000 * (pinFails - 4); $('#lockErr').textContent = 'Wrong PIN. Wait 30 seconds before trying again.'; }
+  else $('#lockErr').textContent = `Wrong PIN (${5 - pinFails} tries left before a wait)`;
+}
+$('#lockPin').addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
+$('#lockPin').addEventListener('input', e => { if (e.target.value.length >= 4 && SY.pin && e.target.value.length === (SY.pin.len || 0)) tryUnlock(); });
+async function forgotPin(){
+  if (connected() || needsLogin()) {
+    const c = await ask('Forgot your PIN?', 'You’ll be logged out and need your password to get back in. Changes not yet synced will be lost.', [{label:'Log out', value:true, cls:'del'}, CANCEL]);
+    if (!c) return;
+    wipeLocal(); SY.token = ''; SY.pin = null; saveSync(); applyRole(); $('#lock').hidden = true; setSync('off'); show('login');
+  } else {
+    const c = await ask('Forgot your PIN?', 'This device isn’t connected to the Google Sheet, so the only way in is to ERASE all invoices on this device. If you have a backup file you can import it after.', [{label:'Erase this device', value:true, cls:'del'}, CANCEL]);
+    if (!c) return;
+    try { localStorage.removeItem(KEY); localStorage.removeItem(SYNC_KEY); } catch(e){}
+    location.reload();
+  }
+}
+async function setPin(){
+  const v = await askForm(SY.pin ? 'Change PIN' : 'Set a PIN', 'Use 4 to 6 digits. You’ll need it every time the app opens on this device.',
+    [{name:'p1', label:'PIN', type:'password', inputmode:'numeric'}, {name:'p2', label:'PIN again', type:'password', inputmode:'numeric'}], 'Save PIN',
+    v => !/^\d{4,6}$/.test(v.p1) ? 'PIN must be 4 to 6 digits.' : v.p1 !== v.p2 ? 'The two PINs don’t match.' : '');
+  if (!v) return;
+  const salt = uid();
+  SY.pin = {salt, hash: await hashPin(v.p1, salt), len: v.p1.length}; saveSync(); renderAccount(); toast('PIN set');
+}
+async function removePin(){
+  if (!await ask('Remove the PIN?', 'Anyone holding this device will be able to open the app.', [{label:'Remove PIN', value:true, cls:'del'}, CANCEL])) return;
+  SY.pin = null; saveSync(); renderAccount(); toast('PIN removed');
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') hiddenAt = Date.now();
+  else if (SY.pin && hiddenAt && Date.now() - hiddenAt > 3 * 60 * 1000) lockNow();
+});
+
+function initSync(){
+  setInterval(() => { if (connected() && document.visibilityState === 'visible') sync(); }, 60000);
+  window.addEventListener('online', () => { if (connected()) sync(); });
+  window.addEventListener('offline', () => { if (connected()) setSync('offline'); });
+  document.addEventListener('visibilitychange', () => { if (connected() && document.visibilityState === 'visible') sync(); });
+  if (!connected()) return setSync('off');
+  setSync(navigator.onLine ? 'ok' : 'offline');
+  sync();
+}
+
+/* =================== start =================== */
+load();
+persist();
+try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch(e){}
+document.documentElement.style.setProperty('--accent', S.accent);
+applyRole();
+if (needsLogin()) show('login'); else renderList();
+lockNow();
+initSync();
+// When hosted as a website: work offline and install like an app
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
