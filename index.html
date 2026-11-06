@@ -464,7 +464,7 @@
         <label>Username<input id="lgUser" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
         <label style="margin-top:8px">Password<input id="lgPass" type="password" autocomplete="current-password"></label>
         <button class="btn pri" style="width:100%; margin-top:12px" onclick="doLogin()">Log in</button>
-        <p class="hint" style="margin-bottom:0">First time connecting this business? <button class="btn link" onclick="showSetup(true)">Set up the owner account</button></p>
+        <p class="hint" id="lgSetupHint" style="margin-bottom:0" hidden>This sheet has no accounts yet. <button class="btn link" onclick="showSetup(true)">Set up the owner account</button></p>
       </div>
       <div id="lgSetup" hidden>
         <h2 style="margin:14px 0 4px">Set up the owner account</h2>
@@ -1734,7 +1734,9 @@ function showSetup(on){ $('#lgSetup').hidden = !on; $('#lgLogin').hidden = on; $
 const urlOK = u => /^https:\/\/script\.google(usercontent)?\.com\/.+/.test(u);
 async function checkSetupNeeded(){
   const url = $('#lgUrl').value.trim(); if (!urlOK(url)) return;
-  try { const r = await api('status', {}, url); if (r.ok && !r.hasUsers) { showSetup(true); $('#lgMsg').textContent = ''; } } catch(e) {}
+  // the setup option only appears for a brand-new sheet; once an owner exists it stays hidden
+  $('#lgSetupHint').hidden = true;
+  try { const r = await api('status', {}, url); if (r.ok && !r.hasUsers) { $('#lgSetupHint').hidden = false; showSetup(true); $('#lgMsg').textContent = ''; } } catch(e) {}
 }
 $('#lgUrl').addEventListener('change', checkSetupNeeded);
 $('#lgPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
