@@ -559,7 +559,7 @@
       <div class="tscroll"><table class="list tight"><thead><tr><th>Business line</th><th class="num">Invoiced</th><th class="num">Collected</th><th class="num hm">Deposits kept</th><th class="num">Still owed</th><th class="num">Spent</th><th class="num">Net</th></tr></thead>
       <tbody id="rBody"></tbody></table></div>
     </div>
-    <p class="hint" style="margin-top:-6px">Each invoice is split across business lines by its items (set on the price list), so ice sold on a rental invoice counts under Ice; deposits count under the invoice's own line. “Spent” is expenses dated in the period (General = shared costs). “Net” is money collected minus money spent. “Invoiced” counts invoices dated in the period (not quotes, not cancelled; deposits excluded). “Collected” counts payments received in the period, deposits included. “Still owed” is today's unpaid balance on that period's invoices.</p>
+    <p class="hint" style="margin-top:-6px">Each invoice is split across business lines by its items (set on the price list), so ice sold on a rental invoice counts under Ice. Discounts come off Rentals unless the invoice has no rental items. The delivery charge on each invoice shows as its own Delivery row. Deposits count under the invoice's own line. “Spent” is expenses dated in the period (General = shared costs). “Net” is money collected minus money spent. “Invoiced” counts invoices dated in the period (not quotes, not cancelled; deposits excluded). “Collected” counts payments received in the period, deposits included. “Still owed” is today's unpaid balance on that period's invoices.</p>
     <div class="card">
       <h2>Export for your accountant</h2>
       <p class="hint" style="margin-top:-6px">Spreadsheet files (CSV) for the period picked above. They open in Excel and Google Sheets.</p>
@@ -767,6 +767,7 @@ function ensureHO(d){ if (!d.handover) d.handover = newHO(); return d.handover; 
 const outDate = d => (d.handover && d.handover.out.date) || d.event.date || '';
 const backDate = d => { const o = outDate(d); const b = (d.handover && d.handover.back.date) || d.event.ret || d.event.date || ''; return b && o && b < o ? o : b; };
 const fixCat = c => { c = Object.assign({id:uid(), stock:'', perDay: !/\bice\b/i.test(c.name || '')}, c); if (!c.line) c.line = guessLine(c.name); return c; };
+const DLV = 'Delivery';   // the invoice's delivery charge gets its own row in Reports
 function guessLine(name){
   const L = lineList(), has = x => L.includes(x);
   if (/\bice\b/i.test(name || '') && has('Ice')) return 'Ice';
@@ -775,13 +776,26 @@ function guessLine(name){
 }
 // Which business line an invoice line counts towards: the price-list item's line, else the invoice's own line
 function itemLine(it, d){ const c = catFor(it); return c && c.line && lineList().includes(c.line) ? c.line : d.line; }
-// Share of an invoice's value per business line, by item amounts. e.g. {Rentals:0.8, Ice:0.2}
+// Share of an invoice's total per business line, e.g. {Rentals:0.8, Ice:0.2}.
+// Items count to their price-list line. A discount comes off Rentals (only spread over the other lines if
+// there are no rental items, or it's bigger than the rental amount). The delivery charge counts as Delivery; tax is shared by value.
 function lineSplit(d){
   const m = {}; let sub = 0;
   d.items.forEach(it => { const a = lineAmt(it); if (a > 0) { const l = itemLine(it, d); m[l] = (m[l] || 0) + a; sub += a; } });
   if (!sub) return {[d.line]: 1};
-  for (const k in m) m[k] /= sub;
-  return m;
+  const t = totals(d), net = Object.assign({}, m);
+  let disc = Math.min(t.disc, sub);
+  const R = 'Rentals';
+  if (disc > 0 && net[R] > 0) { const off = Math.min(disc, net[R]); net[R] -= off; disc -= off; }
+  if (disc > 0) { const left = Object.values(net).reduce((a,v) => a + v, 0); if (left > 0) { const n0 = Object.assign({}, net); for (const k in net) net[k] -= disc * n0[k] / left; } }
+  const taxable = {}; let tTot = 0;
+  for (const k in net) { taxable[k] = Math.max(0, net[k]); tTot += taxable[k]; }
+  if (t.del > 0) { taxable[DLV] = (taxable[DLV] || 0) + t.del; tTot += t.del; }   // delivery charge is its own line
+  const out = {}; let all = 0;
+  for (const k in taxable) { out[k] = taxable[k] + (tTot > 0 ? t.tax * taxable[k] / tTot : 0); all += out[k]; }
+  if (all <= 0) { for (const k in m) out[k] = m[k] / sub; return out; }
+  for (const k in out) out[k] /= all;
+  return out;
 }
 let EXP = [];
 let S, CAT, CATU = 0, DOCS, cur = null, mem = null, PV = {kind:'invoice'}, CUST = '';
@@ -2256,7 +2270,7 @@ function renderReports(){
   sel.value = v !== '' && ![...sel.options].some(o => o.value === v) ? ms[0] : v || (sel.dataset.init ? '' : ms[0]); sel.dataset.init = 1;
   const per = sel.value, inP = dt => !per || (dt || '').startsWith(per);
   const blank = () => ({inv:0, coll:0, kept:0, owed:0, spent:0});
-  const rows = {}; lineList().forEach(l => rows[l] = blank());
+  const rows = {}; lineList().concat([DLV]).forEach(l => rows[l] = blank());
   const row = l => rows[l] || (rows[l] = blank());
   live().filter(isOpenInv).forEach(d => {
     const t = totals(d), sh = lineSplit(d);
