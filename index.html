@@ -168,6 +168,11 @@
   .doc .foot { margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:20px; }
   .doc .foot p { margin:0 0 10px; white-space:pre-line; line-height:1.45; color:#333; }
   .doc .foot p.small { font-size:12px; color:#555; }
+  .doc .termspage { margin-top:34px; padding-top:22px; border-top:2px dashed #ccc; }
+  .doc .termspage .tp-head { display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap; border-bottom:4px solid var(--accent); padding-bottom:10px; margin-bottom:12px; }
+  .doc .termspage h2 { margin:0; font-size:22px; letter-spacing:.06em; color:var(--accent); }
+  .doc .termspage .tp-head span { color:#666; font-size:12px; }
+  .doc .termspage p { margin:0 0 8px; font-size:12px; line-height:1.5; color:#333; }
   .doc .thanks { margin-top:26px; text-align:center; color:#777; font-size:12px; border-top:1px solid #eee; padding-top:12px; white-space:pre-line; }
   .doc .totwrap { position:relative; }
   .doc .stamp { position:absolute; top:22px; left:6%; transform:rotate(-14deg); border:4px solid var(--ok); color:var(--ok); font-weight:900; font-size:30px; padding:4px 16px; border-radius:8px; opacity:.75; letter-spacing:.08em; }
@@ -609,7 +614,7 @@
     <div class="card owner-only">
       <h2>Printed on every invoice</h2>
       <label>Payment details<textarea data-s="payment" rows="3"></textarea></label>
-      <label style="margin-top:10px">Rental terms (printed only when the invoice has a rental item or a deposit; ice-only sales leave them off)<textarea data-s="terms" rows="3"></textarea></label>
+      <label style="margin-top:10px">Rental terms (one clause per line; printed as a separate “Rental Terms” page on invoices and quotes with a rental item or deposit; ice-only sales leave them off)<textarea data-s="terms" rows="3"></textarea></label>
       <label style="margin-top:10px">Footer<input data-s="footer"></label>
     </div>
     <div class="card owner-only">
@@ -1159,8 +1164,9 @@ function hoLines(d){
   if (!hasRental(d) || !outDate(d)) return [];
   const h = ensureHO(d), o = h.out, b = h.back, loc = d.event.loc, here = String(S.address || '').split('\n')[0];
   const t = x => x ? ', ' + x : '';
-  const lines = [o.how === 'collect' ? `Collect from ${here || 'our location'}: ${fmtDate(outDate(d))}${t(o.time)}` : `Delivery: ${fmtDate(outDate(d))}${t(o.time)}${loc ? ' to ' + loc : ''}`];
-  if (backDate(d)) lines.push(b.how === 'return' ? `Return to ${here || 'us'} by ${fmtDate(backDate(d))}${t(b.time)}` : `We collect: ${fmtDate(backDate(d))}${t(b.time)}`);
+  const lines = [o.how === 'collect' ? `Collection: ${fmtDate(outDate(d))}${t(o.time)}` : `Delivery: ${fmtDate(outDate(d))}${t(o.time)}${loc ? ' to ' + loc : ''}`];
+  if (backDate(d)) lines.push(b.how === 'return' ? `Return by: ${fmtDate(backDate(d))}${t(b.time)}` : `We collect: ${fmtDate(backDate(d))}${t(b.time)}`);
+  if (here && (o.how === 'collect' || (backDate(d) && b.how === 'return'))) lines.push(`At: ${here}`);
   return lines;
 }
 function invoiceModel(d){
@@ -1182,12 +1188,16 @@ function invoiceModel(d){
   if (!isQ && t.dep && d.depRet.status !== 'Held') right.push({label:'Deposit', text: d.depRet.status === 'Returned' ? `Returned in full (${money(t.dep)})${d.depRet.date ? ' on ' + fmtDate(d.depRet.date) : ''}.` :
     `${money(t.kept)} kept${d.depRet.reason ? ' for: ' + d.depRet.reason : ''}.${t.refunded ? ' ' + money(t.refunded) + ' returned' : ''}${d.depRet.date ? ' (' + fmtDate(d.depRet.date) + ')' : ''}.`});
   if (d.notes) right.push({label:'Notes', text:d.notes});
-  if (S.terms && hasRental(d)) right.push({label:'Terms', text:S.terms, small:true});
+  // Short terms print in the column on page 1 (as before). Long terms get their own "Rental Terms" page.
+  const showTerms = !!(S.terms && hasRental(d));
+  const termsAttached = showTerms && (String(S.terms).length > 400 || termsParas(S.terms).length > 4);
+  if (termsAttached) right.push({label:'Terms', text:'Rental terms (attached) form part of this ' + (isQ ? 'quote' : 'invoice') + '.', small:true});
+  else if (showTerms) right.push({label:'Terms', text:S.terms, small:true});
   const ev = [d.event.date ? 'Date: ' + fmtDate(d.event.date) + (d.event.ret && d.event.ret !== d.event.date ? ' → ' + fmtDate(d.event.ret) : '') : '', d.event.loc ? 'Location: ' + d.event.loc : ''].filter(Boolean);
   const parties = [{label: isQ ? 'Prepared for' : 'Bill to', lines:[d.client.name || '—', d.client.addr, d.client.phone, d.client.email].filter(Boolean), bold:true}];
   if (ev.length) parties.push({label:'Event', lines:ev});
   const ho = hoLines(d); if (ho.length) parties.push({label:'Delivery & pick-up', lines:ho});
-  return { title: isQ ? 'QUOTE' : 'INVOICE',
+  return { terms: termsAttached ? S.terms : '', termsFor: (isQ ? 'Quote ' : 'Invoice ') + d.number, title: isQ ? 'QUOTE' : 'INVOICE',
     meta: [['No.', d.number, true], ['Date', fmtDate(d.date)], d.due ? [isQ ? 'Valid until' : 'Due', fmtDate(d.due)] : null].filter(Boolean),
     parties, cols, rows, empty:'No items yet', totals:tot, left, right, footer:S.footer,
     stamp: !isQ && st === 'Paid' ? 'PAID' : d.status === 'Cancelled' ? 'CANCELLED' : null };
@@ -1273,8 +1283,10 @@ function modelHTML(m){
   </tbody></table>
   <div class="totwrap">${stamp}<table class="tot">${m.totals.map(t => `<tr${t.s ? ` class="${t.s}"` : ''}><td>${esc(t.k)}</td><td>${esc(t.v)}</td></tr>`).join('')}</table></div>
   ${m.left.length || m.right.length ? `<div class="foot"><div>${m.left.map(block).join('')}</div><div>${m.right.map(block).join('')}</div></div>` : ''}
-  ${m.footer ? `<div class="thanks">${esc(m.footer)}</div>` : ''}`;
+  ${m.footer ? `<div class="thanks">${esc(m.footer)}</div>` : ''}
+  ${m.terms ? `<div class="termspage"><div class="tp-head"><h2>RENTAL TERMS</h2><span>Forms part of ${esc(m.termsFor)}</span></div>${termsParas(m.terms).map(p => `<p>${esc(p)}</p>`).join('')}</div>` : ''}`;
 }
+const termsParas = t => String(t || '').split(/\n+/).map(x => x.trim()).filter(Boolean);
 function currentModel(which){
   if (which === 'stmt') { const c = customers().get(CUST); return c ? statementModel(c, $('#stOnlyOpen').checked) : null; }
   if (PV.kind === 'receipt') { const p = cur.payments.find(x => x.id === PV.pid); if (p) return receiptModel(cur, p); PV = {kind:'invoice'}; }
@@ -1298,6 +1310,63 @@ function wrap(ctx, text, maxW){
     out.push(line);
   });
   return out;
+}
+// The rental terms as their own page(s), full width and readable
+async function termsCanvas(m, scale){
+  const W = 1240, M = 80, F = 'system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif', A = S.accent || '#e8318a', k = scale || 1;
+  const logo = await loadImg(S.logo);
+  const c = document.createElement('canvas'); c.width = W * k; c.height = 5000 * k;
+  const x = c.getContext('2d'); x.scale(k, k); x.fillStyle = '#fff'; x.fillRect(0, 0, W, 5000); x.textBaseline = 'top';
+  const font = (sz, w) => x.font = `${w||400} ${sz}px ${F}`;
+  const breaks = [];
+  let y = M;
+  let lh = 0;
+  if (logo) { const s2 = Math.min(110/logo.width, 110/logo.height); lh = logo.height*s2; x.drawImage(logo, M, y, logo.width*s2, lh); }
+  x.textAlign = 'right'; font(46, 800); x.fillStyle = A; x.fillText('RENTAL TERMS', W - M, y + 8);
+  font(20); x.fillStyle = '#666'; x.fillText('Forms part of ' + m.termsFor, W - M, y + 66); x.fillText(S.bizName, W - M, y + 94);
+  x.textAlign = 'left';
+  y += Math.max(lh, 120) + 18; x.fillStyle = A; x.fillRect(M, y, W - 2*M, 6); y += 34;
+  const TW = W - 2*M;
+  termsParas(m.terms).forEach(p => {
+    const mm = /^(\d+\.\s*)?([^:]{2,40}:)\s*(.*)$/.exec(p);   // "1. Heading: text" -> bold heading
+    font(21); const lines = wrap(x, p, TW);
+    if (mm) {
+      const head = (mm[1] || '') + mm[2];
+      font(21, 700); const hw = x.measureText(head + ' ').width;
+      x.fillStyle = '#1a1a1a'; x.fillText(head, M, y);
+      font(21); x.fillStyle = '#333';
+      const rest = wrap(x, mm[3], TW - hw);
+      const first = rest.shift() || '';
+      x.fillText(first, M + hw, y);
+      const more = wrap(x, rest.join(' '), TW);
+      let yy = y + 31; more.forEach(l => { if (l) { x.fillText(l, M, yy); yy += 31; } });
+      y = yy + 14;
+    } else {
+      x.fillStyle = '#333'; lines.forEach(l => { x.fillText(l, M, y); y += 31; }); y += 14;
+    }
+    breaks.push(y - 6);
+  });
+  const H = y + M - 30;
+  const out = document.createElement('canvas'); out.width = W * k; out.height = Math.round(H * k);
+  const o = out.getContext('2d'); o.fillStyle = '#fff'; o.fillRect(0, 0, out.width, out.height); o.drawImage(c, 0, 0);
+  out.breaks = breaks.map(b => Math.round(b * k)); out.margin = M * k;
+  return out;
+}
+// Everything that goes out: invoice pages, then terms pages (when attached)
+async function docPages(m, k){
+  const pages = pdfPages(await modelCanvas(m, k));
+  if (m.terms) pages.push(...pdfPages(await termsCanvas(m, k)));
+  return pages;
+}
+async function buildPDF(m){ return pagesToPDF(await docPages(m, 2)); }
+async function buildImage(m){
+  const a = await modelCanvas(m); if (!m.terms) return toBlob(a);
+  const t = await termsCanvas(m);
+  const c = document.createElement('canvas'); c.width = a.width; c.height = a.height + 24 + t.height;
+  const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(a, 0, 0);
+  x.fillStyle = '#ddd'; for (let i = 80; i < c.width - 80; i += 24) x.fillRect(i, a.height + 10, 12, 3);   // dashed divider
+  x.drawImage(t, 0, a.height + 24);
+  return toBlob(c);
 }
 async function modelCanvas(m, scale){
   const W = 1240, M = 80, F = 'system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif', A = S.accent || '#e8318a';
@@ -1328,9 +1397,10 @@ async function modelCanvas(m, scale){
   x.fillStyle = A; x.fillRect(M, y, W - 2*M, 6); y += 36;
   const colW = (W - 2*M - 40) / 2;
   let py = y;
-  m.parties.forEach((p, pi) => { let yy = y, bxp = M + pi * (colW + 40);
+  const np = Math.max(1, m.parties.length), pGap = np > 2 ? 30 : 40, pW = np > 2 ? (W - 2*M - (np - 1) * pGap) / np : colW, pSz = np > 2 ? 20 : 22;
+  m.parties.forEach((p, pi) => { let yy = y, bxp = M + pi * (pW + pGap);
     font(16, 700); x.fillStyle = '#888'; x.fillText(p.label.toUpperCase(), bxp, yy); yy += 26;
-    p.lines.forEach((l,i) => { font(22, i === 0 && p.bold ? 700 : 400); x.fillStyle = '#1a1a1a'; wrap(x, l, colW).forEach(w => { x.fillText(w, bxp, yy); yy += 30; }); });
+    p.lines.forEach((l,i) => { font(pSz, i === 0 && p.bold ? 700 : 400); x.fillStyle = '#1a1a1a'; wrap(x, l, pW).forEach(w => { x.fillText(w, bxp, yy); yy += pSz + 8; }); });
     py = Math.max(py, yy); });
   y = py + 24;
   const TW = W - 2*M; let cx = M; const pos = m.cols.map(cc => { const p = {x:cx, w:cc[1]*TW, a:cc[2], h:cc[0]}; cx += p.w; return p; });
@@ -1380,14 +1450,14 @@ function prepOut(which){ if (which !== 'stmt') { commit(); if (cur.status === 'D
 async function outImage(which){
   prepOut(which);
   const m = currentModel(which); if (!m) return;
-  const blob = await toBlob(await modelCanvas(m));
+  const blob = await buildImage(m);
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = outName(which) + '.png';
   document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
   toast('Image saved to Downloads');
 }
 async function outShare(which){
   prepOut(which);
-  const blob = await toBlob(await modelCanvas(currentModel(which)));
+  const blob = await buildImage(currentModel(which));
   const f = new File([blob], outName(which) + '.png', {type:'image/png'});
   try { await navigator.share({files:[f], title:outName(which)}); } catch(e) { if (e.name !== 'AbortError') outImage(which); }
 }
@@ -1396,7 +1466,7 @@ try { if (navigator.canShare && navigator.canShare({files:[new File(['x'], 'x.pn
 async function outPrint(which){
   prepOut(which);
   const m = currentModel(which); if (!m) return;
-  const pages = pdfPages(await modelCanvas(m, 2));
+  const pages = await docPages(m, 2);
   $('#printArea').innerHTML = pages.map(c => `<img class="pp" src="${c.toDataURL('image/png')}" alt="">`).join('');
   await Promise.all([...$('#printArea').querySelectorAll('img')].map(i => i.decode ? i.decode().catch(() => {}) : null));
   const t = document.title; document.title = outName(which);
@@ -1436,10 +1506,11 @@ function pdfPages(cv){
   }
   return pages;
 }
-async function canvasToPDF(cv){
+async function canvasToPDF(cv){ return pagesToPDF(pdfPages(cv)); }
+async function pagesToPDF(canvases){
   const PW = 595.28, PH = 841.89;
   const pages = [];
-  for (const c of pdfPages(cv)) {
+  for (const c of canvases) {
     const x = c.getContext('2d');
     const rgba = x.getImageData(0, 0, c.width, c.height).data, rgb = new Uint8Array(c.width * c.height * 3);
     for (let i = 0, j = 0; i < rgba.length; i += 4) { rgb[j++] = rgba[i]; rgb[j++] = rgba[i+1]; rgb[j++] = rgba[i+2]; }
@@ -1471,7 +1542,7 @@ async function outPDF(which){
   prepOut(which);
   const m = currentModel(which); if (!m) return;
   toast('Making PDF…');
-  const blob = await canvasToPDF(await modelCanvas(m, 2));
+  const blob = await buildPDF(m);
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = outName(which) + '.pdf';
   document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
   toast('PDF saved to Downloads');
@@ -1520,8 +1591,8 @@ async function outWhatsApp(which){
   const what = which === 'stmt' ? 'statement' : PV.kind === 'receipt' ? 'receipt' : cur.type.toLowerCase();
   // start building both files now, so they're ready the moment a choice is tapped (phones only allow sharing right after a tap)
   const files = {
-    img: modelCanvas(m).then(toBlob).then(b => new File([b], name + '.png', {type:'image/png'})),
-    pdf: modelCanvas(m, 2).then(canvasToPDF).then(b => new File([b], name + '.pdf', {type:'application/pdf'}))
+    img: buildImage(m).then(b => new File([b], name + '.png', {type:'image/png'})),
+    pdf: buildPDF(m).then(b => new File([b], name + '.pdf', {type:'application/pdf'}))
   };
   const share = canShareFiles();
   const choice = await ask('Send on WhatsApp', `Send this ${what}${c.name ? ' to ' + c.name : ''} as:` +
