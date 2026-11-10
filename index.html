@@ -49,7 +49,7 @@
   .items th { text-align:left; font-size:12px; color:var(--muted); padding:4px; }
   .items td { padding:3px; vertical-align:top; }
   .items td input, .items td select { padding:7px 8px; }
-  .items .n { width:76px; } .items .r { width:110px; } .items .x { width:40px; }
+  .items .ln { width:120px; } .items .n { width:76px; } .items .r { width:110px; } .items .x { width:40px; }
   .items .amt { width:110px; text-align:right; padding-top:11px; font-variant-numeric:tabular-nums; }
   .hint { font-size:12px; color:var(--muted); }
   .status { font-size:12px; padding:3px 9px; border-radius:999px; font-weight:600; display:inline-block; white-space:nowrap; }
@@ -233,6 +233,8 @@
     .items .n, .items .r, .items .amt { width:auto; }
     .items td.amt { grid-column:1 / 4; text-align:left; padding-top:2px; }
     .items.pay tr { grid-template-columns:1fr 1fr 40px; }
+    .items.cat tr { grid-template-columns:1fr 1fr 1fr; }
+    .items.cat td.x { justify-self:end; }
     .items.pay td.amt { grid-column:auto; }
     .list .hm { display:none; }
     .tscroll .list td, .tscroll .list th { white-space:nowrap; }
@@ -557,7 +559,7 @@
       <div class="tscroll"><table class="list tight"><thead><tr><th>Business line</th><th class="num">Invoiced</th><th class="num">Collected</th><th class="num hm">Deposits kept</th><th class="num">Still owed</th><th class="num">Spent</th><th class="num">Net</th></tr></thead>
       <tbody id="rBody"></tbody></table></div>
     </div>
-    <p class="hint" style="margin-top:-6px">“Spent” is expenses dated in the period (General = shared costs). “Net” is money collected minus money spent. “Invoiced” counts invoices dated in the period (not quotes, not cancelled; deposits excluded). “Collected” counts payments received in the period, deposits included. “Still owed” is today's unpaid balance on that period's invoices.</p>
+    <p class="hint" style="margin-top:-6px">Each invoice is split across business lines by its items (set on the price list), so ice sold on a rental invoice counts under Ice; deposits count under the invoice's own line. “Spent” is expenses dated in the period (General = shared costs). “Net” is money collected minus money spent. “Invoiced” counts invoices dated in the period (not quotes, not cancelled; deposits excluded). “Collected” counts payments received in the period, deposits included. “Still owed” is today's unpaid balance on that period's invoices.</p>
     <div class="card">
       <h2>Export for your accountant</h2>
       <p class="hint" style="margin-top:-6px">Spreadsheet files (CSV) for the period picked above. They open in Excel and Google Sheets.</p>
@@ -597,8 +599,8 @@
     <button class="btn link owner-only" onclick="show('stock')" style="margin-bottom:10px">← Stock</button>
     <div class="card">
       <h2>Price list</h2>
-      <p class="hint" style="margin-top:-6px">Items you rent or sell often. Rate is per item (per day for rentals). Put in <b>Stock owned</b> for rental items and the app warns you when two bookings on the same dates need more than you have. Leave it blank for things like ice. Untick <b>Per day</b> for things sold once (ice, delivery): their Days column shows “—”. <b>Replacement cost</b> is charged when an item comes back missing or damaged.</p>
-      <table class="items"><thead><tr><th>Item</th><th class="r">Rate (J$)</th><th class="n">Stock owned</th><th class="r">Replacement cost</th><th class="n">Per day</th><th class="x"></th></tr></thead>
+      <p class="hint" style="margin-top:-6px">Items you rent or sell often. Rate is per item (per day for rentals). Put in <b>Stock owned</b> for rental items and the app warns you when two bookings on the same dates need more than you have. Leave it blank for things like ice. Untick <b>Per day</b> for things sold once (ice, delivery): their Days column shows “—”. <b>Replacement cost</b> is charged when an item comes back missing or damaged. <b>Business line</b> is where the item's money counts in Reports — so ice on a rental invoice counts as Ice.</p>
+      <table class="items cat"><thead><tr><th>Item</th><th class="ln">Business line</th><th class="r">Rate (J$)</th><th class="n">Stock owned</th><th class="r">Replacement cost</th><th class="n">Per day</th><th class="x"></th></tr></thead>
       <tbody id="catBody"></tbody></table>
       <button class="btn sm" style="margin-top:10px" onclick="addCat()">+ Add item</button>
     </div>
@@ -764,7 +766,23 @@ const newHO = () => ({out:{how:'deliver', date:'', time:'', status:'pending', at
 function ensureHO(d){ if (!d.handover) d.handover = newHO(); return d.handover; }
 const outDate = d => (d.handover && d.handover.out.date) || d.event.date || '';
 const backDate = d => { const o = outDate(d); const b = (d.handover && d.handover.back.date) || d.event.ret || d.event.date || ''; return b && o && b < o ? o : b; };
-const fixCat = c => Object.assign({id:uid(), stock:'', perDay: !/\bice\b/i.test(c.name || '')}, c);
+const fixCat = c => { c = Object.assign({id:uid(), stock:'', perDay: !/\bice\b/i.test(c.name || '')}, c); if (!c.line) c.line = guessLine(c.name); return c; };
+function guessLine(name){
+  const L = lineList(), has = x => L.includes(x);
+  if (/\bice\b/i.test(name || '') && has('Ice')) return 'Ice';
+  if (/\b(bar|bartend\w*|liquor|rum|beer|wine|spirits?)\b/i.test(name || '') && has('Bar')) return 'Bar';
+  return has('Rentals') ? 'Rentals' : L[0];
+}
+// Which business line an invoice line counts towards: the price-list item's line, else the invoice's own line
+function itemLine(it, d){ const c = catFor(it); return c && c.line && lineList().includes(c.line) ? c.line : d.line; }
+// Share of an invoice's value per business line, by item amounts. e.g. {Rentals:0.8, Ice:0.2}
+function lineSplit(d){
+  const m = {}; let sub = 0;
+  d.items.forEach(it => { const a = lineAmt(it); if (a > 0) { const l = itemLine(it, d); m[l] = (m[l] || 0) + a; sub += a; } });
+  if (!sub) return {[d.line]: 1};
+  for (const k in m) m[k] /= sub;
+  return m;
+}
 let EXP = [];
 let S, CAT, CATU = 0, DOCS, cur = null, mem = null, PV = {kind:'invoice'}, CUST = '';
 
@@ -1019,7 +1037,7 @@ function renderList(){
   for (const d of docs){
     const st = effStatus(d), t = totals(d);
     if (q && !((d.client.name||'') + ' ' + d.number + ' ' + (d.client.phone||'')).toLowerCase().includes(q)) continue;
-    if (fl && d.line !== fl) continue;
+    if (fl && d.line !== fl && !(fl in lineSplit(d))) continue;
     if (f === 'Unpaid' && (!isOpenInv(d) || st === 'Paid')) continue;
     if (f === 'Overdue' && st !== 'Overdue') continue;
     if (f === 'Paid' && st !== 'Paid') continue;
@@ -2239,11 +2257,19 @@ function renderReports(){
   const per = sel.value, inP = dt => !per || (dt || '').startsWith(per);
   const blank = () => ({inv:0, coll:0, kept:0, owed:0, spent:0});
   const rows = {}; lineList().forEach(l => rows[l] = blank());
+  const row = l => rows[l] || (rows[l] = blank());
   live().filter(isOpenInv).forEach(d => {
-    const r = rows[d.line] || (rows[d.line] = blank()), t = totals(d);
-    if (inP(d.date)) { r.inv += t.total; r.owed += t.bal; }
-    d.payments.forEach(p => { if (inP(p.date)) r.coll += num(p.amount); });
-    if (t.kept && inP(d.depRet.date || d.date)) r.kept += t.kept;
+    const t = totals(d), sh = lineSplit(d);
+    // each line's slice of what the customer owes: its share of the total, plus the deposit on the invoice's own line
+    const ls = new Set(Object.keys(sh)); if (t.dep) ls.add(d.line);
+    const slice = l => t.total * (sh[l] || 0) + (l === d.line ? t.dep : 0);
+    const paidP = d.payments.reduce((a,p) => a + (inP(p.date) ? num(p.amount) : 0), 0);
+    ls.forEach(l => {
+      const r = row(l), f = t.due > 0 ? slice(l) / t.due : (sh[l] || 0);
+      if (inP(d.date)) { r.inv += t.total * (sh[l] || 0); r.owed += t.bal * f; }
+      r.coll += paidP * f;
+    });
+    if (t.kept && inP(d.depRet.date || d.date)) row(d.line).kept += t.kept;
   });
   liveExp().forEach(e => { if (!inP(e.date)) return; const l = e.line || 'General'; (rows[l] || (rows[l] = blank())).spent += num(e.amount); });
   const T = Object.values(rows).reduce((a,r) => { for (const k in r) a[k] += r[k]; return a; }, blank());
@@ -2262,9 +2288,9 @@ function exportCSV(kind){
   const per = $('#rmonth').value, inP = dt => !per || (dt || '').startsWith(per);
   let rows;
   if (kind === 'invoices') {
-    rows = [['Number','Type','Business line','Date','Due','Customer','Phone','Event date','Status','Subtotal','Discount','Delivery','Tax','Total (excl deposit)','Deposit','Deposit status','Deposit kept','Paid','Balance','Created by','From quote']];
+    rows = [['Number','Type','Business line','Date','Due','Customer','Phone','Event date','Status','Subtotal','Discount','Delivery','Tax','Total (excl deposit)','Deposit','Deposit status','Deposit kept','Paid','Balance','Created by','From quote','Total by business line']];
     live().filter(d => inP(d.date)).sort((a,b) => (a.date||'').localeCompare(b.date||'')).forEach(d => { const t = totals(d);
-      rows.push([d.number, d.type, d.line, fmtDate(d.date), fmtDate(d.due), d.client.name, d.client.phone, fmtDate(d.event.date), effStatus(d), t.sub.toFixed(2), t.disc.toFixed(2), t.del.toFixed(2), t.tax.toFixed(2), t.total.toFixed(2), t.dep.toFixed(2), t.dep ? d.depRet.status : '', t.kept.toFixed(2), t.paid.toFixed(2), d.type === 'Quote' ? '' : t.bal.toFixed(2), d.createdBy || '', d.fromQuote || '']); });
+      rows.push([d.number, d.type, d.line, fmtDate(d.date), fmtDate(d.due), d.client.name, d.client.phone, fmtDate(d.event.date), effStatus(d), t.sub.toFixed(2), t.disc.toFixed(2), t.del.toFixed(2), t.tax.toFixed(2), t.total.toFixed(2), t.dep.toFixed(2), t.dep ? d.depRet.status : '', t.kept.toFixed(2), t.paid.toFixed(2), d.type === 'Quote' ? '' : t.bal.toFixed(2), d.createdBy || '', d.fromQuote || '', Object.entries(lineSplit(d)).map(([l,f]) => l + ' ' + (t.total * f).toFixed(2)).join('; ')]); });
   } else if (kind === 'expenses') {
     rows = [['Date','Category','Business line','Paid to','Method','Amount','Note','Receipts','Added by']];
     liveExp().filter(e => inP(e.date)).sort((a,b) => (a.date||'').localeCompare(b.date||'')).forEach(e =>
@@ -2284,12 +2310,13 @@ function exportCSV(kind){
 /* =================== price list =================== */
 function renderCat(){
   $('#catBody').innerHTML = CAT.map((c,i) => `<tr><td class="d"><input value="${esc(c.name)}" data-i="${i}" data-k="name" placeholder="Item name"></td>
+    <td class="ln"><select data-i="${i}" data-k="line" aria-label="Business line">${[...new Set(lineList().concat(c.line ? [c.line] : []))].map(l => `<option${l === c.line ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select></td>
     <td class="r"><input type="number" step="any" min="0" inputmode="decimal" value="${esc(c.rate)}" data-i="${i}" data-k="rate" placeholder="Rate"></td>
     <td class="n"><input type="number" step="1" min="0" inputmode="numeric" value="${esc(c.stock)}" data-i="${i}" data-k="stock" placeholder="Stock"></td>
     <td class="r"><input type="number" step="any" min="0" inputmode="decimal" value="${esc(c.replace || '')}" data-i="${i}" data-k="replace" placeholder="Replace J$" title="What you charge if one is lost or damaged beyond repair"></td>
     <td class="n" style="text-align:center"><label style="flex-direction:row;align-items:center;justify-content:center;gap:6px;min-height:40px;font-weight:400;color:var(--ink)"><input type="checkbox" data-i="${i}" data-k="perDay" ${c.perDay !== false ? 'checked' : ''} style="width:20px;min-height:20px"><span class="sm-only">Per day</span></label></td>
     <td class="x"><button class="btn sm" onclick="removeCat(${i})" aria-label="Remove">✕</button></td></tr>`).join('');
-  $('#catBody').querySelectorAll('input').forEach(inp => inp.addEventListener('input', e => {
+  $('#catBody').querySelectorAll('input,select').forEach(inp => inp.addEventListener(inp.tagName === 'SELECT' ? 'change' : 'input', e => {
     const c = CAT[+e.target.dataset.i], k = e.target.dataset.k; c[k] = k === 'perDay' ? e.target.checked : (k === 'rate' || k === 'replace') ? num(e.target.value) : e.target.value; CATU = Date.now(); saveAll();
   }));
 }
@@ -2309,7 +2336,7 @@ async function removeCat(i){
   if (!await ask('Remove from price list?', `“${c.name || 'This item'}” will be removed. Invoices that already use it are not changed.`, [{label:'Remove', value:true, cls:'del'}, CANCEL])) return;
   const at = CAT.indexOf(c); if (at >= 0) { CAT.splice(at,1); CATU = Date.now(); saveAll(); renderCat(); }
 }
-function addCat(){ CAT.push({id:uid(), name:'', rate:0, stock:'', perDay:true}); CATU = Date.now(); saveAll(); renderCat(); const ins = $('#catBody').querySelectorAll('tr:last-child input'); if (ins[0]) ins[0].focus(); }
+function addCat(){ CAT.push({id:uid(), name:'', rate:0, stock:'', perDay:true, line: lineList().includes('Rentals') ? 'Rentals' : lineList()[0]}); CATU = Date.now(); saveAll(); renderCat(); const ins = $('#catBody').querySelectorAll('tr:last-child input'); if (ins[0]) ins[0].focus(); }
 
 /* =================== settings =================== */
 function loadSettings(){
