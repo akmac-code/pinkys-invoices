@@ -91,6 +91,23 @@
   .job .jacts { display:flex; gap:6px; flex-wrap:wrap; }
   .jgroup { font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:16px 0 8px; }
   .jgroup.bad { color:var(--bad); }
+  .avail { font-weight:800; }
+  .avail.ok { color:var(--ok); } .avail.low { color:var(--warn); } .avail.none { color:var(--bad); }
+  .abar { height:6px; background:#eee; border-radius:4px; margin-top:5px; overflow:hidden; max-width:220px; }
+  .abar i { display:block; height:100%; background:var(--accent); }
+  .stdetail td { background:#fafafa; font-size:13px; padding:6px 8px 10px; }
+  .stdetail a { color:var(--accent); cursor:pointer; text-decoration:underline; }
+  .viewer { position:fixed; inset:0; background:rgba(0,0,0,.85); z-index:150; display:flex; flex-direction:column; }
+  .viewer[hidden] { display:none; }
+  .viewer .vbar { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:10px 14px; color:#fff; font-size:14px; }
+  .viewer .vbody { flex:1; overflow:auto; display:flex; align-items:flex-start; justify-content:center; padding:10px; }
+  .viewer img { max-width:100%; height:auto; background:#fff; }
+  .viewer iframe { width:100%; height:100%; border:0; background:#fff; }
+  .rc { display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid var(--line); }
+  .rc span { flex:1; color:var(--ink); }
+  .catbar { display:grid; grid-template-columns:minmax(110px,1.2fr) 2fr auto; gap:8px; align-items:center; margin:6px 0; font-size:14px; }
+  .catbar .b { height:10px; background:#eee; border-radius:5px; overflow:hidden; } .catbar .b i { display:block; height:100%; background:var(--accent); }
+  .catbar b { font-variant-numeric:tabular-nums; }
   .stockalert { padding:12px 14px; }
   .stockalert .sa-head { font-weight:700; color:#5a3600; margin-bottom:8px; }
   .stockalert .sa-when { font-weight:500; color:#7a4a00; }
@@ -218,6 +235,7 @@
     .items.pay tr { grid-template-columns:1fr 1fr 40px; }
     .items.pay td.amt { grid-column:auto; }
     .list .hm { display:none; }
+    .tscroll .list td, .tscroll .list th { white-space:nowrap; }
     .sm-only { display:inline; }
     .list th, .list td { padding:9px 4px; font-size:14px; }
     .list td:first-child, .list th:first-child { padding-left:2px; }
@@ -256,6 +274,7 @@
     #printArea img.pp:last-child { page-break-after:auto; break-after:auto; }
     * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   }
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
 </style>
 </head>
 <body>
@@ -266,8 +285,9 @@
     <button data-v="list" class="on"><b>🧾</b>Invoices</button>
     <button data-v="jobs"><b>🚚</b>Jobs</button>
     <button data-v="customers"><b>👥</b>Customers</button>
+    <button data-v="expenses" class="owner-only"><b>💸</b>Expenses</button>
     <button data-v="reports" class="owner-only"><b>📊</b>Reports</button>
-    <button data-v="items" class="owner-only"><b>🏷️</b>Price list</button>
+    <button data-v="stock" class="owner-only"><b>📦</b>Stock</button>
     <button data-v="settings"><b>⚙️</b>Settings</button>
   </nav>
 </header>
@@ -430,6 +450,53 @@
     <div id="jobsBody"></div>
   </section>
 
+  <!-- ===== EXPENSES (owners only) ===== -->
+  <section class="view" id="v-expenses">
+    <div class="row" style="margin-bottom:14px">
+      <button class="btn pri hide-m" onclick="newExpense()">+ Add expense</button>
+      <select id="exMonth" style="width:auto" onchange="renderExpenses()"></select>
+      <select id="exCat" style="width:auto" onchange="renderExpenses()"></select>
+      <select id="exLine" style="width:auto" onchange="renderExpenses()"></select>
+    </div>
+    <div class="stats" id="exStats"></div>
+    <div class="card" id="exByCatCard"><h2>By category</h2><div id="exByCat"></div></div>
+    <div class="card" style="padding:4px 8px">
+      <table class="list tight"><thead><tr><th>Date</th><th>Category · paid to</th><th class="hm">Line</th><th class="num">Amount</th><th></th></tr></thead>
+      <tbody id="exBody"></tbody></table>
+      <p id="exEmpty" class="hint" style="padding:14px 8px; display:none">No expenses for this period. Tap “+ Add expense”.</p>
+    </div>
+    <button class="fab" onclick="newExpense()" aria-label="Add expense">+</button>
+  </section>
+
+  <section class="view" id="v-expense">
+    <button class="btn link" onclick="show('expenses')" style="margin-bottom:10px">← Expenses</button>
+    <div class="card">
+      <h2 id="exTitle">New expense</h2>
+      <div class="byline" id="exBy" style="margin:-8px 0 10px"></div>
+      <div class="grid">
+        <label>Date<input type="date" id="e-date"></label>
+        <label>Amount (J$)<input type="number" step="any" min="0" inputmode="decimal" id="e-amount"></label>
+        <label>Category<input id="e-cat" list="expCatList" autocomplete="off" placeholder="e.g. Gas / fuel"></label>
+        <label>Business line<select id="e-line"></select></label>
+        <label>Paid to<input id="e-vendor" list="expVendorList" autocomplete="off" placeholder="e.g. Texaco, Hardware store"></label>
+        <label>Payment method<select id="e-method"><option>Cash</option><option>Bank transfer</option><option>Lynk</option><option>Card</option><option>Cheque</option><option>Other</option></select></label>
+      </div>
+      <datalist id="expCatList"></datalist><datalist id="expVendorList"></datalist>
+      <div class="row" id="expChips" style="margin-top:10px"></div>
+      <label style="margin-top:10px">Note<textarea id="e-note" rows="2" placeholder="What was it for?"></textarea></label>
+    </div>
+    <div class="card">
+      <h2>Receipts</h2>
+      <div id="expRcpts" class="hint" style="margin-bottom:10px">No receipt attached.</div>
+      <label class="btn" style="flex-direction:row; align-items:center; justify-content:center; color:inherit; font-weight:600; font-size:inherit">📎 Add receipt photo or PDF<input type="file" id="expFile" accept="image/*,application/pdf" multiple hidden></label>
+      <p class="hint" style="margin-bottom:0">Photos are shrunk before upload. Receipts are kept in your business Google Drive (folder “Pinky's Ventures Receipts”); without internet they wait on this device and upload later.</p>
+    </div>
+    <div class="row" style="margin-bottom:80px">
+      <button class="btn pri" onclick="saveExpense()">Save expense</button>
+      <button class="btn danger" id="exDelBtn" onclick="deleteExpense()">Delete</button>
+    </div>
+  </section>
+
   <!-- ===== CUSTOMERS ===== -->
   <section class="view" id="v-customers">
     <div class="row" style="margin-bottom:14px">
@@ -487,22 +554,47 @@
     </div>
     <div class="stats" id="rStats"></div>
     <div class="card" style="padding:4px 8px">
-      <table class="list tight"><thead><tr><th>Business line</th><th class="num">Invoiced</th><th class="num">Collected</th><th class="num hm">Deposits kept</th><th class="num">Still owed</th></tr></thead>
-      <tbody id="rBody"></tbody></table>
+      <div class="tscroll"><table class="list tight"><thead><tr><th>Business line</th><th class="num">Invoiced</th><th class="num">Collected</th><th class="num hm">Deposits kept</th><th class="num">Still owed</th><th class="num">Spent</th><th class="num">Net</th></tr></thead>
+      <tbody id="rBody"></tbody></table></div>
     </div>
-    <p class="hint" style="margin-top:-6px">“Invoiced” counts invoices dated in the period (not quotes, not cancelled; deposits excluded). “Collected” counts payments received in the period, deposits included. “Still owed” is today's unpaid balance on that period's invoices.</p>
+    <p class="hint" style="margin-top:-6px">“Spent” is expenses dated in the period (General = shared costs). “Net” is money collected minus money spent. “Invoiced” counts invoices dated in the period (not quotes, not cancelled; deposits excluded). “Collected” counts payments received in the period, deposits included. “Still owed” is today's unpaid balance on that period's invoices.</p>
     <div class="card">
       <h2>Export for your accountant</h2>
       <p class="hint" style="margin-top:-6px">Spreadsheet files (CSV) for the period picked above. They open in Excel and Google Sheets.</p>
       <div class="row">
         <button class="btn" onclick="exportCSV('invoices')">Invoices CSV</button>
         <button class="btn" onclick="exportCSV('payments')">Payments CSV</button>
+        <button class="btn" onclick="exportCSV('expenses')">Expenses CSV</button>
       </div>
     </div>
   </section>
 
+  <!-- ===== STOCK ===== -->
+  <section class="view" id="v-stock">
+    <div class="card">
+      <div class="row between"><h2 style="margin:0">Stock availability</h2><button class="btn sm" onclick="show('items')">Edit price list & stock</button></div>
+      <div class="grid" style="margin-top:12px">
+        <label>From<input type="date" id="stFrom"></label>
+        <label>To<input type="date" id="stTo"></label>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn sm" onclick="stockRange(0,0)">Today</button>
+        <button class="btn sm" onclick="stockRange(1,1)">Tomorrow</button>
+        <button class="btn sm" onclick="stockWeekend()">This weekend</button>
+        <button class="btn sm" onclick="stockRange(0,6)">Next 7 days</button>
+      </div>
+    </div>
+    <div class="stats" id="stStats"></div>
+    <div class="card" style="padding:4px 8px">
+      <table class="list tight"><thead><tr><th>Item</th><th class="num hm">Total</th><th class="num">Out now</th><th class="num">Booked</th><th class="num">Available</th></tr></thead>
+      <tbody id="stBody"></tbody></table>
+    </div>
+    <p class="hint" id="stNote"></p>
+  </section>
+
   <!-- ===== PRICE LIST ===== -->
   <section class="view" id="v-items">
+    <button class="btn link owner-only" onclick="show('stock')" style="margin-bottom:10px">← Stock</button>
     <div class="card">
       <h2>Price list</h2>
       <p class="hint" style="margin-top:-6px">Items you rent or sell often. Rate is per item (per day for rentals). Put in <b>Stock owned</b> for rental items and the app warns you when two bookings on the same dates need more than you have. Leave it blank for things like ice. Untick <b>Per day</b> for things sold once (ice, delivery): their Days column shows “—”. <b>Replacement cost</b> is charged when an item comes back missing or damaged.</p>
@@ -635,6 +727,7 @@
 </main>
 <div class="doc" id="printArea"></div>
 <div class="toast" id="toast"></div>
+<div class="viewer" id="viewer" hidden><div class="vbar"><span id="vName"></span><span class="row"><a class="btn sm" id="vDl" download>Download</a><button class="btn sm" onclick="closeViewer()">Close ✕</button></span></div><div class="vbody" id="vBody"></div></div>
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle"><div class="box"><h3 id="mTitle"></h3><p id="mText"></p><div id="mForm"></div><p id="mErr" style="color:var(--bad);font-weight:600;margin:0 0 10px" hidden></p><div class="btns" id="mBtns"></div></div></div>
 <div class="lock" id="lock" hidden>
   <div class="lockbox">
@@ -672,6 +765,7 @@ function ensureHO(d){ if (!d.handover) d.handover = newHO(); return d.handover; 
 const outDate = d => (d.handover && d.handover.out.date) || d.event.date || '';
 const backDate = d => { const o = outDate(d); const b = (d.handover && d.handover.back.date) || d.event.ret || d.event.date || ''; return b && o && b < o ? o : b; };
 const fixCat = c => Object.assign({id:uid(), stock:'', perDay: !/\bice\b/i.test(c.name || '')}, c);
+let EXP = [];
 let S, CAT, CATU = 0, DOCS, cur = null, mem = null, PV = {kind:'invoice'}, CUST = '';
 
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
@@ -704,6 +798,7 @@ function load(){
   CATU = d.catalogUpdated || 1;                       // always > 0 so an owner's first sync uploads the price list
   if (!S.updatedAt) S.updatedAt = 1;
   DOCS = (d.docs || []).map(migrateDoc);
+  EXP = (d.expenses || []);
 }
 // Upgrade settings saved by older versions. Checks the SAVED copy, not the merged one (defaults would hide what's missing).
 function upgradeSettings(saved, s){
@@ -716,7 +811,7 @@ function upgradeSettings(saved, s){
   return ch;
 }
 function persist(){
-  const d = {settings:S, catalog:CAT, catalogUpdated:CATU, docs:DOCS, savedAt:new Date().toISOString()};
+  const d = {settings:S, catalog:CAT, catalogUpdated:CATU, docs:DOCS, expenses:EXP, savedAt:new Date().toISOString()};
   mem = d;
   try { localStorage.setItem(KEY, JSON.stringify(d)); return true; }
   catch(e){ toast('Could not save — storage full or blocked. Export a backup.'); return false; }
@@ -844,11 +939,11 @@ enhanceDates();
 document.querySelectorAll('nav button').forEach(b => b.onclick = () => show(b.dataset.v));
 function show(v){
   if (needsLogin() && v !== 'login') v = 'login';
-  if (!isOwner() && (v === 'reports' || v === 'items')) v = 'list';
+  if (!isOwner() && ['reports','items','stock','expenses','expense'].includes(v)) v = 'list';
   document.body.classList.toggle('editing', v === 'edit');
   document.body.classList.toggle('login', v === 'login');
   if (v === 'login') prepLogin();
-  const navV = v === 'customer' ? 'customers' : v;
+  const navV = v === 'customer' ? 'customers' : v === 'items' ? 'stock' : v === 'expense' ? 'expenses' : v;
   document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.v === navV));
   document.querySelectorAll('.view').forEach(s => s.classList.toggle('on', s.id === 'v-' + v));
   if (v === 'list') renderList();
@@ -856,6 +951,8 @@ function show(v){
   if (v === 'customer') renderCustomer();
   if (v === 'reports') renderReports();
   if (v === 'jobs') renderJobs();
+  if (v === 'stock') renderStock();
+  if (v === 'expenses') renderExpenses();
   if (v === 'items') renderCat();
   if (v === 'settings') loadSettings();
   window.scrollTo(0,0);
@@ -1818,6 +1915,248 @@ function jobMsg(id, dir){
   window.open('https://wa.me/' + waPhone(d.client.phone) + '?text=' + encodeURIComponent(txt), '_blank');
 }
 
+/* =================== stock availability =================== */
+const isoOf = ms => { const d = new Date(ms); return new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); };
+// Every booking that holds stock, with the dates the items are actually away
+function reservations(){
+  const t = today();
+  return live().filter(holdsStock).map(d => {
+    const h = ensureHO(d), s = outDate(d); if (!s) return null;
+    let e = backDate(d) || s;
+    const outDone = h.out.status === 'done', back = h.back.status === 'checked';
+    if (back && h.back.at) { const bd = isoOf(h.back.at); e = bd < s ? s : (bd < e ? bd : e); }   // returned early: free from that day
+    const open = outDone && !back && e < t;
+    if (open) e = '9999-12-31';                                                                     // overdue: unavailable until checked in
+    const qty = {};
+    d.items.forEach((it, i) => { const c = catFor(it); if (!c || !(num(c.stock) > 0)) return;
+      const q = outDone && h.out.counts && h.out.counts[i] !== undefined ? num(h.out.counts[i]) : num(it.qty);
+      qty[c.id] = (qty[c.id] || 0) + q; });
+    return {d, s, e, qty, outDone, back, overdue: open};
+  }).filter(r => r && Object.keys(r.qty).length);
+}
+function stockRange(a, b){ $('#stFrom').value = addDays(today(), a); $('#stTo').value = addDays(today(), b); renderStock(); }
+function stockWeekend(){
+  const d = new Date(today() + 'T12:00:00'), dow = d.getDay();      // 0 Sun … 6 Sat
+  const toSat = dow === 0 ? -1 : 6 - dow;
+  stockRange(toSat, toSat + 1);
+}
+['#stFrom','#stTo'].forEach(id => $(id).addEventListener('change', () => renderStock()));
+let stOpen = '';
+function renderStock(){
+  if (!$('#stFrom').value) $('#stFrom').value = today();
+  if (!$('#stTo').value) $('#stTo').value = $('#stFrom').value;
+  let from = $('#stFrom').value, to = $('#stTo').value;
+  if (to < from) { [from, to] = [to, from]; $('#stFrom').value = from; $('#stTo').value = to; }
+  const days = []; for (let x = from; x <= to && days.length < 93; x = addDays(x, 1)) days.push(x);
+  const res = reservations(), t = today();
+  const items = CAT.filter(c => c.name && num(c.stock) > 0);
+  let fully = 0, outUnits = 0;
+  const rows = items.map(c => {
+    const total = num(c.stock);
+    const peak = Math.max(0, ...days.map(day => res.reduce((a, r) => a + (r.s <= day && day <= r.e ? (r.qty[c.id] || 0) : 0), 0)));
+    const outNow = res.reduce((a, r) => a + (r.outDone && !r.back ? (r.qty[c.id] || 0) : 0), 0);
+    outUnits += outNow;
+    const avail = total - peak; if (avail <= 0) fully++;
+    const cls = avail <= 0 ? 'none' : avail < total * 0.2 ? 'low' : 'ok';
+    const holding = res.filter(r => r.qty[c.id] && r.s <= to && r.e >= from);
+    const det = holding.length ? holding.sort((a, b) => a.s.localeCompare(b.s)).map(r => {
+      const st = r.back ? 'returned' : r.overdue ? '<b style="color:var(--bad)">overdue</b>' : r.outDone ? 'out now' : r.d.type === 'Quote' ? 'quote accepted' : 'booked';
+      return `<a onclick="openDoc('${r.d.id}')">${esc(r.d.number)}</a> · ${esc(r.d.client.name || 'no name')} · ${fmtDate(r.s)}${r.overdue ? ' – until returned (was due ' + fmtDate(backDate(r.d)) + ')' : r.e !== r.s ? ' – ' + fmtDate(r.e) : ''} · <b>${r.qty[c.id]}</b> · ${st}`; }).join('<br>')
+      : 'Nothing booked in this period.';
+    return `<tr class="click" onclick="stOpen = stOpen === '${c.id}' ? '' : '${c.id}'; renderStock()">
+        <td>${esc(c.name)}<div class="abar"><i style="width:${Math.min(100, Math.round(peak / total * 100))}%"></i></div></td>
+        <td class="num hm">${total}</td><td class="num">${outNow}</td><td class="num">${peak}</td>
+        <td class="num"><span class="avail ${cls}">${Math.max(0, avail)}</span>${avail < 0 ? `<span class="sub" style="color:var(--bad)">over by ${-avail}</span>` : ''}</td></tr>
+      ${stOpen === c.id ? `<tr class="stdetail"><td colspan="5">${det}</td></tr>` : ''}`;
+  }).join('');
+  $('#stBody').innerHTML = rows || '<tr><td colspan="5" class="hint" style="padding:14px 8px">No stock counts yet. Tap “Edit price list & stock” and fill in Stock owned for your rental items.</td></tr>';
+  const overdue = res.filter(r => r.overdue).length;
+  const period = from === to ? fmtDate(from) : `${fmtDate(from)} – ${fmtDate(to)}`;
+  $('#stStats').innerHTML = `<div class="stat"><span>Checking</span><b style="font-size:16px">${period}</b></div>
+    <div class="stat"><span>Fully booked items</span><b${fully ? ' style="color:var(--bad)"' : ''}>${fully}</b></div>
+    <div class="stat"><span>Units out right now</span><b>${outUnits}</b></div>
+    <div class="stat"><span>Overdue returns</span><b${overdue ? ' style="color:var(--bad)"' : ''}>${overdue}</b></div>`;
+  const noStock = CAT.filter(c => c.name && c.perDay !== false && !(num(c.stock) > 0)).map(c => c.name);
+  $('#stNote').textContent = (from !== to ? '“Booked” is the most in use on any single day in this period. ' : '') + 'Counts invoices and accepted quotes; items are away from delivery/collection until checked back in.' +
+    (noStock.length ? ` Not tracked (no stock owned set): ${noStock.join(', ')}.` : '');
+}
+
+/* =================== expenses (owners only) =================== */
+const EXP_CATS = ['Gas / fuel','Transport','New inventory','Repairs & maintenance','Ice supplies','Bar stock','Utilities (JPS / NWC)','Wages','Rent','Phone & internet','Marketing','Fees & licences','Equipment','Other'];
+const liveExp = () => EXP.filter(e => !e.deleted);
+const expLines = () => lineList().concat(lineList().includes('General') ? [] : ['General']);
+let curExp = null, expFiles = [];   // files picked in the form, not yet saved
+
+// --- receipts waiting to upload are kept in IndexedDB (too big for normal storage) ---
+function idb(){ return new Promise((ok, no) => { const r = indexedDB.open('pinkys-receipts', 1); r.onupgradeneeded = () => r.result.createObjectStore('files'); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); }); }
+async function idbDo(mode, fn){ const db = await idb(); return new Promise((ok, no) => { const tx = db.transaction('files', mode), st = tx.objectStore('files'); const r = fn(st); tx.oncomplete = () => ok(r && r.result); tx.onerror = () => no(tx.error); }); }
+const idbPut = (k, v) => idbDo('readwrite', st => st.put(v, k));
+const idbGet = k => idbDo('readonly', st => st.get(k));
+const idbDel = k => idbDo('readwrite', st => st.delete(k));
+const idbKeys = () => idbDo('readonly', st => st.getAllKeys());
+const idbClear = () => idbDo('readwrite', st => st.clear());
+
+async function shrinkFile(file){
+  if (file.type === 'application/pdf') { if (file.size > 8 * 1024 * 1024) throw new Error('PDF is over 8 MB'); return {blob:file, mime:'application/pdf', name:file.name}; }
+  if (!/^image\//.test(file.type)) throw new Error('Only photos or PDFs');
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => no(new Error('Could not read that photo')); i.src = url; });
+    const k = Math.min(1, 1600 / Math.max(img.width, img.height));
+    const c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+    const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height);
+    const blob = await new Promise(ok => c.toBlob(ok, 'image/jpeg', 0.8));
+    return {blob, mime:'image/jpeg', name:(file.name || 'receipt').replace(/\.[^.]+$/, '') + '.jpg'};
+  } finally { URL.revokeObjectURL(url); }
+}
+const blobToB64 = b => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = () => no(r.error); r.readAsDataURL(b); });
+
+function expCatsUsed(){
+  const n = {}; liveExp().forEach(e => { if (e.category) n[e.category] = (n[e.category] || 0) + 1; });
+  return Object.keys(n).sort((a, b) => n[b] - n[a]);
+}
+function newExpense(){
+  curExp = {id:uid(), date:today(), amount:'', category:'', line:'General', vendor:'', method:'Cash', note:'', receipts:[], created:Date.now(), createdBy:SY.who || '', _new:true};
+  openExpenseForm();
+}
+function openExpense(id){ const e = EXP.find(x => x.id === id && !x.deleted); if (!e) return; curExp = JSON.parse(JSON.stringify(e)); openExpenseForm(); }
+function openExpenseForm(){
+  const e = curExp; expFiles = [];
+  $('#exTitle').textContent = e._new ? 'New expense' : 'Expense';
+  $('#exBy').textContent = e._new ? '' : [e.createdBy ? 'Added by ' + e.createdBy : '', e.updatedBy && e.updated ? 'last edit ' + e.updatedBy + ', ' + fmtStamp(e.updated) : ''].filter(Boolean).join(' · ');
+  $('#e-line').innerHTML = expLines().map(l => `<option>${esc(l)}</option>`).join('');
+  $('#e-date').value = e.date; $('#e-amount').value = e.amount; $('#e-cat').value = e.category; $('#e-line').value = e.line || 'General';
+  $('#e-vendor').value = e.vendor; $('#e-method').value = e.method || 'Cash'; $('#e-note').value = e.note;
+  const cats = [...new Set(expCatsUsed().concat(EXP_CATS))];
+  $('#expCatList').innerHTML = cats.map(c => `<option value="${esc(c)}">`).join('');
+  $('#expVendorList').innerHTML = [...new Set(liveExp().map(x => x.vendor).filter(Boolean))].map(v => `<option value="${esc(v)}">`).join('');
+  $('#expChips').innerHTML = cats.slice(0, 8).map(c => `<button class="btn sm" type="button" onclick="pickCat(this.textContent)">${esc(c)}</button>`).join('');
+  $('#exDelBtn').hidden = !!e._new;
+  renderExpRcpts(); show('expense');
+  if (e._new) setTimeout(() => $('#e-amount').focus(), 60);
+}
+function pickCat(c){
+  $('#e-cat').value = c;
+  // same category usually means the same business line and payee as last time
+  const last = liveExp().filter(x => x.category === c).sort((a, b) => (b.date || '').localeCompare(a.date || ''))[0];
+  if (last && curExp._new) { if (last.line) $('#e-line').value = last.line; if (last.vendor && !$('#e-vendor').value) $('#e-vendor').value = last.vendor; }
+}
+function renderExpRcpts(){
+  const list = curExp.receipts.map((r, i) => ({r, i, saved:true})).concat(expFiles.map((f, i) => ({r:f, i, saved:false})));
+  $('#expRcpts').innerHTML = list.length ? list.map(x => `<div class="rc">${/pdf/.test(x.r.mime) ? '📄' : '🧾'}<span>${esc(x.r.name || 'receipt')}${String(x.r.id || '').startsWith('local:') || !x.saved ? ' <span class="hint">· waiting to upload</span>' : ''}</span>
+      ${x.saved ? `<button class="btn sm" type="button" onclick="viewReceipt(curExp.receipts[${x.i}])">View</button>` : ''}
+      <button class="btn sm" type="button" onclick="removeRcpt(${x.saved}, ${x.i})" aria-label="Remove">✕</button></div>`).join('')
+    : 'No receipt attached.';
+}
+$('#expFile').addEventListener('change', async e => {
+  for (const f of [...e.target.files]) {
+    try { const p = await shrinkFile(f); expFiles.push(p); } catch(err) { toast(err.message); }
+  }
+  e.target.value = ''; renderExpRcpts();
+});
+async function removeRcpt(saved, i){
+  if (!saved) { expFiles.splice(i, 1); return renderExpRcpts(); }
+  if (!await ask('Remove this receipt?', 'It’s taken off this expense. (The file stays in your Google Drive folder.)', [{label:'Remove', value:true, cls:'del'}, CANCEL])) return;
+  const r = curExp.receipts.splice(i, 1)[0];
+  if (r && String(r.id).startsWith('local:')) idbDel(r.id).catch(() => {});
+  renderExpRcpts();
+}
+async function saveExpense(){
+  const e = curExp, amount = num($('#e-amount').value), category = $('#e-cat').value.trim();
+  if (!(amount > 0)) { toast('Enter the amount'); return $('#e-amount').focus(); }
+  if (!category) { toast('Pick or type a category'); return $('#e-cat').focus(); }
+  Object.assign(e, {date:$('#e-date').value || today(), amount:String(amount), category, line:$('#e-line').value, vendor:$('#e-vendor').value.trim(), method:$('#e-method').value, note:$('#e-note').value.trim()});
+  for (const f of expFiles) {
+    const key = 'local:' + uid();
+    await idbPut(key, {blob:f.blob, mime:f.mime, name:`${e.date} ${category}${e.vendor ? ' - ' + e.vendor : ''} ${f.name}`.trim(), expId:e.id});
+    e.receipts.push({id:key, name:f.name, mime:f.mime});
+  }
+  expFiles = [];
+  const isNew = e._new; delete e._new;
+  e.updated = Date.now(); e.updatedBy = SY.who || '';
+  const at = EXP.findIndex(x => x.id === e.id);
+  if (at >= 0) EXP[at] = e; else EXP.push(e);
+  saveAll(); toast(isNew ? `Expense saved: ${money(e.amount)}` : 'Saved');
+  show('expenses');
+}
+async function deleteExpense(){
+  const e = curExp;
+  if (!await ask('Delete this expense?', `${money(e.amount)} · ${e.category} · ${fmtDate(e.date)}. It’s removed for both owners. Receipt files stay in Google Drive.`, [{label:'Delete', value:true, cls:'del'}, CANCEL])) return;
+  const at = EXP.findIndex(x => x.id === e.id);
+  if (at >= 0) EXP[at] = {id:e.id, deleted:true, updated:Date.now(), updatedBy:SY.who || ''};
+  (e.receipts || []).filter(r => String(r.id).startsWith('local:')).forEach(r => idbDel(r.id).catch(() => {}));
+  saveAll(); show('expenses'); toast('Expense deleted');
+}
+// Upload receipts that are waiting on this device (called during sync)
+async function uploadPendingReceipts(){
+  let keys = [];
+  try { keys = await idbKeys(); } catch(e) { return; }
+  for (const key of keys) {
+    const p = await idbGet(key); if (!p) continue;
+    const e = EXP.find(x => x.id === p.expId && !x.deleted);
+    if (!e) { await idbDel(key); continue; }
+    const r = await api('receipt.upload', {name:p.name, mime:p.mime, data: await blobToB64(p.blob)});
+    if (!r.ok) throw new Error(r.error || 'Receipt upload failed');
+    const ref = e.receipts.find(x => x.id === key);
+    if (ref) { ref.id = r.id; e.updated = Date.now(); }
+    await idbDel(key); persist();
+  }
+}
+const rcptCache = {};
+async function viewReceipt(r){
+  if (!r) return;
+  let blob, mime = r.mime || 'image/jpeg';
+  try {
+    if (String(r.id).startsWith('local:')) { const p = await idbGet(r.id); if (!p) return toast('This receipt is still on the phone that took it. It appears here once that phone syncs.'); blob = p.blob; mime = p.mime; }
+    else if (rcptCache[r.id]) { blob = rcptCache[r.id]; }
+    else {
+      toast('Loading receipt…');
+      const res = await api('receipt.get', {id:r.id});
+      if (res.auth) return authLost(res.error);
+      if (!res.ok) return toast(res.error || 'Could not load the receipt');
+      mime = res.mime;
+      blob = rcptCache[r.id] = new Blob([Uint8Array.from(atob(res.data), c => c.charCodeAt(0))], {type:res.mime});
+    }
+  } catch(e) { return toast(navigator.onLine ? e.message : 'You’re offline. Receipts load when you’re back online.'); }
+  const url = URL.createObjectURL(blob);
+  $('#vName').textContent = r.name || 'Receipt';
+  $('#vDl').href = url; $('#vDl').download = r.name || 'receipt';
+  $('#vBody').innerHTML = /pdf/.test(mime) ? `<iframe src="${url}" title="Receipt"></iframe>` : `<img src="${url}" alt="Receipt">`;
+  $('#viewer').hidden = false;
+}
+function closeViewer(){ $('#viewer').hidden = true; $('#vBody').innerHTML = ''; }
+
+function renderExpenses(){
+  const all = liveExp();
+  // period choices
+  const months = new Set([today().slice(0, 7)]); all.forEach(e => e.date && months.add(e.date.slice(0, 7)));
+  const ms = [...months].sort().reverse(), yrs = [...new Set(ms.map(m => m.slice(0, 4)))];
+  const ms1 = $('#exMonth'), keepM = ms1.value;
+  ms1.innerHTML = ms.map(m => `<option value="${m}">${new Date(m + '-15').toLocaleDateString('en-GB', {month:'long', year:'numeric'})}</option>`).join('') + yrs.map(y => `<option value="${y}">Year ${y}</option>`).join('') + '<option value="all">All time</option>';
+  ms1.value = keepM && [...ms1.options].some(o => o.value === keepM) ? keepM : ms[0];
+  const cs = $('#exCat'), keepC = cs.value, cats = [...new Set(all.map(e => e.category).filter(Boolean))].sort();
+  cs.innerHTML = '<option value="">All categories</option>' + cats.map(c => `<option>${esc(c)}</option>`).join(''); cs.value = cats.includes(keepC) ? keepC : '';
+  const ls = $('#exLine'), keepL = ls.value;
+  ls.innerHTML = '<option value="">All lines</option>' + expLines().map(l => `<option>${esc(l)}</option>`).join(''); ls.value = keepL;
+  const per = ms1.value, inP = d => per === 'all' || (d || '').startsWith(per);
+  const list = all.filter(e => inP(e.date) && (!cs.value || e.category === cs.value) && (!ls.value || e.line === ls.value))
+                  .sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.created || 0) - (a.created || 0));
+  const total = list.reduce((a, e) => a + num(e.amount), 0);
+  const byCat = {}; list.forEach(e => byCat[e.category] = (byCat[e.category] || 0) + num(e.amount));
+  const catRows = Object.entries(byCat).sort((a, b) => b[1] - a[1]);
+  const noRcpt = list.filter(e => !(e.receipts || []).length).length;
+  $('#exStats').innerHTML = `<div class="stat"><span>Spent</span><b>${money(total)}</b></div>
+    <div class="stat"><span>Biggest category</span><b style="font-size:16px">${catRows.length ? esc(catRows[0][0]) : '—'}</b></div>
+    <div class="stat"><span>Expenses</span><b>${list.length}</b></div>
+    <div class="stat"><span>Missing receipts</span><b${noRcpt ? ' style="color:var(--warn)"' : ''}>${noRcpt}</b></div>`;
+  $('#exByCatCard').hidden = !catRows.length;
+  $('#exByCat').innerHTML = catRows.map(([c, v]) => `<div class="catbar"><span>${esc(c)}</span><div class="b"><i style="width:${Math.round(v / catRows[0][1] * 100)}%"></i></div><b>${money(v)}</b></div>`).join('');
+  $('#exBody').innerHTML = list.map(e => `<tr class="click" onclick="openExpense('${e.id}')"><td>${fmtDate(e.date)}</td>
+      <td>${esc(e.category)}<span class="sub">${esc([e.vendor, e.note].filter(Boolean).join(' · ')) || '&nbsp;'}</span></td><td class="hm">${esc(e.line || '')}</td>
+      <td class="num">${money(e.amount)}</td><td>${(e.receipts || []).length ? '📎' : ''}</td></tr>`).join('');
+  $('#exEmpty').style.display = list.length ? 'none' : 'block';
+}
+
 /* =================== customers =================== */
 function custStats(c){
   const inv = c.docs.filter(isOpenInv);
@@ -1849,25 +2188,32 @@ function renderReports(){
   const sel = $('#rmonth'), v = sel.value;
   const months = new Set([today().slice(0,7)]);
   live().forEach(d => { if (d.date) months.add(d.date.slice(0,7)); (d.payments||[]).forEach(p => p.date && months.add(p.date.slice(0,7))); });
+  liveExp().forEach(e => e.date && months.add(e.date.slice(0,7)));
   const ms = [...months].sort().reverse();
   const yrs = [...new Set(ms.map(m => m.slice(0,4)))];
   sel.innerHTML = ms.map(m => `<option value="${m}">${new Date(m + '-15').toLocaleDateString('en-GB', {month:'long', year:'numeric'})}</option>`).join('') +
     yrs.map(y => `<option value="${y}">Year ${y}</option>`).join('') + '<option value="">All time</option>';
   sel.value = v !== '' && ![...sel.options].some(o => o.value === v) ? ms[0] : v || (sel.dataset.init ? '' : ms[0]); sel.dataset.init = 1;
   const per = sel.value, inP = dt => !per || (dt || '').startsWith(per);
-  const rows = {}; lineList().forEach(l => rows[l] = {inv:0, coll:0, kept:0, owed:0});
+  const blank = () => ({inv:0, coll:0, kept:0, owed:0, spent:0});
+  const rows = {}; lineList().forEach(l => rows[l] = blank());
   live().filter(isOpenInv).forEach(d => {
-    const r = rows[d.line] || (rows[d.line] = {inv:0, coll:0, kept:0, owed:0}), t = totals(d);
+    const r = rows[d.line] || (rows[d.line] = blank()), t = totals(d);
     if (inP(d.date)) { r.inv += t.total; r.owed += t.bal; }
     d.payments.forEach(p => { if (inP(p.date)) r.coll += num(p.amount); });
     if (t.kept && inP(d.depRet.date || d.date)) r.kept += t.kept;
   });
-  const T = Object.values(rows).reduce((a,r) => { for (const k in r) a[k] += r[k]; return a; }, {inv:0, coll:0, kept:0, owed:0});
-  $('#rBody').innerHTML = Object.entries(rows).map(([l,r]) => `<tr><td>${esc(l)}</td><td class="num">${money(r.inv)}</td><td class="num">${money(r.coll)}</td><td class="num hm">${money(r.kept)}</td><td class="num">${money(r.owed)}</td></tr>`).join('') +
-    `<tr style="font-weight:700"><td>Total</td><td class="num">${money(T.inv)}</td><td class="num">${money(T.coll)}</td><td class="num hm">${money(T.kept)}</td><td class="num">${money(T.owed)}</td></tr>`;
+  liveExp().forEach(e => { if (!inP(e.date)) return; const l = e.line || 'General'; (rows[l] || (rows[l] = blank())).spent += num(e.amount); });
+  const T = Object.values(rows).reduce((a,r) => { for (const k in r) a[k] += r[k]; return a; }, blank());
+  const net = r => r.coll - r.spent;
+  const nc = v => `<td class="num"${v < 0 ? ' style="color:var(--bad)"' : ''}>${money(v)}</td>`;
+  $('#rBody').innerHTML = Object.entries(rows).map(([l,r]) => `<tr><td>${esc(l)}</td><td class="num">${money(r.inv)}</td><td class="num">${money(r.coll)}</td><td class="num hm">${money(r.kept)}</td><td class="num">${money(r.owed)}</td><td class="num">${money(r.spent)}</td>${nc(net(r))}</tr>`).join('') +
+    `<tr style="font-weight:700"><td>Total</td><td class="num">${money(T.inv)}</td><td class="num">${money(T.coll)}</td><td class="num hm">${money(T.kept)}</td><td class="num">${money(T.owed)}</td><td class="num">${money(T.spent)}</td>${nc(net(T))}</tr>`;
   const nInv = live().filter(d => isOpenInv(d) && inP(d.date)).length;
   const held = live().filter(isOpenInv).reduce((a,d) => a + totals(d).depHeld, 0);
-  $('#rStats').innerHTML = `<div class="stat"><span>Invoiced</span><b>${money(T.inv)}</b></div><div class="stat"><span>Collected</span><b>${money(T.coll)}</b></div><div class="stat"><span>Invoices</span><b>${nInv}</b></div><div class="stat"><span>Deposits held now</span><b>${money(held)}</b></div>`;
+  $('#rStats').innerHTML = `<div class="stat"><span>Invoiced</span><b>${money(T.inv)}</b></div><div class="stat"><span>Collected</span><b>${money(T.coll)}</b></div>
+    <div class="stat"><span>Spent</span><b>${money(T.spent)}</b></div><div class="stat"><span>Net (collected − spent)</span><b${net(T) < 0 ? ' style="color:var(--bad)"' : ''}>${money(net(T))}</b></div>
+    <div class="stat"><span>Invoices</span><b>${nInv}</b></div><div class="stat"><span>Deposits held now</span><b>${money(held)}</b></div>`;
 }
 function csv(rows){ return rows.map(r => r.map(v => { v = v == null ? '' : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(',')).join('\r\n'); }
 function exportCSV(kind){
@@ -1877,6 +2223,10 @@ function exportCSV(kind){
     rows = [['Number','Type','Business line','Date','Due','Customer','Phone','Event date','Status','Subtotal','Discount','Delivery','Tax','Total (excl deposit)','Deposit','Deposit status','Deposit kept','Paid','Balance','Created by','From quote']];
     live().filter(d => inP(d.date)).sort((a,b) => (a.date||'').localeCompare(b.date||'')).forEach(d => { const t = totals(d);
       rows.push([d.number, d.type, d.line, fmtDate(d.date), fmtDate(d.due), d.client.name, d.client.phone, fmtDate(d.event.date), effStatus(d), t.sub.toFixed(2), t.disc.toFixed(2), t.del.toFixed(2), t.tax.toFixed(2), t.total.toFixed(2), t.dep.toFixed(2), t.dep ? d.depRet.status : '', t.kept.toFixed(2), t.paid.toFixed(2), d.type === 'Quote' ? '' : t.bal.toFixed(2), d.createdBy || '', d.fromQuote || '']); });
+  } else if (kind === 'expenses') {
+    rows = [['Date','Category','Business line','Paid to','Method','Amount','Note','Receipts','Added by']];
+    liveExp().filter(e => inP(e.date)).sort((a,b) => (a.date||'').localeCompare(b.date||'')).forEach(e =>
+      rows.push([fmtDate(e.date), e.category, e.line || 'General', e.vendor, e.method, num(e.amount).toFixed(2), e.note, (e.receipts || []).length, e.createdBy || '']));
   } else {
     rows = [['Date','Receipt','Invoice','Customer','Business line','Method','Reference','Amount','Recorded by']];
     const ps = [];
@@ -2037,9 +2387,11 @@ async function sync(manual){
   if (isOwner()) {
     if ((S.updatedAt || 0) > SY.lastPush) meta.push({key:'settings', updated:S.updatedAt, json:S});
     if (CATU > SY.lastPush) meta.push({key:'catalog', updated:CATU, json:CAT});
+    try { await uploadPendingReceipts(); } catch(e) { /* keep them queued; try again next sync */ }
   }
   try {
-    const res = await api('sync', {since:SY.since, docs, meta});
+    const expenses = isOwner() ? EXP.filter(e => (e.updated || 0) > SY.lastPush) : [];
+    const res = await api('sync', {since:SY.since, docs, meta, expenses});
     if (res.auth) { syncing = false; return authLost(res.error); }
     if (!res.ok) throw new Error(res.error || 'Sync failed');
     if (res.me) {
@@ -2093,6 +2445,16 @@ function mergeRemote(res, pushed){
   const deniedMissing = [...deniedIds].filter(id => !(res.docs || []).some(d => d.id === id)).map(id => (DOCS.find(d => d.id === id) || {}).number).filter(Boolean);
   if (deniedMissing.length) setTimeout(() => toast(`${deniedMissing.join(', ')} couldn’t be saved to the sheet: prices must come from the price list and staff can’t give discounts.`), 1500);
   if (copies.length) { toast(`${copies.map(c => c.mine.number).join(', ')} was changed by ${copies[0].theirs.updatedBy || 'someone else'} at the same time. Your changes are saved as ${copies[0].mine.number}-COPY.`); queueSync(); }
+  (res.expenses || []).forEach(re => {
+    const i = EXP.findIndex(e => e.id === re.id);
+    if (i < 0) { EXP.push(re); changed = true; }
+    else if ((re.updated || 0) > (EXP[i].updated || 0)) {
+      // keep receipts still waiting to upload from this device
+      const waiting = (EXP[i].receipts || []).filter(r => String(r.id).startsWith('local:') && !(re.receipts || []).some(x => x.id === r.id));
+      EXP[i] = re; if (waiting.length) re.receipts = (re.receipts || []).concat(waiting);
+      changed = true;
+    }
+  });
   (res.meta || []).forEach(m => {
     if (m.key === 'settings' && m.updated && m.updated >= (S.updatedAt || 0)) { S = Object.assign({}, DEFAULT_SETTINGS, m.json, {updatedAt:m.updated}); if (upgradeSettings(m.json, S)) S.updatedAt = Date.now(); changed = true; }
     if (m.key === 'catalog' && m.updated && m.updated >= CATU) { CAT = (m.json || []).map(fixCat); CATU = m.updated; changed = true; }
@@ -2108,6 +2470,8 @@ function mergeRemote(res, pushed){
   else if (v === 'v-customer') renderCustomer();
   else if (v === 'v-reports') renderReports();
   else if (v === 'v-jobs') renderJobs();
+  else if (v === 'v-stock') renderStock();
+  else if (v === 'v-expenses') renderExpenses();
   else if (v === 'v-items' && !$('#v-items').contains(document.activeElement)) renderCat();
   else if (v === 'v-settings' && !$('#v-settings').contains(document.activeElement)) loadSettings();
   else if (v === 'v-edit' && cur) {
@@ -2185,7 +2549,8 @@ function loggedIn(url, r){
   toast(`Welcome, ${u.name}`);
 }
 function wipeLocal(){
-  DOCS = []; cur = null; CUST = '';
+  DOCS = []; cur = null; CUST = ''; EXP = []; curExp = null;
+  try { idbClear(); } catch(e) {}
   Object.assign(SY, {since:0, lastPush:0, bases:{}, nums:[], rcs:[]});
   persist(); saveSync();
 }
@@ -2196,11 +2561,12 @@ function authLost(msg){
   saveSync(); applyRole(); setSync('off');
   show('login'); $('#lgMsg').textContent = 'You’ve been logged out: your password was changed or your account was switched off. Log in again, or ask an owner.';
 }
-const unsynced = () => DOCS.filter(d => !d._new && (d.updated || 0) > SY.lastPush).length + (cur && cur._new && !isBlank(cur) ? 1 : 0);
+const unsynced = () => DOCS.filter(d => !d._new && (d.updated || 0) > SY.lastPush).length + EXP.filter(e => (e.updated || 0) > SY.lastPush).length + (cur && cur._new && !isBlank(cur) ? 1 : 0);
 async function logOut(){
   if (cur && cur._new && !isBlank(cur)) commit();
   if (unsynced()) await sync();
-  const left = unsynced();
+  let pend = 0; try { pend = (await idbKeys()).length; } catch(e) {}
+  const left = unsynced() + pend;
   const c = await ask('Log out of this device?', left
       ? `${left} change(s) haven't reached the Google Sheet yet (you may be offline). Logging out now will lose them.`
       : 'Invoices on this device will be cleared. They are safe in the Google Sheet and come back when you log in again.',

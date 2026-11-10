@@ -2,7 +2,7 @@
 // The app page is "network first": when online you always get the newest version;
 // the saved copy is only used when there's no internet. Icons etc. are cache-first.
 // Sync calls to Google never go through here.
-const CACHE = 'pinkys-invoices-v202611100958';
+const CACHE = 'pinkys-invoices-v202611101502';
 const FILES = ['./', './index.html', './manifest.webmanifest', './favicon.ico',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon-180.png'];
 
