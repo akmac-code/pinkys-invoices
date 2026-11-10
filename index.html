@@ -2326,7 +2326,19 @@ if (needsLogin()) show('login'); else renderList();
 lockNow();
 initSync();
 // When hosted as a website: work offline and install like an app
-if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(() => {});
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+  const hadWorker = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.register('sw.js', {updateViaCache: 'none'}).then(r => r.update()).catch(() => {});
+  // A newer version of the app was just installed: save anything in progress and reload once to switch to it
+  let switching = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadWorker || switching) return;
+    switching = true;
+    try { if (cur && !cur._new) commit(); else if (cur && cur._new && !isBlank(cur)) commit(); } catch(e) {}
+    toast('Updating to the latest version…');
+    setTimeout(() => location.reload(), 600);
+  });
+}
 </script>
 </body>
 </html>
