@@ -956,7 +956,49 @@ function show(v){
   if (v === 'items') renderCat();
   if (v === 'settings') loadSettings();
   window.scrollTo(0,0);
+  navTrack(v);
 }
+/* ---- phone back button: step back through pages instead of leaving the app ---- */
+let curView = 'list', NAV_POP = false, exitArmed = 0;
+try { history.replaceState({pv:1, root:1}, ''); } catch(e){}
+function navState(v){ return {pv:1, v, cust: CUST || ''}; }
+function navTrack(v){
+  const prev = curView; curView = v;
+  if (NAV_POP) return;
+  try {
+    if (v === 'login') history.replaceState({pv:1, root:1}, '');
+    else if (prev === v) history.replaceState(navState(v), '');
+    else history.pushState(navState(v), '');
+  } catch(e){}
+}
+function navRegain(){ try { history.pushState(navState(curView), ''); } catch(e){} }
+function navLeave(){
+  if (curView === 'edit' && cur) { if (cur._new && !isBlank(cur)) commit(); cur = null; }
+  if (curView === 'expense') curExp = null;
+}
+window.addEventListener('popstate', e => {
+  const st = e.state || {}, m = $('#modal');
+  // close whatever is on top first, and stay on the page
+  if (!m.hidden) { if (m.onclick) m.onclick({target:m}); return navRegain(); }
+  if (!$('#viewer').hidden) { closeViewer(); return navRegain(); }
+  if ($('#lock') && !$('#lock').hidden) return navRegain();
+  if (curView === 'edit' && $('#v-edit').classList.contains('prev')) { setSeg(false); return navRegain(); }
+  if (needsLogin()) return;
+  if (st.root || !st.v || st.v === 'login') {
+    if (curView !== 'list') { navLeave(); NAV_POP = true; show('list'); NAV_POP = false; return navRegain(); }
+    // already on Invoices: the next back press leaves the app
+    toast('Press back again to exit');
+    clearTimeout(exitArmed); exitArmed = setTimeout(() => { try { if (history.state && history.state.root && !needsLogin()) navRegain(); } catch(e){} }, 3000);
+    return;
+  }
+  navLeave();
+  let v = st.v;
+  if (v === 'edit' && !cur) v = 'list';
+  if (v === 'expense' && !curExp) v = 'expenses';
+  if (v === 'customer') { if (st.cust) CUST = st.cust; else v = 'customers'; }
+  if (v === curView) { try { history.back(); } catch(e){} return; }   // stale page (e.g. a closed invoice) — keep going back
+  NAV_POP = true; show(v); NAV_POP = false;
+});
 function closeEditor(){ if (cur && cur._new && !isBlank(cur)) commit(); cur = null; show(CUST && backToCust ? 'customer' : 'list'); }
 let backToCust = false;
 const isBlank = d => !d.client.name && !d.items.some(i => i.desc || num(i.rate));
